@@ -15,7 +15,8 @@ require_once 'model/dao/UsuarioDao.php';
 
 class ControllerUsuario{
 
-    public function realizarLogin($usuario, $pass){
+    public function realizarLogin($usuario, $pass)
+    {
             
         $login = $usuario;
 
@@ -61,6 +62,38 @@ class ControllerUsuario{
                 echo "<script>window.location = 'view/profissional/home.php';</script>";					
 
             }
+
+        }
+
+    }
+
+    public function editarUsuario($dados = null, $id = null, $aFile = null)
+    {
+        
+        if ( !isset($dados) ) return false;
+
+        $usuario  = new Usuario;
+        
+        $usuarioDao = new UsuarioDao;
+                
+        $usuario->setLogin(strtolower($dados['login']));
+        
+        if(isset($dados['senha'])){
+            $usuario->setSenha(base64_encode($dados['senha']));    
+        }
+        
+        $result = $usuarioDao->editarAcesso($usuario, $id);
+        
+        if( $result === true ){
+            
+            echo "<script>alert('Acesso atualizado com sucesso!');</script>";
+            //echo "<script>window.location = 'view/cliente/home.php';</script>";
+
+        } else {
+            $erro = str_replace("'"," ",$result);
+            //exit;
+            echo "<script>alert('Erro ao atualizar: ".$erro."');</script>";
+            //echo "<script>window.location = 'view/cliente/editar.php';</script>";
 
         }
 

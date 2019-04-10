@@ -53,7 +53,7 @@
                         <li><a href="criarservico.php">Novo Serviço</a></li>
                         <li><a href="servicos.php">Meus Serviços</a></li>
                         <li><a href="relatorios.php">Relatórios</a></li>
-                        <li><a href="sobre.php">Créditos</a></li>
+                        <li><a href="config.php">Config</a></li>
                     </ul>
                 </div>
                     

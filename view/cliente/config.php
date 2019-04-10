@@ -45,11 +45,53 @@
     <script type="text/javascript" src="../../assets/js/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.mask.min.js"></script>
     <!--<script type="text/javascript" src="../../assets/js/buscaCep.js"></script>-->
+    
+    <script type="text/javascript">
+        function alterarImagem() {
+            
+            var input = document.getElementById("foto");
+            var fReader = new FileReader();
+            fReader.readAsDataURL(input.files[0]);
+            fReader.onloadend = function(event){
+                var img = document.getElementById("img");
+                img.src = event.target.result;
+            //document.form.img.src = document.form.foto.files[0].name;   
+            }
 
+        }
+
+    </script>
+
+    <!-- script mask -->
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+            $("#cpf").mask('000.000.000-00')
+            $("#cep").mask('00000-000')
+            $("#fone").mask('(00) 00000-0000')
+        })
+
+    </script>
 </head>
 <body>
     <header id="header">      
-
+        <!--
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 overflow">
+                   <div class="social-icons pull-right">
+                        <ul class="nav nav-pills">
+                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
+                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
+                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
+                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
+                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
+                        </ul>
+                    </div> 
+                </div>
+             </div>
+        </div>
+    -->
         <div class="navbar navbar-inverse" role="banner">
             
             <div class="container">
@@ -74,39 +116,30 @@
         </div>
     </header>
 
+<div class="col-md-4 col-sm-12">
+        <div class="contact-form bottom">
+            <form name="form" method="post" action="../../router.php" enctype="multipart/form-data">
+                <label class="form-group">Configuração de acesso</label>
 
-   <section id="portfolio-information" class="padding-top">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive" alt="" id="img">
+                <div class="form-group">
+                    <input type="text" name="login" id="login" class="form-control" required="required" placeholder="Login" value="<?=$cliente->getLogin();?>" minlength="3" >
                 </div>
-                <div class="col-sm-6">
-                    <div class="project-name overflow">
-                       
-                    </div>
-                    <div class="project-info overflow">
-                         <div class="col-md-3 col-sm-6">
-                            <h2>Dados</h2>
-                            <strong>CPF</strong>
-                            <p><?=$cliente->getCpf();?></p>
-                            <strong>E-mail</strong>
-                            <p><?=$cliente->getEmail();?></p>
-                            <strong>Fone</strong>
-                            <p><?=$cliente->getFone();?></p>
-                            <br>
-                            <strong>Para confirmar exclusão, clique no botão abaixo.</strong>
-                            <br>
-                        </div>
-                    </div>
-                    
-                    <form name="form" method="post" action="../../router.php">
-                        <input type="hidden" name="metodo" value="desativar">
-                        <input type="hidden" name="classe" value="Cliente">
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-danger" value="EXCLUIR PERFIL">
-                        </div>
-                    </form>
-                    
+                <div class="form-group">
+                    <input type="password" name="senha" id="senha" class="form-control" required="required" placeholder="Nova senha" minlength="5"> 
+                    <small>Mínimo de 5 dígitos</small>
+                </div>
+
+                <div class="form-group">
+                    <input type="password" name="senha" id="senha" class="form-control" required="required" placeholder="Confirmar senha" minlength="5"> 
+                </div>
+
+                <input type="hidden" name="metodo" value="editar">
+                <input type="hidden" name="classe" value="Usuario">
+
+                <div class="form-group">
+                    <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                </div>
+
+            </form>           
 
 <?php require_once 'footer.php'; ?>

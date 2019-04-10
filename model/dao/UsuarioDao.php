@@ -64,9 +64,8 @@
 		{
 
 			/*
-			if(AdministradorDao::logar($login, $senha)){
-				if(!session_start()) session_start();
-				$_SESSION['idadmin'] = $admin;
+			if($admin = AdministradorDao::logar($login, $senha)){
+				return $admin;
 			}
 			*/
 
@@ -74,36 +73,25 @@
 				return $cliente;
 			}
 
-			//JuridicoDao::logar();
-			//FisicoDao::logar();
-			
-			//$usuario = new Usuario();
-
-			//$usuario->setLogin($rs["login"]);
-			//$usuario->setSenha($rs["senha"]);
-			//$usuario->setPerfil($rs["perfil"]);
-			
-			//if($rs > 0){
-
-				/* DEBUG */
-				/*
-				print_r($usuario);
-				exit;
-				*/
-			//	return $usuario;
-			//}else{
-				
-				/* DEBUG */
-				/*
-				print_r($rs);
-				exit;
-				*/
-			//	return false;
-			//}
-
+			/*
+			if($fisico = FisicoDao::logar($login, $senha)){
+				return $fisico;
+			}
+			*/
+			/*
+			if($fisico = AdministradorDao::logar($login, $senha)){
+				return $fisico;
+			}
+			*/
+			/*
+			if($juridico = JuridicoDao::logar($login, $senha)){
+				return $juridico;
+			}
+			*/
 		}
 
-		static function verificaUsuario($id){
+		public static function verificaUsuario($id)
+		{
 			
 				if(!isset($_SESSION)) session_start();
 
@@ -115,5 +103,107 @@
 
 		}
 		
+		public function editarAcesso($dados, $id)
+		{
+
+			$con = new Conexao;
+			
+			if(!Usuario::verificaUsuario($id)) return false;
+
+			if(isset($_SESSION['idadmin'])) {
+
+				$query = "UPDATE administrador SET login = ? AND senha = ? WHERE idadmin = ?";
+
+				$stmt = $con->getConexao()->prepare($query);
+
+				$stmt->bind_param("ssi", $p1, $p2, $p3);
+
+				$p1 = $dados['login'];
+				$p2 = $dados['senha'];
+				$p3 = $id;
+
+				$stmt->execute();
+
+				if($stmt->affected_rows > 0) {
+					
+					return true;
+
+				} else {
+					
+					return false;
+				}
+
+			} else if(isset($_SESSION['idcliente'])) {
+
+				$query = "UPDATE cliente SET login = ? AND senha = ? WHERE idcliente = ?";
+
+				$stmt = $con->getConexao()->prepare($query);
+
+				$stmt->bind_param("ssi", $p1, $p2, $p3);
+
+				$p1 = $dados['login'];
+				$p2 = $dados['senha'];
+				$p3 = $id;
+
+				$stmt->execute();
+
+				if($stmt->affected_rows > 0) {
+					
+					return true;
+
+				} else {
+					
+					return false;
+				}
+
+			} else if(isset($_SESSION['idfisico'])) {
+
+				$query = "UPDATE fisico SET login = ? AND senha = ? WHERE idfisico = ?";
+
+				$stmt = $con->getConexao()->prepare($query);
+
+				$stmt->bind_param("ssi", $p1, $p2, $p3);
+
+				$p1 = $dados['login'];
+				$p2 = $dados['senha'];
+				$p3 = $id;
+
+				$stmt->execute();
+
+				if($stmt->affected_rows > 0) {
+					
+					return true;
+
+				} else {
+					
+					return false;
+				}
+
+			} else if(isset($_SESSION['idjuridico'])) {
+
+				$query = "UPDATE juridico SET login = ? AND senha = ? WHERE idjuridico = ?";
+
+				$stmt = $con->getConexao()->prepare($query);
+
+				$stmt->bind_param("ssi", $p1, $p2, $p3);
+
+				$p1 = $dados['login'];
+				$p2 = $dados['senha'];
+				$p3 = $id;
+
+				$stmt->execute();
+
+				if($stmt->affected_rows > 0) {
+					
+					return true;
+
+				} else {
+					
+					return false;
+				}
+
+			}
+
+		}
 	}
 ?>

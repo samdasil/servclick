@@ -121,11 +121,11 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="sobre.php"><i class="fa fa-code fa-5x"></i></a>
+			                        <a href="config.php"><i class="fa fa-cogs fa-5x"></i></a>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">
-			                    <h2>CRÉDITOS</h2>
+			                    <h2>CONFIGURAÇÃO</h2>
 			                </div>
 			            </div>
 			        </div>
