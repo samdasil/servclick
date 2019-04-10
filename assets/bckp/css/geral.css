@@ -1,0 +1,340 @@
+
+
+
+/* TOPO */
+
+* {
+    padding         :   0;
+    margin          :   0;
+    font-family     :   'Browallia New', sans-serif;
+}
+
+header {
+    width           :   auto;
+    color           :   white;
+    background      :   linear-gradient(darkred,salmon);          /*#252525,#114c94*/
+    text-align      :   center;
+}
+
+.menu>nav{
+    width           :   100%;
+    min-width       :   15%;
+    height          :   4vh;
+    color           :   white;
+    background-color:   darkred;/*rgba(9, 2, 51, 0.83);*/
+    text-align      :   center;
+    position        :   fixed;
+}
+
+.carregando{
+    font-size       :  8pt;
+    color           :  blue;
+    display         :  none;
+}
+
+nav {
+    padding         :   8px;
+}
+
+.menu>nav>ul>li{
+    display         :   inline;
+}
+
+nav ul{
+    list-style-type :   none;
+    position        :   static;
+    padding         :   0px 15px 0px 0px;
+}
+
+.menu>nav>ul>li>a {
+    color           :   aliceblue;
+    padding-right   :   8px;
+    padding-left    :   8px;
+    text-decoration :   none;
+}
+
+.menu>nav>ul>li>a:hover{
+    padding-bottom  :   0px;
+    background-color:   rgba(100, 100, 100, 0.47);
+}
+
+.ativa {
+    color           :   #00FF00 !important;
+}
+
+.logo-login{
+  width: auto;
+  padding: 5px 5px 20px 5px;
+  text-align: center;
+}
+
+.logo-login img{
+  width: 30%;
+  padding: 20px 5px 20px 5px;
+
+}
+
+.corpo {
+    width           :   auto;
+    height          :   auto;
+    min-height      :   90vh;
+    color           :   darkred;
+    background-color:   rgba(0,0,0,0.20);
+    margin          :   0% 0% 0% 0%;
+    padding         :   0% 0% 0% 0%;
+}
+
+.corpo > .bemVindo {
+    padding-top     :   3%;
+    text-align      :   center;
+    font-weight     :   700;
+}
+
+.corpo .bemVindo h3 {
+    padding         :   10px;
+    color           :   darkred;
+}
+
+.corpo .meio{
+    overflow-x      :   auto;
+    min-height      :   80vh;
+}
+
+.corpo .formlogin {
+    padding-top     :   4%;
+    padding-bottom  :   4%;
+    text-align      :   center;
+}
+
+.corpo .formulario form{
+    /*position: relative;
+    /*padding-top: 4em;
+    padding-left: 4em;*/
+    text-align      :   center;
+    width           :   21%;
+    min-width       :   21%;
+    margin          :   auto;
+}
+
+.corpo .formulario p {
+    padding     :   5px;
+}
+
+.corpo .formulario h3 {
+    padding         :   10px;
+    font-weight     :   800;
+}
+
+.consultas{
+    width       :   95%;
+    margin      :   0% auto 10px auto;
+    border      :   0px solid;
+}
+
+.consultas td {
+    margin          :   auto;
+    padding         :   1px;
+    text-align      :   center;
+    font-size       :   13pt;
+    color           :   antiquewhite;
+    background-color:   firebrick;
+}
+
+.consultas .result{
+    margin          :   auto;
+    color           :   brown;
+    background-color:   white;
+    font-size       :   12pt;
+    height          :   2vh;
+ }
+
+.consultas tr{
+    border-radius   :   25px;
+    background-color:   aqua;
+}
+
+.principal {
+    text-align      :   center;
+    padding         :   5% 0% 0% 0%;
+    min-height      :   85vh;
+}
+
+.principal table {
+    margin       :  0% auto 0% auto;
+    border       :  0px solid;
+    width        :  30%;
+}
+
+.principal table td{
+    padding     :   1%;
+    border      :   0px solid;
+    text-align  :   left;
+    font-size   :   16pt;
+    text-align  :   center;
+}
+
+.principal table .tdright{
+    padding     :   1%;
+    text-align  :   left;
+}
+
+.img_status{
+    width       :   4%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+input[type='text'],
+input[type='button'],
+input[type='password'],
+select, textarea, option{
+    background-color:   rgba(237, 242, 242, 0.65);
+    border          :   1px solid #888;
+    height          :   30px;
+    width           :   100%;
+    text-align      :   center;
+    text-transform  :   none;
+    border-radius   :   15px;
+}
+
+textarea{
+    max-width      : 100%;
+    width          : 100%;
+    height         :   70px;
+    text-align     : justify;
+    font-size      : 10pt;
+    padding-left   : 5px;
+}
+
+input[type='text']:focus,
+input[type='password']:focus,
+select:focus, textarea:focus{
+    border          :   1px solid #32CD32;
+    border-radius   :   15px;
+    box-shadow      :   0px 0px 30px rgba(0,0,0,0.8);
+}
+
+ /* estilizar os buttons input */
+input[type='submit'],
+input[type='button'],
+input[type='reset' ] {
+    height          :   80px;
+    width           :   80px;
+    font-weight     :   700;
+    background-color:   #800000; /* rgba(255, 177, 0, 1);*/
+    border          :   1px solid #000;
+    border-radius   :   90px;
+    color           :   antiquewhite;
+}
+
+input[type='submit']:hover,
+input[type='button']:hover,
+input[type='reset' ]:hover {
+    height          :   80px;
+    width           :   80px;
+    font-weight     :   700;
+    background-color:   rgba(255, 177, 0, 1);
+    border          :   3px solid #fff;
+    border-radius   :   90px;
+    color           :   #000;
+    box-shadow      :   0px 0px 50px rgba(124,0,0,1.3);
+}
+
+ /* rodapé */
+footer{
+    width       :   auto;
+    height      :   5vh;
+    color       :   white;
+    background  :   linear-gradient(darkred,salmon); /*linear-gradient(#252525,#114c94);*/
+    text-align  :   center;
+    position    : static;
+    font-family : 'Browallia New', 'Tahoma', sans-serif;
+}
+
+@media only screen and (max-width: 640px) {
+  footer{
+      font-family: 'Browallia New', sans-serif;
+      font-size: 12pt;
+      text-align: center;
+      color: #606060;
+      vertical-align: middle;
+      padding: 5px;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+    .corpo{
+        height          :   auto/*80vh*/;
+        min-height      :   90vh;
+        padding         :   0% 0% 0% 0%;
+    }
+
+    .corpo .bemVindo {
+        height          :   auto/*80vh*/;
+        padding         :   10% 0% 0% 0%;
+    }
+
+    .corpo .meio{
+        overflow-x      :   auto;
+        min-height      :   85vh;
+    }
+
+    .formulario{
+        padding-top: 50px;
+    }
+
+    .menu nav ul{
+        display: list-item;
+    }
+
+    .menu nav ul a{
+        font-size: 11pt;
+    }
+
+    .menu nav ul:focus{
+
+    }
+
+    .principal{
+        padding         :   11% 0% 0% 0%;
+        overflow-x      :   auto;
+        min-height      :   90vh;
+    }
+
+    .principal table {
+        margin      :   0% auto 0% auto;
+        width       :   80%;
+    }
+
+    .principal form{
+        display         :   block;
+        margin-top      :   15%;
+    }
+
+    .corpo .formulario form{
+        text-align      :   center;
+        width           :   60%;
+        margin          :   auto;
+        padding-bottom  :   30px;
+    }
+
+    .formulario img{
+        width       :  50%;
+        padding     :  20px;
+    }
+
+    .img_status{
+        width       :   20%;
+        padding     :   0%;
+    }
+
+    footer{
+        font-family: 'Browallia New','Tahoma', sans-serif;
+        font-size: 12pt;
+        text-align: center;
+        color: white;
+        vertical-align: middle;
+        padding: 5px;
+    }
+
+}
