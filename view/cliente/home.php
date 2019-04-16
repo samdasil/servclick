@@ -1,15 +1,17 @@
 <?php
-
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/controller/ControllerCliente.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/model/dao/ClienteDao.php';
-
+	
+	include '../../config.php';
+                
     if(!isset($_SESSION)) session_start();
-    if(!isset($_SESSION['idcliente'])){
+
+    if(!isset($_GET['v'])) {
         header('Location: ../../index.php');
     }
-    $cliente = new ClienteDao();
-    $id = $_SESSION['idcliente'];
-    $cliente->buscarClienteId($id);
+
+    $cliente = new ControllerCliente();
+    $id 	 = base64_decode($_GET['v']);
+    $v       = base64_encode($id);
+    $result  = $cliente->carregarCliente($id);
 
 ?>
 <!DOCTYPE html>
@@ -26,17 +28,12 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet"> 
     <link href="../../assets/css/main.css" rel="stylesheet">
     <link href="../../assets/css/responsive.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->       
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/images/ico/apple-touch-icon-57-precomposed.png">
-    <!--<script type="text/javascript">var switchTo5x=true;</script>-->
+    <link rel="apple-touch-icon-precomposed"  href="../../assets/images/ico/apple-touch-icon-57-precomposed.png">
+    <script type="text/javascript">var switchTo5x=true;</script>
 
 </head>
 <body>
@@ -53,7 +50,7 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="perfil.php"><i class="fa fa-user fa-5x"></i></a>
+			                        <a href="perfil.php?v=<?=$v;?>"><i class="fa fa-user fa-5x"></i></a>
 			                    </div>
 			                    <!--
 			                    <div class="portfolio-view">
@@ -73,7 +70,7 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="listarsolicitacoes.php"><i class="fa fa-search fa-5x"></i></a>
+			                        <a href="listarsolicitacoes.php?v=<?=$v;?>"><i class="fa fa-search fa-5x"></i></a>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info">
@@ -85,7 +82,7 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="servicosaceitos.php"><i class="fa fa-plus fa-5x"></i></a>
+			                        <a href="servicosaceitos.php?v=<?=$v;?>"><i class="fa fa-plus fa-5x"></i></a>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">
@@ -97,7 +94,7 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="orcamentos.php"><i class="fa fa-cart-plus fa-5x"></i>
+			                        <a href="orcamentos.php?v=<?=$v;?>"><i class="fa fa-cart-plus fa-5x"></i>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">
@@ -109,7 +106,7 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="notas.php"><i class="fa fa-file fa-5x"></i></a>
+			                        <a href="notas.php?v=<?=$v;?>"><i class="fa fa-file fa-5x"></i></a>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">
@@ -121,7 +118,7 @@
 			            <div class="portfolio-wrapper" style="text-align: center;">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="config.php"><i class="fa fa-cogs fa-5x"></i></a>
+			                        <a href="config.php?v=<?=$v;?>"><i class="fa fa-cogs fa-5x"></i></a>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">

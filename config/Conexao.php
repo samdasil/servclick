@@ -2,27 +2,34 @@
 
 class Conexao {
     
-    const HOSTNAME = "localhost";
-	const USERNAME = "root";
-	const PASSWORD = "";
-	const DBNAME   = "dbservclick";
+    /* variáveis de conexao */
+    const DSN  = "mysql:dbname=dbservclick; host=localhost" ;
+	const USER = "root";
+	const PASS = "";
+	public static $con;
 
-	private $mysqli;
-
+	/* construtor da classe conexão, chmando o métod getCon() */
 	public function __construct() {
-
-		$this->mysqli = new mysqli("localhost", "root", "", "dbservclick");
-
+		//getCon();
 	}
 
-	public function getConexao() {
-		return $this->mysqli;
-	}
+	/* gerar nova conexao ao banco de dados */
+	public static function getCon() 
+	{
+		try {
+			
+			/* tenta nova instancia de conexao */
+			self::$con = new PDO(Conexao::DSN, Conexao::USER, Conexao::PASS);
 
-	public function getErro() {
-		return $this->mysqli->error;
-	}
+			return self::$con;
 
-	
+		} catch (PDOException $e) {
+			
+			/* caso haja erro na conexao, retorna o erro */
+			//$this->con->getMessage();
+			echo $e;
+
+		}
+	}
     
 }

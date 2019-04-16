@@ -1,21 +1,22 @@
 <?php 
     
     if(!session_start()) session_start();
-    if(!isset($_SESSION['idcliente'])){
+
+    if(!isset($_GET['v'])){
         header('Location: ../../index.php');
     }
+    
     require 'header.php'; 
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/controller/ControllerCliente.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/class/Cliente.php';
-    $cdao       = new ClienteDao;
+    require_once '../../config.php';
+    
+    $c          = new ControllerCliente();
+    $e          = new ControllerEndereco();
     $cliente    = new Cliente;
-    $endDao     = new EnderecoDao;
-    $Endereco   = new Endereco;
-    $id         = $_SESSION['idcliente'];
-
-    ClienteDao::verificarLogin($id);
-    $cliente    = $cdao->buscarClienteId($id);
-    $endereco   = $endDao->buscarEnderecoCliente($cliente->getIdcliente());
+    $endereco   = new Endereco;
+    $id         = base64_decode($_GET['v']);
+    $v          = base64_encode($id);
+    $cliente    = $c->carregarCliente($id);
+    $endereco   = $e->carregarEnderecoCliente($id);
 
 ?>
     
@@ -76,7 +77,7 @@
                     </div>
                     
                     <div class="buttons-action">
-                        <a href="editar.php"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                        <a href="editar.php?v=<?=$v;?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
                     </div>
 
 <?php require_once 'footer.php'; ?>

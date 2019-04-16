@@ -3,7 +3,7 @@
 require_once 'class/Cliente.php';
 require_once 'class/Administrador.php';
 require_once 'controller/ControllerUsuario.php';
-require_once 'controller/ControllerCliente.php';
+//require_once 'controller/ControllerCliente.php';
 
 if(!isset($_SESSION)) session_start();
 if(isset($_SESSION['idcliente']))   $id = $_SESSION['idcliente'];

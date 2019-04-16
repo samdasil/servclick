@@ -1,18 +1,32 @@
 <?php
-    
+
     if(!session_start()) session_start();
-    if(!isset($_SESSION['idcliente'])){
+
+    if(!isset($_GET['v'])){
         header('Location: ../../index.php');
     }
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/controller/ControllerCliente.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/class/Cliente.php';
-    $cdao = new ClienteDao;
-    $cliente = new Cliente;
-    $endDao = new EnderecoDao;
-    $endereco = new Endereco;
-    $id = $_SESSION['idcliente'];
-    $cliente  = $cdao->buscarClienteId($id);
-    $endereco = $endDao->buscarEnderecoCliente($cliente->getIdcliente());
+    
+//    require 'header.php'; 
+    require_once '../../config.php';
+    
+    $c          = new ControllerCliente();
+    $e          = new ControllerEndereco();
+    $cliente    = new Cliente;
+    $endereco   = new Endereco;
+    $id         = base64_decode($_GET['v']);
+    $v          = base64_encode($id);
+    $cliente    = $c->carregarCliente($id);
+    $endereco   = $e->carregarEnderecoCliente($id);
+
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST) ){
+
+        
+        $dados  = $_POST;
+
+        $c->desativar($id);
+        
+    }
     
 ?>
 
@@ -100,9 +114,8 @@
                         </div>
                     </div>
                     
-                    <form name="form" method="post" action="../../router.php">
-                        <input type="hidden" name="metodo" value="desativar">
-                        <input type="hidden" name="classe" value="Cliente">
+                    <form name="form" method="post" action="">
+                        <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-danger" value="EXCLUIR PERFIL">
                         </div>

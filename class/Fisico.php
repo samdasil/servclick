@@ -1,25 +1,16 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of Fisico
- *
- * @author Neturno
- */
-
-require_once 'Profissional.php';
-
 class Fisico extends Profissional{
     
+    private $idfisico;
     private $cpf;
     private $nome;
     private $foto;
     
+    public function getIdfisico() {
+        return $this->idfisico;
+    }
+
     public function getCpf() {
         return $this->cpf;
     }
@@ -30,6 +21,10 @@ class Fisico extends Profissional{
 
     public function getFoto() {
         return $this->foto;
+    }
+
+    public function setIdfisico($idfisico) {
+        $this->idfisico = $idfisico;
     }
 
     public function setCpf($cpf) {

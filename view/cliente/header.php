@@ -1,3 +1,22 @@
+<?php 
+
+    if(!isset($_GET['v'])){
+        header('Location: ../../index.php');
+    }
+    
+    require_once '../../config.php';
+
+    $c          = new ControllerCliente();
+    $e          = new ControllerEndereco();
+    $cliente    = new Cliente;
+    $endereco   = new Endereco;
+    $id         = base64_decode($_GET['v']);
+    $v          = base64_encode($id);
+    $cliente    = $c->carregarCliente($id);
+    $endereco   = $e->carregarEnderecoCliente($id);
+    
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -47,13 +66,13 @@
             
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home.php">Home</a></li>
-                        <li><a href="perfil.php">Perfil</a></li>
-                        <li><a href="buscarprofissional.php">Buscar profissional</a></li>
-                        <li><a href="criarservico.php">Novo Serviço</a></li>
-                        <li><a href="servicos.php">Meus Serviços</a></li>
-                        <li><a href="relatorios.php">Relatórios</a></li>
-                        <li><a href="config.php">Config</a></li>
+                        <li><a href="home.php?v=<?=$v;?>">Home</a></li>
+                        <li><a href="perfil.php?v=<?=$v;?>">Perfil</a></li>
+                        <li><a href="buscarprofissional.php?v=<?=$v;?>">Buscar profissional</a></li>
+                        <li><a href="criarservico.php?v=<?=$v;?>">Novo Serviço</a></li>
+                        <li><a href="servicos.php?v=<?=$v;?>">Meus Serviços</a></li>
+                        <li><a href="relatorios.php?v=<?=$v;?>">Relatórios</a></li>
+                        <li><a href="config.php?v=<?=$v;?>">Config</a></li>
                     </ul>
                 </div>
                     

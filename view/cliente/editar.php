@@ -1,21 +1,43 @@
-<?php
+<?php 
     
     if(!session_start()) session_start();
-    if(!isset($_SESSION['idcliente'])){
+
+    if(!isset($_GET['v'])){
         header('Location: ../../index.php');
     }
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/controller/ControllerCliente.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/class/Cliente.php';
-    $cdao = new ClienteDao;
-    $cliente = new Cliente;
-    $endDao = new EnderecoDao;
-    $endereco = new Endereco;
-    $id = $_SESSION['idcliente'];
-
-    ClienteDao::verificarLogin($id);
-    $cliente  = $cdao->buscarClienteId($id);
-    $endereco = $endDao->buscarEnderecoCliente($cliente->getIdcliente());    
     
+//    require 'header.php'; 
+    require_once '../../config.php';
+    
+    $c          = new ControllerCliente();
+    $e          = new ControllerEndereco();
+    $cliente    = new Cliente;
+    $endereco   = new Endereco;
+    $id         = base64_decode($_GET['v']);
+    $v          = base64_encode($id);
+    $cliente    = $c->carregarCliente($id);
+    $endereco   = $e->carregarEnderecoCliente($id);
+
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST) ){
+
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+
+            $aFile = $_FILES;
+            
+        } else {
+            
+            $aFile = null;
+            
+        }
+        
+        $dados  = $_POST;
+
+        $c->editar($dados, $id, $aFile);
+        
+    }
+
+
 ?>
 
 <!DOCTYPE html>
@@ -107,15 +129,17 @@
             
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home.php">Home</a></li>
-                        <li><a href="perfil.php">Meu Perfil</a></li>
-                        <li><a href="listarsolicitacoes.php">Solicitações de Serviços</a></li>
-                        <li><a href="servicosaceitos.php">Meus Serviços</a></li>
+                        <li><a href="home.php?v=<?=$v;?>">Home</a></li>
+                        <li><a href="perfil.php?v=<?=$v;?>">Meu Perfil</a></li>
+                        <li><a href="listarsolicitacoes.php?v=<?=$v;?>">Solicitações de Serviços</a></li>
+                        <li><a href="servicosaceitos.php?v=<?=$v;?>">Meus Serviços</a></li>
                     </ul>
                 </div>
                     
             </div>
+
         </div>
+
     </header>
 
     <div class="col-md-4 col-sm-12">
@@ -123,7 +147,7 @@
             <h2>Alguns campos não podem ser alterados</h2>
             <h5>Caso queira, contacte o administrador</h5>
             <br>
-            <form name="form" method="post" action="../../router.php" enctype="multipart/form-data">
+            <form name="form" method="post" action="" enctype="multipart/form-data">
 
                 <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
 
@@ -138,7 +162,7 @@
                     <input type="file" name="foto" id="foto" class="form-control" onchange="alterarImagem()">
                 </div>
 
-                <label class="form-group">Dados</label>                
+                <label class="form-group">Dados</label>
 
                 <div class="form-group">
                     <input type="text" name="cpf" id="cpf" class="form-control" placeholder="CPF" value="<?=$cliente->getCpf();?>" readonly >
@@ -195,7 +219,7 @@
                 </div>
 
                 <div class="form-group">
-                    <a type="submit" href="desativar.php" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
+                    <a type="submit" href="desativar.php?v=<?=$v;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
                     <small>Desativar meu perfil</small>
                 </div>
 

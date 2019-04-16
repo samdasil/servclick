@@ -1,31 +1,21 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of ControllerUsuario
- *
- * @author Neturno
- */
-require_once 'model/dao/UsuarioDao.php';
-
-class ControllerUsuario{
+class ControllerUsuario {
 
     public function realizarLogin($usuario, $pass)
     {
-            
+
         $login = $usuario;
 
         $senha = base64_encode($pass);
 
-        $usuarioDao = new UsuarioDao();
+        $usuarioDao = new UsuarioDAO();
 
         $result = $usuarioDao->realizarLogin($login, $senha);
-
+        /*echo "<pre>";
+        print_r($result[0]);
+        echo "</pre>";
+        exit;*/
         if(!$result){
 
             echo "<script>alert('Login e/ou senha incorretos!');</script>";
@@ -36,30 +26,40 @@ class ControllerUsuario{
             
             if(!isset($_SESSION)) session_start();
             
-            if($result[7] == 1){
-
-                $_SESSION['idadmin']    = $result[0];
-
-                echo "<script>alert('Login realizado com sucesso!');</script>";
-
-                echo "<script>window.location = 'view/admin/home.php';</script>";
-
-            }elseif($result[7] == 2){
-
-                $_SESSION['idcliente']    = $result[0];
+            if($result[0]['perfil'] == 1){
                 
+                $v    = base64_encode($result[0]['idadmin']);
 
                 echo "<script>alert('Login realizado com sucesso!');</script>";
 
-                echo "<script>window.location = 'view/cliente/home.php';</script>";					
+                echo "<script>window.location = 'view/admin/home.php?v=$v';</script>";
 
-            }elseif($result[7] == 3){
+            }elseif($result[0]['perfil'] == 2){
 
-                $_SESSION['idprofissional']    = $result[0];
+                $v    = base64_encode($result[0]['idcliente']);
 
                 echo "<script>alert('Login realizado com sucesso!');</script>";
 
-                echo "<script>window.location = 'view/profissional/home.php';</script>";					
+                echo "<script>window.location = 'view/cliente/home.php?v=$v';</script>";					
+
+            }elseif($result[0]['perfil'] == 3){
+                
+                if (isset($result[0]['idfisico'])) {
+
+                    $v    = base64_encode($result[0]['idfisico']);
+
+                    echo "<script>alert('Login realizado com sucesso!');</script>";
+
+                    echo "<script>window.location = 'view/fisico/home.php?v=$v';</script>";                    
+                } else if (isset($result[0]['idjuridico'])) {
+
+                    $v    = base64_encode($result[0]['idjuridico']);
+
+                    echo "<script>alert('Login realizado com sucesso!');</script>";
+
+                    echo "<script>window.location = 'view/juridico/home.php?v=$v';</script>";                    
+
+                }
 
             }
 
@@ -67,19 +67,21 @@ class ControllerUsuario{
 
     }
 
-    public function editarUsuario($dados = null, $id = null, $aFile = null)
+    public function editar($dados = null, $id = null, $aFile = null)
     {
         
         if ( !isset($dados) ) return false;
 
-        $usuario  = new Usuario;
+        $usuario    = new Usuario;
         
         $usuarioDao = new UsuarioDao;
                 
         $usuario->setLogin(strtolower($dados['login']));
-        
-        if(isset($dados['senha'])){
+            
+        if(isset($dados['senha'])) {
+
             $usuario->setSenha(base64_encode($dados['senha']));    
+            
         }
         
         $result = $usuarioDao->editarAcesso($usuario, $id);

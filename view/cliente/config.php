@@ -130,7 +130,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="password" name="senha" id="senha" class="form-control" required="required" placeholder="Confirmar senha" minlength="5"> 
+                    <input type="password" name="senha2" id="senha2" class="form-control" required="required" placeholder="Confirmar senha" minlength="5"> 
                 </div>
 
                 <input type="hidden" name="metodo" value="editar">

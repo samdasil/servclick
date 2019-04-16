@@ -1,3 +1,29 @@
+<?php
+
+    include '../../config.php';
+
+    $controller = new ControllerCliente();
+
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST) || isset($_GET) && !empty($_GET)){
+
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+
+            $aFile = $_FILES;
+            
+        } else {
+            
+            $aFile = null;
+            
+        }
+        
+        $dados  = $_POST;
+
+        $controller->cadastrar($dados, $aFile);
+        
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -51,7 +77,7 @@
             <h5>Crie seu perfil e encontre os melhores profissionais</h5>
             <br>
 
-            <form name="form" method="post" action="../../router.php" enctype="multipart/form-data">
+            <form name="form" method="post" action="" enctype="multipart/form-data">
 
                 <label class="form-group">Foto para perfil</label>
 
@@ -67,7 +93,7 @@
 
                 <div class="form-group">
                     <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
-                    <input type="file" name="foto" id="foto" class="form-control" onchange="alterarFoto()" /> 
+                    <input type="file" name="foto" id="foto" class="form-control" onchange="alterarFoto()" required /> 
                 </div>
 
                 <label class="form-group">Dados</label>
@@ -118,9 +144,6 @@
                     <input type="password" name="senha" class="form-control" required="required" placeholder="*********" autocomplete="off" minlength="5">
                     <small>Mínimo de 5 dígitos</small>
                 </div>
-
-                <input type="hidden" name="metodo" value="salvar">
-                <input type="hidden" name="classe" value="Cliente">
 
                 <div class="form-group">
                     <input type="submit" name="submit" class="btn btn-submit" value="Enviar">

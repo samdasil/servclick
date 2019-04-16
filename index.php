@@ -1,7 +1,32 @@
 <?php
-    if(!isset($_SESSION)) session_start();
-    session_unset();
-    session_destroy();
+
+    if(!isset($_SESSION)) {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
+
+    require 'config.php';
+
+    $controller = new ControllerUsuario();
+
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST) || isset($_GET) && !empty($_GET)){
+
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+            
+            $aFile = $_FILES;
+            
+        } else {
+            
+            $aFile = null;
+            
+        }
+        
+        $controller->realizarLogin( $_POST['login'], $_POST['senha'] );
+        
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -18,20 +43,12 @@
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/css/responsive.css" rel="stylesheet">
 
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->       
     <link rel="shortcut icon" href="images/ico/favicon.ico">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="assets/images/ico/apple-touch-icon-57-precomposed.png">
     <script type="text/javascript">var switchTo5x=true;</script>
-    <!--
-    <script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-    <script type="text/javascript">stLight.options({publisher: "7e8eb33b-fbe0-4915-9b93-09490e3d10df", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
-    -->
 </head>
 <body>
     <header id="header">      
@@ -47,7 +64,7 @@
             </div>
         
             <br>
-	        <form id="" name="contact-form" method="post" action="router.php">
+	        <form id="" name="contact-form" method="post" action="">
 
                 <input type="hidden" name="metodo" value="realizarLogin">
                 <input type="hidden" name="classe" value="Usuario">
