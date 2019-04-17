@@ -1,171 +1,139 @@
 <?php
 
-class ClienteDAO{
+	class ClienteDAO{
 
-	//Carrega um elemento pela chave primária
-	public function carregar($idcliente){
-		
-		$sql = "SELECT * FROM cliente c INNER JOIN endereco e ON e.cliente = c.idcliente WHERE c.idcliente = :idcliente ";
-		$consulta = Conexao::getCon()->prepare($sql);
-		$consulta->bindValue(":idcliente",$idcliente);
-		$consulta->execute();
-		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-	}
-
-	//Lista todos os elementos da tabela
-	public function listarTodos(){
-		
-		$sql = 'SELECT * FROM cliente';
-		$consulta = Conexao::getCon()->prepare($sql);
-		$consulta->execute();
-		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-	}
-	
-	//Lista todos os elementos da tabela listando ordenados por uma coluna específica
-	public function listarTodosOrgenandoPor($coluna){
-		//include("conexao.php");
-		//$conexao = new Model\Conexao();
-		$sql = 'SELECT * FROM cliente ORDER BY '.$coluna;
-		$consulta = Conexao::getCon()->prepare($sql);
-		$consulta->execute();
-		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-	}
-	
-	//Apaga um elemento da tabela
-	public function deletar($idcliente){
-		//include("conexao.php");
-		//$conexao = new Model\Conexao();
-		$sql = 'DELETE FROM cliente WHERE idcliente = :idcliente';
-		$consulta = Conexao::getCon()->prepare($sql);
-		$consulta->bindValue(":idcliente",$idcliente);
-		if($consulta->execute())
-			return true;
-		else
-			return false;
-	}
-
-	public function desativarCliente($id = null)
-	{
-		$con = new Conexao;
-		
-		if ( is_null($id) ) {
+		//carrega os dados do cliente pelo ID
+		public function carregar($idcliente)
+		{
 			
-			return false;
+			$sql = "SELECT * FROM cliente c INNER JOIN endereco e ON e.cliente = c.idcliente WHERE c.idcliente = :idcliente ";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":idcliente",$idcliente);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
 
-		} else {
-
-			$sql = "UPDATE cliente SET status_ = 2 WHERE idcliente = :idcliente";
+		//Lista todos os clientes
+		public function listar()
+		{
+			
+			$sql = 'SELECT * FROM cliente';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+		
+		//lista os clientes de acordo com o parametro passado
+		public function pesquisar($pesquisa)
+		{
+			
+			$sql = "SELECT * FROM cliente 
+					WHERE 
+					nome 	LIKE '%".$pesquisa."%' OR 
+					email 	LIKE '%".$pesquisa."%' OR 
+					login 	LIKE '%".$pesquisa."%' OR 
+					fone 	LIKE '%".$pesquisa."%' OR 
+					idcliente = ".$pesquisa."";
 
 			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idcliente",$id);
-			
-			if($consulta->execute())
-				return true;
-			else
-				return false;
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
-	}
 
-	//Insere um elemento na tabela
-	public function cadastrar($cliente, $endereco) {	
+		public function desativar($id = null)
+		{
+			$con = new Conexao;
+			
+			if ( is_null($id) ) {
+				
+				return false;
 
-		//$sql = 'INSERT INTO cliente (cpf, nome, email, fone, login, senha, perfil, foto, status_) 
-		///		VALUES (:cpf, :nome, :email, :fone, :login, :senha, :perfil, :foto, :status_)';
+			} else {
 
-		$sql = "CALL SP_CADASTRAR_CLIENTE(:cpf, :nome, :email, :fone, :login, :senha, :perfil, :foto, :status_, 
-										  :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento)";
+				$sql = "UPDATE cliente SET status_ = 2 WHERE idcliente = :idcliente";
 
-		$consulta = Conexao::getCon()->prepare($sql);
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idcliente",$id);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
+
+		//cadastra o cliente no banco
+		public function cadastrar(Cliente $cliente, Endereco $endereco) 
+		{	
+
+			$sql = "CALL SP_CADASTRAR_CLIENTE(:cpf, :nome, :email, :fone, :login, :senha, :perfil, :foto, :status_, 
+											  :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento)";
+
+			$consulta = Conexao::getCon()->prepare($sql);
+			
+			$consulta->bindValue(':cpf',$cliente->getCpf()); 
+			$consulta->bindValue(':nome',$cliente->getNome()); 
+			$consulta->bindValue(':email',$cliente->getEmail()); 
+			$consulta->bindValue(':fone',$cliente->getFone()); 
+			$consulta->bindValue(':login',$cliente->getLogin()); 
+			$consulta->bindValue(':senha',$cliente->getSenha()); 
+			$consulta->bindValue(':perfil',$cliente->getPerfil()); 
+			$consulta->bindValue(':foto',$cliente->getFoto()); 
+			$consulta->bindValue(':status_',$cliente->getStatus()); 
+
+			$consulta->bindValue(':cep',$endereco->getCep()); 
+			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
+			$consulta->bindValue(':cidade',$endereco->getCidade()); 
+			$consulta->bindValue(':bairro',$endereco->getBairro()); 
+			$consulta->bindValue(':estado',$endereco->getEstado()); 
+			$consulta->bindValue(':numero',$endereco->getNumero()); 
+			$consulta->bindValue(':complemento',$endereco->getComplemento()); 
+	    	
+	    	$consulta->execute();
+
+	    	$result = $consulta->fetch(PDO::FETCH_ASSOC);
+
+	        return $result["idcliente"]; 
+	    	
+		}
 		
-		$consulta->bindValue(':cpf',$cliente->getCpf()); 
-		$consulta->bindValue(':nome',$cliente->getNome()); 
-		$consulta->bindValue(':email',$cliente->getEmail()); 
-		$consulta->bindValue(':fone',$cliente->getFone()); 
-		$consulta->bindValue(':login',$cliente->getLogin()); 
-		$consulta->bindValue(':senha',$cliente->getSenha()); 
-		$consulta->bindValue(':perfil',$cliente->getPerfil()); 
-		$consulta->bindValue(':foto',$cliente->getFoto()); 
-		$consulta->bindValue(':status_',$cliente->getStatus()); 
+		//atualiza o cadastro do cliente
+		public function editar(Cliente $cliente, Endereco $endereco, $id)
+		{
+			
+			$sql = $sql = "CALL SP_EDITAR_CLIENTE(:idcliente, :cpf, :nome, :email, :fone, :login, :senha, :perfil, :foto, :status_, 
+											 	  :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento)";
 
-		$consulta->bindValue(':cep',$endereco->getCep()); 
-		$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
-		$consulta->bindValue(':cidade',$endereco->getCidade()); 
-		$consulta->bindValue(':bairro',$endereco->getBairro()); 
-		$consulta->bindValue(':estado',$endereco->getEstado()); 
-		$consulta->bindValue(':numero',$endereco->getNumero()); 
-		$consulta->bindValue(':complemento',$endereco->getComplemento()); 
-    	
-    	$consulta->execute();
+			$consulta = Conexao::getCon()->prepare($sql);
+			
+			$consulta->bindValue(':idcliente',$id); 
+			$consulta->bindValue(':cpf',$cliente->getCpf()); 
+			$consulta->bindValue(':nome',$cliente->getNome()); 
+			$consulta->bindValue(':email',$cliente->getEmail()); 
+			$consulta->bindValue(':fone',$cliente->getFone()); 
+			$consulta->bindValue(':login',$cliente->getLogin()); 
+			$consulta->bindValue(':senha',$cliente->getSenha()); 
+			$consulta->bindValue(':perfil',$cliente->getPerfil()); 
+			$consulta->bindValue(':foto',$cliente->getFoto()); 
+			$consulta->bindValue(':status_',$cliente->getStatus()); 
 
-    	$result = $consulta->fetch(PDO::FETCH_ASSOC);
+			$consulta->bindValue(':cep',$endereco->getCep()); 
+			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
+			$consulta->bindValue(':cidade',$endereco->getCidade()); 
+			$consulta->bindValue(':bairro',$endereco->getBairro()); 
+			$consulta->bindValue(':estado',$endereco->getEstado()); 
+			$consulta->bindValue(':numero',$endereco->getNumero()); 
+			$consulta->bindValue(':complemento',$endereco->getComplemento()); 
 
-        return $result["idcliente"]; 
-    	
-	}
-	
-	//Atualiza um elemento na tabela
-	public function editar(Cliente $cliente, Endereco $endereco, $id){
-		
-		$sql = $sql = "CALL SP_EDITAR_CLIENTE(:idcliente, :cpf, :nome, :email, :fone, :login, :senha, :perfil, :foto, :status_, 
-										 	  :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento)";
+			$consulta->execute();
 
-		$consulta = Conexao::getCon()->prepare($sql);
-		
-		$consulta->bindValue(':idcliente',$id); 
-		$consulta->bindValue(':cpf',$cliente->getCpf()); 
-		$consulta->bindValue(':nome',$cliente->getNome()); 
-		$consulta->bindValue(':email',$cliente->getEmail()); 
-		$consulta->bindValue(':fone',$cliente->getFone()); 
-		$consulta->bindValue(':login',$cliente->getLogin()); 
-		$consulta->bindValue(':senha',$cliente->getSenha()); 
-		$consulta->bindValue(':perfil',$cliente->getPerfil()); 
-		$consulta->bindValue(':foto',$cliente->getFoto()); 
-		$consulta->bindValue(':status_',$cliente->getStatus()); 
+			$result = $consulta->fetch(PDO::FETCH_ASSOC);
 
-		$consulta->bindValue(':cep',$endereco->getCep()); 
-		$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
-		$consulta->bindValue(':cidade',$endereco->getCidade()); 
-		$consulta->bindValue(':bairro',$endereco->getBairro()); 
-		$consulta->bindValue(':estado',$endereco->getEstado()); 
-		$consulta->bindValue(':numero',$endereco->getNumero()); 
-		$consulta->bindValue(':complemento',$endereco->getComplemento()); 
+	        return $result["idcliente"]; 
 
-		$consulta->execute();
+		}
 
-		$result = $consulta->fetch(PDO::FETCH_ASSOC);
-
-        return $result["idcliente"]; 
-
-	}
-
-	//Apaga todos os elementos da tabela
-	public function limparTabela(){
-		//include("conexao.php");
-		//$conexao = new Model\Conexao();
-		$sql = 'DELETE FROM cliente';
-		$consulta = Conexao::getCon()->prepare($sql);
-		if($consulta->execute())
-			return true;
-		else
-			return false;
-	}
-
-	public static function logar($login, $senha)
-	{
-
-		$sql = "CALL SP_REALIZAR_LOGIN(:login, :senha)";
-		$consulta = Conexao::getCon()->prepare($sql);
-		$consulta->bindParam(":login", $login);
-		$consulta->bindValue(":senha", $senha);
-		$consulta->execute();
-		
-		print_r($consulta->fetchAll(PDO::FETCH_ASSOC));
-		exit;
-		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-
-	}
-
-	public static function validaCpf($cpf = null) 
+		public static function validaCpf($cpf = null) 
 		{
 
 		    // Verifica se um número foi informado
@@ -173,7 +141,7 @@ class ClienteDAO{
 		        return false;
 		    }
 
-		    // Elimina possivel mascara
+		    // Elimina  mascara
 		    $cpf = preg_replace("/[^0-9]/", "", $cpf);
 		    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 		    
@@ -214,21 +182,48 @@ class ClienteDAO{
 		
 		}
 
-	public static function verificaCpf($cpf)
-	{
-				
-		$sql = "SELECT * FROM cliente WHERE cpf = :cpf ";
-		$consulta = Conexao::getCon()->prepare($sql);
-		$consulta->bindValue(":cpf",$cpf);
-		$consulta->execute();
-		$result = $consulta->fetchAll(PDO::FETCH_ASSOC);
-		
-		if ($result[0]['idcliente'] > 0){
-			return true;
-		}else{
-			return false;
+		public static function verificaCpf($cpf)
+		{
+					
+			$sql = "SELECT * FROM cliente WHERE cpf = :cpf ";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":cpf",$cpf);
+			$consulta->execute();
+			$result = $consulta->fetchAll(PDO::FETCH_ASSOC);
+			
+			if ($result[0]['idcliente'] > 0){
+				return true;
+			}else{
+				return false;
+			}
+			
 		}
+
 		
+		/*public static function logar($login, $senha)
+		{
+
+			$sql = "CALL SP_REALIZAR_LOGIN(:login, :senha)";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindParam(":login", $login);
+			$consulta->bindValue(":senha", $senha);
+			$consulta->execute();
+			
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}*/
+
+		//Apaga um elemento da tabela
+		/*public function deletar($idcliente){
+			//include("conexao.php");
+			//$conexao = new Model\Conexao();
+			$sql = 'DELETE FROM cliente WHERE idcliente = :idcliente';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":idcliente",$idcliente);
+			if($consulta->execute())
+				return true;
+			else
+				return false;
+		}*/
+
 	}
-}
 ?>

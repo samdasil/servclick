@@ -7,7 +7,7 @@
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) || isset($_GET) && !empty($_GET)){
 
-        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+        if((isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
             
             $aFile = $_FILES;
             
@@ -40,7 +40,7 @@
         <link href="../../assets/css/animate.min.css" rel="stylesheet"> 
         <link href="../../assets/css/main.css" rel="stylesheet">
         <link href="../../assets/css/responsive.css" rel="stylesheet">
-        <link rel="shortcut icon" href="images/ico/favicon.ico">
+        <link rel="shortcut icon" href="../../assets/images/ico/favicon.png">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/ico/apple-touch-icon-72-precomposed.png">
@@ -68,7 +68,7 @@
                 fReader.onloadend = function(event){
                     var img = document.getElementById("img");
                     img.src = event.target.result;
-                //document.form.img.src = document.form.foto.files[0].name;   
+                //document.form.img.src = document.form.logo.files[0].name;   
                 }
 
             }

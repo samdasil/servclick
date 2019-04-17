@@ -73,7 +73,28 @@ class ControllerEndereco{
         $endereco->setEstado($result[0]['estado']); 
         $endereco->setNumero($result[0]['numero']); 
         $endereco->setComplemento($result[0]['complemento']); 
-        $endereco->setCliente($result[0]['fisico']); 
+        $endereco->setFisico($result[0]['fisico']); 
+
+        return $endereco;
+
+    }
+
+    public function carregarEnderecoJuridico($idjuridico)
+    {    
+
+        $endereco = new Endereco();
+        $edao     = new EnderecoDAO();
+
+        $result  = $edao->carregarEnderecoJuridico($idjuridico);
+        
+        $endereco->setCep($result[0]['cep']); 
+        $endereco->setLogradouro($result[0]['logradouro']); 
+        $endereco->setCidade($result[0]['cidade']); 
+        $endereco->setBairro($result[0]['bairro']); 
+        $endereco->setEstado($result[0]['estado']); 
+        $endereco->setNumero($result[0]['numero']); 
+        $endereco->setComplemento($result[0]['complemento']); 
+        $endereco->setJuridico($result[0]['juridico']); 
 
         return $endereco;
 

@@ -1,4 +1,4 @@
-<?php
+    <?php
 	
 class ControllerJuridico
 {
@@ -56,12 +56,12 @@ class ControllerJuridico
 
                 if ( $result > 0 ) { 
 
-                    if ( $aFile['foto']['size'] > 0 ) {
+                    if ( $aFile['logo']['size'] > 0 ) {
 
                         $target  = BASE_DIR."assets/images/juridico/" . $foto;
-                        $tamanho = $aFile['foto']['size'];
-                        $imagem  = $aFile['foto']['name'];
-                        $path    = $aFile['foto']['tmp_name'];
+                        $tamanho = $aFile['logo']['size'];
+                        $imagem  = $aFile['logo']['name'];
+                        $path    = $aFile['logo']['tmp_name'];
                         
                         if ( move_uploaded_file($path, $target) ) {
 
@@ -121,19 +121,19 @@ class ControllerJuridico
     {
 
         $v = base64_encode($id);
-        $juridico      = new Juridico();
+        $juridico    = new Juridico();
         $endereco    = new Endereco(); 
         $pagina      = new Pagina();
-        $juridicoDAO   = new JuridicoDAO();
+        $juridicoDAO = new JuridicoDAO();
         $EnderecoDAO = new EnderecoDAO();
         $paginaDAO   = new PaginaDAO();
 
-        $cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
-        $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        //$cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
+        //$cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
-        $valida = $juridicoDAO->validaCpf($cpf);
+        //$valida = $juridicoDAO->validaCpf($cpf);
 
-        if($valida) {
+        //if($valida) {
 
             if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
                 $foto =  $dados['login'] . time('ss') . ".jpg";
@@ -143,8 +143,7 @@ class ControllerJuridico
             }
 
             $juridico->setIdjuridico($dados['idjuridico']);
-            
-            $juridico->setCnpj($cnpj);
+            $juridico->setCnpj($dados['cnpj']);
             $juridico->setRazaosocial(ucwords($dados['razaosocial']));
             $juridico->setNomefantasia(ucwords($dados['nomefantasia']));
             $juridico->setResponsavel(ucwords($dados['responsavel']));
@@ -174,7 +173,7 @@ class ControllerJuridico
             $pagina->setGoogle($dados['google']);
             $pagina->setSite($dados['site']);
             
-            $result = $juridicoDAO->editar($juridico,$endereco, $pagina, $id);
+            $result = $juridicoDAO->editar($juridico, $endereco, $pagina, $id);
 
             if( $result > 0 ){
                 
@@ -194,17 +193,17 @@ class ControllerJuridico
 
             } elseif (!$result) {
 
-                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
-                    echo "<script>window.location = 'editar.php?v=$v';</script>";
+                echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
+                echo "<script>window.location = 'editar.php?v=$v';</script>";
 
-                }
+            }
 
-        } else {
+        /*} else {
             
             echo "<script>alert('CPF informado é invalido');</script>";
             echo "<script>window.location = 'perfil.php?v=$v';</script>";            
 
-        }
+        }*/
 
     }
 
@@ -215,7 +214,7 @@ class ControllerJuridico
 
         $juridicoDAO     = new JuridicoDAO;
 
-        $result = $juridicoDAO->desativarJuridico($id);
+        $result = $juridicoDAO->desativar($id);
 
         if ( $result ) {
 
@@ -235,7 +234,7 @@ class ControllerJuridico
     {
 
         $juridico  = new Juridico();
-        $jdao     = new JuridicoDAO();
+        $jdao      = new JuridicoDAO();
 
         $result  = $jdao->carregar($idjuridico);
 

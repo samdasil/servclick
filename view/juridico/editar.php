@@ -9,17 +9,17 @@
 //    require 'header.php'; 
     require_once '../../config.php';
     
-    $f          = new ControllerFisico();
+    $j          = new ControllerJuridico();
     $e          = new ControllerEndereco();
     $p          = new ControllerPagina();
-    $fisico     = new Fisico();
+    $juridico   = new Juridico();
     $endereco   = new Endereco();
     $pagina     = new Pagina();
     $id         = base64_decode($_GET['v']);
     $v          = base64_encode($id);
-    $fisico     = $f->carregarFisico($id);
-    $endereco   = $e->carregarEnderecoFisico($id);
-    $pagina     = $p->carregarPagina($fisico->getPagina());
+    $juridico   = $j->carregarJuridico($id);
+    $endereco   = $e->carregarEnderecoJuridico($id);
+    $pagina     = $p->carregarPagina($juridico->getPagina());
 
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
@@ -36,7 +36,7 @@
         
         $dados  = $_POST;
 
-        $f->editar($dados, $id, $aFile);
+        $j->editar($dados, $id, $aFile);
         
     }
 
@@ -155,40 +155,47 @@
             <br>
 
             <form name="form" method="post" action="" enctype="multipart/form-data">
+                
+                <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>">
+                <input type="hidden" name="pagina" value="<?=$juridico->getPagina();?>">
 
-                <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>">
-                <input type="hidden" name="pagina" value="<?=$fisico->getPagina();?>">
-
-                <label class="form-group">Foto para perfil</label>
+                <label class="form-group">Logo da Empresa</label>
 
                 <div class="col-sm-6">
-                    <input type="hidden" name="img" value="<?=$fisico->getFoto();?>">
-                    <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive" alt="Foto do Profissional" name="img" id="img">
+                    <input type="hidden" name="img" value="<?=$juridico->getLogo();?>">
+                    <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive" alt="Logo da Empresa" name="img" id="img">
                 </div>
                 
                 <div class="form-group">
                     <input type="file" name="foto" id="foto" class="form-control" onchange="alterarImagem()">
                 </div>
 
-                <label class="form-group">Dados</label>
 
+                <label class="form-group">Dados</label>
+                
                 <div class="form-group">
-                    <input type="text" name="cpf" id="cpf" class="form-control" required="required" placeholder="CPF" autocomplete="off" maxlength="14" minlength="14" value="<?=$fisico->getCpf();?>" readonly >
+                    <input type="text" name="cnpj" id="cnpj" class="form-control" required="required" placeholder="CNPJ" autocomplete="off" maxlength="18" minlength="18" value="<?=$juridico->getCnpj();?>" readonly>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="nome" class="form-control" required="required" placeholder="Nome" autocomplete="off" value="<?=$fisico->getNome();?>" >
+                    <input type="text" name="razaosocial" class="form-control" required="required" placeholder="Razão Social" autocomplete="off"  value="<?=$juridico->getRazaosocial();?>">
                 </div>
                 <div class="form-group">
-                    <textarea name="descricao" id="descricao" required="required" class="form-control" rows="6" placeholder="Descreva seu trabalho" ><?=$fisico->getDescricao();?></textarea>
+                    <input type="text" name="nomefantasia" class="form-control" required="required" placeholder="Nome Fantasia" autocomplete="off"  value="<?=$juridico->getNomefantasia();?>">
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$fisico->getEmail();?>" >
+                    <input type="text" name="responsavel" class="form-control" required="required" placeholder="responsavel" autocomplete="off" value="<?=$juridico->getResponsavel();?>">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$fisico->getFone();?>">
+                    <textarea name="descricao" id="descricao" required="required" class="form-control" rows="6" placeholder="Descreva seu trabalho"> <?=$juridico->getDescricao();?>></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$fisico->getFixo();?>">
+                    <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$juridico->getEmail();?>">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$juridico->getFone();?>">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$juridico->getFixo();?>">
                 </div>
 
                 <label class="form-group">Endereço</label>
@@ -226,7 +233,7 @@
                 </div>
 
                 <div class="form-group">
-                    <input type="url" name="pinterest" class="form-control"  placeholder="Pinterest"  value="<?=$pagina->getPinterest();?>">
+                    <input type="url" name="pinterest" class="form-control"  placeholder="Pinterest" value="<?=$pagina->getPinterest();?>">
                 </div>
 
                 <div class="form-group">
@@ -244,7 +251,7 @@
                 <label class="form-group">Configuração de acesso</label>
 
                 <div class="form-group">
-                    <input type="text" name="login" class="form-control" required="required" placeholder="Login" autocomplete="off" minlength="3" maxlength="15"  value="<?=$fisico->getLogin();?>">
+                    <input type="text" name="login" class="form-control" required="required" placeholder="Login" autocomplete="off" minlength="3" maxlength="15" value="<?=$juridico->getLogin();?>">
                 </div>
                 <div class="form-group">
                     <input type="password" name="senha" class="form-control" required="required" placeholder="*********" autocomplete="off" minlength="5">
@@ -255,15 +262,14 @@
                     <input type="submit" name="submit" class="btn btn-submit" value="Enviar">
                 </div>
 
+                
                 <div class="form-group">
                     <a type="submit" href="desativar.php?v=<?=$v;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
                     <small>Desativar meu perfil</small>
                 </div>
-                
+
             </form>
-
         </div>
-
     </div>
 
 <?php require_once 'footer.php'; ?>

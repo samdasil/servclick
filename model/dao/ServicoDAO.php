@@ -1,13 +1,10 @@
 <?php
 
-	/* @Autor: Dalker Pinheiro
-	   Classe DAO */
-	   
 class ServicoDAO{
 
 	//Carrega um elemento pela chave primária
 	public function carregar($idservico){
-		//include("conexao.php");
+		
 		$sql = 'SELECT * FROM servico WHERE idservico = :idservico';
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->bindValue(":idservico",$idservico);
@@ -16,8 +13,8 @@ class ServicoDAO{
 	}
 
 	//Lista todos os elementos da tabela
-	public function listarTodos(){
-		//include("conexao.php");
+	public function listar(){
+		
 		$sql = 'SELECT * FROM servico';
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->execute();
@@ -25,9 +22,9 @@ class ServicoDAO{
 	}
 	
 	//Lista todos os elementos da tabela listando ordenados por uma coluna específica
-	public function listarTodosOrgenandoPor($coluna){
-		//include("conexao.php");
-		$sql = 'SELECT * FROM servico ORDER BY '.$coluna;
+	public function pesquisar($pesquisa){
+		
+		$sql = 'SELECT * FROM servico ORDER BY '.$pesquisa;
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->execute();
 		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
@@ -35,7 +32,7 @@ class ServicoDAO{
 	
 	//Apaga um elemento da tabela
 	public function deletar($idservico){
-		//include("conexao.php");
+		
 		$sql = 'DELETE FROM servico WHERE idservico = :idservico';
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->bindValue(":idservico",$idservico);
@@ -46,8 +43,8 @@ class ServicoDAO{
 	}
 	
 	//Insere um elemento na tabela
-	public function inserir($servico){
-		//include("conexao.php");
+	public function cadastrar(Servico $servico){
+		
 		$sql = 'INSERT INTO servico (idservico, descricao, data, datafim, valor, status_, cliente, fisico, categoria, juridico) VALUES (:idservico, :descricao, :data, :datafim, :valor, :status_, :cliente, :fisico, :categoria, :juridico)';
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->bindValue(':idservico',$servico->getIdservico()); 
@@ -67,8 +64,8 @@ class ServicoDAO{
 	}
 	
 	//Atualiza um elemento na tabela
-	public function atualizar($servico){
-		//include("conexao.php");
+	public function editar(Servico $servico){
+		
 		$sql = 'UPDATE servico SET idservico = :idservico, descricao = :descricao, data = :data, datafim = :datafim, valor = :valor, status_ = :status_, cliente = :cliente, fisico = :fisico, categoria = :categoria, juridico = :juridico WHERE idservico = :idservico';
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->bindValue(':idservico',$servico->getIdservico()); 
@@ -86,16 +83,6 @@ class ServicoDAO{
 		else
 			return false;
 	}
-
-	//Apaga todos os elementos da tabela
-	public function limparTabela(){
-		//include("conexao.php");
-		$sql = 'DELETE FROM servico';
-		$consulta = Conexao::getCon()->prepare($sql);
-		if($consulta->execute())
-			return true;
-		else
-			return false;
-	}
+	
 }
 ?>

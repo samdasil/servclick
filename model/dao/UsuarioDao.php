@@ -2,44 +2,11 @@
 
 	class UsuarioDAO
 	{
-
-		public function __construct()
-		{
-			//$con = new Conexao;
-		}
-		
-		public function inserirUsuario(Usuario $usuario)
-		{
-			
-			$SQL = Conexao::getCon()->prepare("INSERT INTO usuario (login, senha, perfil) VALUES (?, ?, ?)") or die ($mysqli->error);
-			
-			$SQL->bind_param("sdiss", $P1, $P2, $P3);
-			
-			$P1 = $usuario->getLogin();
-			$P2 = $usuario->getSenha();
-			$P3 = $usuario->getPerfil();
-			
-			$SQL->execute();
-			
-			if ($SQL->affected_rows > 0){
-
-				return true;
-
-			}else{
-
-				$erro = "Não foi possível criar usuário. Erro ao gravar.";
-				
-				return $erro;
-				
-			}
-
-		}
 		
 		public function listarUsuario()
 		{
 			
 			$SQL = Conexao::getCon()->query("SELECT * FROM usuario");
-				
 			return $SQL;
 		
 		}
@@ -49,10 +16,10 @@
 			
 			$SQL = Conexao::getCon()->query("SELECT * FROM usuario WHERE login = '".$login."' AND senha = '".$senha."' AND status != 2");
 			
-			$rs = $SQL->fetch_array();
+			$result = $SQL->fetch_array();
 			
-			$usuario->setIdusuario($rs["idusuario"]);
-			$usuario->setLogin($rs["login"]);
+			$usuario->setIdusuario($result["idusuario"]);
+			$usuario->setLogin($result["login"]);
 			
 			return $usuario;
 

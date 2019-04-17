@@ -17,7 +17,7 @@
         <script src="js/html5shiv.js"></script>
         <script src="js/respond.min.js"></script>
     <![endif]-->       
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="shortcut icon" href="../../assets/images/ico/favicon.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/ico/apple-touch-icon-72-precomposed.png">
@@ -50,7 +50,7 @@
     <script type="text/javascript">
         
         $(document).ready(function(){
-            $("#cpf").mask('000.000.000-00')
+            $("#cnpj").mask('000.000.000-00')
             $("#cep").mask('00000-000')
             $("#fone").mask('(00) 00000-0000')
         })

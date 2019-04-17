@@ -3,6 +3,7 @@
         <div class="col-sm-12 overflow">
            <div class="social-icons pull-left">
                 <ul class="nav nav-pills">
+
                     <?php if ($pagina->getFacebook() != '') { ?>
                         <li><a href="<?=$pagina->getFacebook();?>"><i class="fa fa-facebook"></i></a></li>
                     <?php } ?>

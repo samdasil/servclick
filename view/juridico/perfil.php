@@ -5,22 +5,23 @@
     if(!isset($_GET['v'])){
         header('Location: ../../index.php');
     }
-    
-    require 'header.php'; 
+
     require_once '../../config.php';
     
-    $f          = new ControllerFisico();
+    $j          = new ControllerJuridico();
     $e          = new ControllerEndereco();
     $p          = new ControllerPagina();
-    $fisico     = new Fisico();
+    $juridico   = new Juridico();
     $endereco   = new Endereco();
     $pagina     = new Pagina();
     $id         = base64_decode($_GET['v']);
     $v          = base64_encode($id);
-    $fisico     = $f->carregarFisico($id);
-    $endereco   = $e->carregarEnderecoFisico($id);
-    $pagina     = $p->carregarPagina($fisico->getPagina());
+    $juridico   = $j->carregarJuridico($id);
+    $endereco   = $e->carregarEnderecoJuridico($id);
+    $pagina     = $p->carregarPagina($juridico->getPagina());
 
+    require 'header.php'; 
+    
 ?>
 
     <section id="page-breadcrumb">
@@ -29,8 +30,7 @@
                 <div class="row">
                     <div class="action">
                         <div class="col-sm-12">
-                            <h1 class="title"><?=$fisico->getNome();?></h1>
-                            <p>Responsável</p>
+                            <h1 class="title"><?=$juridico->getRazaosocial();?></h1>
                         </div>
                     </div>
                 </div>
@@ -42,26 +42,19 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <?php if (!is_null($fisico->getFoto())) { ?>
-                        <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive" alt="">
+                    <?php if (!is_null($juridico->getLogo())) { ?>
+                        <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive" alt="">
                     <?php } else { ?>
                         <img src="../../assets/images/portfolio-details/1.jpg" class="img-responsive" alt="">
                     <?php } ?>
                 </div>
                 <div class="col-sm-6">
                     <div class="project-name overflow">
-                        <!--
-                        <h2 class="bold">Nome da Empresa</h2>
                         
-                        <ul class="nav navbar-nav navbar-default">
-                            <li><a href="#"><i class="fa fa-clock-o"></i>February11,2014</a></li>
-                            <li><a href="#"><i class="fa fa-tag"></i>Branding</a></li>
-                        </ul>
-                    -->
                     </div>
                     <div class="project-info overflow">
                         <h3>Descrição</h3>
-                        <p><?=$fisico->getDescricao();?></p>
+                        <p><?=$juridico->getDescricao();?></p>
                         </div>
                     <div class="skills overflow">
                         <h3>Categorias</h3>

@@ -2,12 +2,17 @@
 
 class Juridico extends Profissional{
     
+    private $idjuridico;
     private $cnpj;
     private $razaosocial;
     private $nomefantasia;
     private $responsavel;
     private $logo;
     
+    public function getIdjuridico() {
+        return $this->idjuridico;
+    }
+
     public function getCnpj() {
         return $this->cnpj;
     }
@@ -26,6 +31,10 @@ class Juridico extends Profissional{
 
     public function getLogo() {
         return $this->logo;
+    }
+
+    public function setIdjuridico($idjuridico) {
+        $this->idjuridico = $idjuridico;
     }
 
     public function setCnpj($cnpj) {
