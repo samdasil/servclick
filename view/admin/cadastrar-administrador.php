@@ -16,7 +16,7 @@
     <section id="projects" class="padding-top">
         <div class="container">
             <div class="row">
-                <?php include 'novos-profissionais.php'; ?>
+                <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
                       <div class="col-md-4 col-sm-12">

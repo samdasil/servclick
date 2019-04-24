@@ -139,13 +139,13 @@
                                       <input type="url" name="site" class="form-control"  placeholder="Site" value="<?=$pagina->getSite();?>" readonly>
                                   </div>
                                   
-                                  <div class="buttons-action">
-                                        <a href="editar-juridico.php?v=<?=$v;?>&get=<?=$get?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
-                                  </div>
-                                  <br>
-                                  <div class="topo">
-                                      <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
-                                  </div>
+                                  <div class="form-group">
+                                    <input type="submit" name="submit" class="btn btn-success" value="VALIDAR PERFIL">
+                                </div>
+                            </form>
+                            <div class="topo">
+                                <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                            </div>
                               </form>
                           </div>
                       </div>

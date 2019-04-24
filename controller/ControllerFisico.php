@@ -217,11 +217,11 @@ class ControllerFisico
         
         $v             = $dados['v'];
 
-        if ( is_null($id) ) return false;
+        if ( is_null($dados) ) return false;
 
         $fisicoDAO     = new fisicoDAO;
 
-        $result = $fisicoDAO->desativar($dados);
+        $result = $fisicoDAO->desativar($dados['idfisico']);
 
         $array = explode('/', $_SERVER['REQUEST_URI']);
 

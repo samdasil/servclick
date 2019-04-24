@@ -7,8 +7,18 @@
     $pjuridico  = $pjuridicos->listarNovoJuridico();
     $pfisico    = $pfisicos->listarNovoFisico();  
 
-?>
+    if(isset($_GET['get']) && !empty($_GET['get'])) {
+      //id da classe em foco
+      $get = $_GET['get']; 
 
+    }
+      //id do usuario logado 
+      $id         = base64_decode($_GET['v']); 
+
+      //id do usuario criptografado 
+      $v          = base64_encode($id);
+
+?>
                 <div class="col-md-3 col-sm-4">
                     <div class="sidebar portfolio-sidebar">
                         <div class="sidebar-item  recent">

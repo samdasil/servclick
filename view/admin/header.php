@@ -5,10 +5,10 @@
   require_once '../../config.php';
 
 
-  if(isset($_GET['get']) && !empty($_GET['get'])) 
+  if(isset($_GET['get']) && !empty($_GET['get'])) {
   //id da classe em foco
-  $get = $_GET['get']; 
-
+    $get = $_GET['get']; 
+  }
   //id do usuario logado 
   $id         = base64_decode($_GET['v']); 
 
@@ -77,3 +77,7 @@
         </div>
     </header>
     <!--/#header-->
+    
+<script type="text/javascript">
+    var intervalo = setInterval(function() {$('#section_profissionais').load('novos-profissionais.php?v=<?=$v;?>');}, 5000);
+</script>

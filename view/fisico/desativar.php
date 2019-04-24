@@ -107,6 +107,7 @@
                     
                     <form name="form" method="post" action="">
                         <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>">
+                        <input type="hidden" name="v" value="<?=$v;?>" >
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-danger" value="EXCLUIR PERFIL">
                         </div>

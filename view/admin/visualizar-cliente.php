@@ -40,7 +40,7 @@
 
     <section id="portfolio-information" class="padding-top">
         <div class="container">
-            <?php include 'novos-profissionais.php'; ?>
+            <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
                       <div class="col-md-6 col-sm-12">
