@@ -50,13 +50,13 @@
 		public function cadastrar(Administrador $administrador)
 		{
 			
-			$sql = 'INSERT INTO administrador (nome, login, senha, status_, perfil, dtcadastro) VALUES (:nome, :login, :senha, :status_, :perfil)';
+			$sql = 'INSERT INTO administrador (nome, login, senha, status_, perfil) VALUES (:nome, :login, :senha, :status_, :perfil)';
 			$consulta = Conexao::getCon()->prepare($sql);
 			 
 			$consulta->bindValue(':nome',$administrador->getNome()); 
 			$consulta->bindValue(':login',$administrador->getLogin()); 
 			$consulta->bindValue(':senha',$administrador->getSenha()); 
-			$consulta->bindValue(':status_',$administrador->getStatus_()); 
+			$consulta->bindValue(':status_',$administrador->getStatus()); 
 			$consulta->bindValue(':perfil',$administrador->getPerfil()); 
 
 			if($consulta->execute())
@@ -69,15 +69,30 @@
 		public function editar(Administrador $administrador)
 		{
 			
-			$sql = 'UPDATE administrador SET idadmin = :idadmin, nome = :nome, login = :login, senha = :senha, status_ = :status_, perfil = :perfil WHERE idadmin = :idadmin';
+			$sql = 'UPDATE administrador SET nome = :nome, login = :login, senha = :senha, status_ = :status_, perfil = :perfil WHERE idadmin = :idadmin';
 			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(':idadmin',$administrador->getIdadmin()); 
+
 			$consulta->bindValue(':nome',$administrador->getNome()); 
 			$consulta->bindValue(':login',$administrador->getLogin()); 
 			$consulta->bindValue(':senha',$administrador->getSenha()); 
-			$consulta->bindValue(':status_',$administrador->getStatus_()); 
+			$consulta->bindValue(':status_',$administrador->getStatus()); 
 			$consulta->bindValue(':perfil',$administrador->getPerfil()); 
-			$consulta->bindValue(':dtcadastro',$administrador->getDtcadastro()); 
+			$consulta->bindValue(':idadmin',$administrador->getIdadmin()); 
+			
+			if($consulta->execute())
+				return true;
+			else
+				return false;
+		}
+
+		//Atualiza um elemento na tabela
+		public function desativar(Administrador $administrador)
+		{
+			
+			$sql = 'UPDATE administrador SET status_ = 2 WHERE idadmin = :idadmin';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(':idadmin',$administrador->getIdadmin()); 
+			
 			if($consulta->execute())
 				return true;
 			else

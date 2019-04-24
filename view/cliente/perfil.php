@@ -38,18 +38,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive" alt="" id="img">
+                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="" id="img">
                 </div>
                 <div class="col-sm-6">
                     <div class="project-name overflow">
-                        <!--
-                        <h2 class="bold">Nome da Empresa</h2>
                         
-                        <ul class="nav navbar-nav navbar-default">
-                            <li><a href="#"><i class="fa fa-clock-o"></i>February11,2014</a></li>
-                            <li><a href="#"><i class="fa fa-tag"></i>Branding</a></li>
-                        </ul>
-                    -->
                     </div>
                     <div class="project-info overflow">
                          <div class="col-md-3 col-sm-6">
@@ -79,5 +72,9 @@
                     <div class="buttons-action">
                         <a href="editar.php?v=<?=$v;?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <?php require_once 'footer.php'; ?>

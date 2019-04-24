@@ -23,8 +23,8 @@
 
         
         $dados  = $_POST;
-
-        $c->desativar($id);
+        
+        $c->desativarCliente($dados);
         
     }
     
@@ -93,7 +93,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive" alt="" id="img">
+                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="" id="img">
                 </div>
                 <div class="col-sm-6">
                     <div class="project-name overflow">
@@ -115,6 +115,7 @@
                     </div>
                     
                     <form name="form" method="post" action="">
+                        <input type="hidden" name="v" value="<?=$v;?>" >
                         <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-danger" value="EXCLUIR PERFIL">

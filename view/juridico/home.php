@@ -52,6 +52,9 @@
                         <li><a href="perfil.php?v=<?=$v;?>">Meu Perfil</a></li>
                         <li><a href="listarsolicitacoes.php?v=<?=$v;?>">Solicitações de Serviços</a></li>
                         <li><a href="servicosaceitos.php?v=<?=$v;?>">Meus Serviços</a></li>
+                        <li><a href="notas.php?v=<?=$v;?>">Notas</a></li>
+                        <li><a href="creditos.php?v=<?=$v;?>">Créditos</a></li>
+                        <li><a href="../../index.php">Sair</a></li>
                     </ul>
                 </div>
                     

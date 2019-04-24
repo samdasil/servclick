@@ -7,8 +7,8 @@
 		define('BASE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/projects/git/servclick/');
 
 	} else {
-
-		define('BASE_DIR', 'www.servclick.com.br');
+		
+		define('BASE_DIR', '172.20.10.10/projects/git/servclick/');
 
 	}
 	

@@ -61,7 +61,7 @@
 	                    <div class="wow scaleIn" data-wow-duration="500ms" data-wow-delay="600ms">
 	                        <img src="assets/images/profissional/juridico.png" alt="">
 	                    </div>
-	                    <a class="btn btn-btn btn-default" href="view/juridico/cadastro.php">Profissional Jurídico</a>
+	                    <a class="btn btn-btn btn-default" href="view/juridico/cadastro.php">Profissional Pessoa Jurídica</a>
 	                    <p>Para empresas atuantes e com ótimos profissionais dedicados.</p>
 	                </div>
 	            </div>

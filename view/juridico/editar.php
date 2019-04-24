@@ -36,7 +36,7 @@
         
         $dados  = $_POST;
 
-        $j->editar($dados, $id, $aFile);
+        $j->editarJuridico($dados, $id, $aFile);
         
     }
 
@@ -71,7 +71,7 @@
     <script type="text/javascript" src="../../assets/js/jquery.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.mask.min.js"></script>
-    <!--<script type="text/javascript" src="../../assets/js/buscaCep.js"></script>-->
+    <script type="text/javascript" src="../../assets/js/buscaCep.js"></script>
     
     <script type="text/javascript">
         function alterarImagem() {
@@ -155,15 +155,20 @@
             <br>
 
             <form name="form" method="post" action="" enctype="multipart/form-data">
-                
+                <input type="hidden" name="v" value="<?=$v;?>" >
+
                 <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>">
                 <input type="hidden" name="pagina" value="<?=$juridico->getPagina();?>">
+                <input type="hidden" name="status" value="<?=$juridico->getStatus();?>">
+                <input type="hidden" name="perfil" value="<?=$juridico->getPerfil();?>">
+                <input type="hidden" name="login" value="<?=$juridico->getLogin();?>">
+                <input type="hidden" name="senha" value="<?=$juridico->getSenha();?>">
 
                 <label class="form-group">Logo da Empresa</label>
 
                 <div class="col-sm-6">
                     <input type="hidden" name="img" value="<?=$juridico->getLogo();?>">
-                    <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive" alt="Logo da Empresa" name="img" id="img">
+                    <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive img-perfil" alt="Logo da Empresa" name="img" id="img">
                 </div>
                 
                 <div class="form-group">

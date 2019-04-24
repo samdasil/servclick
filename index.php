@@ -5,9 +5,9 @@
         session_unset();
         session_destroy();
     }
-
+    
     require 'config.php';
-
+    
     $controller = new ControllerUsuario();
 
     // caso receba dados via POST ou GET
@@ -43,7 +43,7 @@
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/css/responsive.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="images/ico/favicon.ico">
+    <link rel="shortcut icon" href="assets/images/ico/favicon.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
@@ -60,7 +60,7 @@
 	    <div class="container">
 
             <div class="col-sm-12">
-                <img src="assets/images/logo-login.png" class="img-responsive" alt="" style="margin-left: 20%; margin-right: 20%;">
+                <img src="assets/images/logo-login.png" class="img-responsive" alt="" style="margin-left:auto; margin-right: auto;">
             </div>
         
             <br>
@@ -70,10 +70,10 @@
                 <input type="hidden" name="classe" value="Usuario">
 
                 <div class="form-group">
-                    <input type="text" name="login" class="form-control" required="required" placeholder="Login" autofocus >
+                    <input type="text" name="login" class="form-control input-login" required="required" placeholder="Login" autofocus >
                 </div>
                 <div class="form-group">
-                    <input type="password" name="senha" class="form-control" required="required" placeholder="*********">
+                    <input type="password" name="senha" class="form-control input-login" required="required" placeholder="*********">
                 </div>
 
                 <div class="form-group">

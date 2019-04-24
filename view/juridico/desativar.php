@@ -24,7 +24,7 @@
         
         $dados  = $_POST;
 
-        $j->desativar($id);
+        $j->desativarJuridico($id);
         
     }
     
@@ -84,7 +84,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive" alt="" id="img">
+                    <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive img-perfil" alt="" id="img">
                 </div>
                 <div class="col-sm-6">
                     <div class="project-name overflow">

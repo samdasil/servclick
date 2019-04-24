@@ -3,7 +3,7 @@
 class ControllerCliente
 {
 
-    public function cadastrar($dados = null, $aFile = null)
+    public function cadastrarCliente($dados = null, $aFile = null)
     {
 
         if ( !isset($dados) ) return false;
@@ -105,10 +105,10 @@ class ControllerCliente
 
     }
 
-    public function editar($dados = null, $id = null, $aFile = null)
+    public function editarCliente($dados = null, $aFile = null)
     {
 
-        $v = base64_encode($id);
+        $v           = $dados['v'];
         $cliente     = new Cliente;
         $endereco    = new Endereco; 
         $clienteDAO  = new ClienteDAO;
@@ -128,6 +128,7 @@ class ControllerCliente
                 $foto = $dados['img'];
             }
 
+            $cliente->setIdcliente($dados['idcliente']);
             $cliente->setCpf($cpf);
             $cliente->setNome(ucwords($dados['nome']));
             $cliente->setEmail(strtolower($dados['email']));
@@ -136,9 +137,9 @@ class ControllerCliente
             if(isset($dados['senha'])){
                 $cliente->setSenha(base64_encode($dados['senha']));    
             }
-            $cliente->setPerfil(2); // 2=cliente
+            $cliente->setPerfil($dados['perfil']); // 2=cliente
             $cliente->setFoto($foto);
-            $cliente->setStatus(1); //1=ativo 2=inativo
+            $cliente->setStatus($dados['status']); //1=ativo 2=inativo
 
             $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
             $endereco->setLogradouro(ucwords($dados['logradouro']));
@@ -148,7 +149,7 @@ class ControllerCliente
             $endereco->setNumero($dados['numero']);
             $endereco->setComplemento($dados['complemento']);
             
-            $result = $clienteDAO->editar($cliente,$endereco, $id);
+            $result = $clienteDAO->editar($cliente,$endereco);
             
             if( $result > 0 ){
                 
@@ -158,47 +159,55 @@ class ControllerCliente
                     $tamanho = $aFile['foto']['size'];
                     $imagem  = $aFile['foto']['name'];
                     $path    = $aFile['foto']['tmp_name'];
-                    //var_dump($aFile);
                     
-                    move_uploaded_file($path, $target);                 
+                    $array = explode('/', $_SERVER['REQUEST_URI']);
+                    
+                   if( in_array("admin", $array) ) {
+
+                        echo "<script>alert('Cliente atualizado com sucesso!');</script>";
+                        echo "<script>window.location = 'listar-clientes.php?v=$v';</script>";    
+                    }                 
 
                 }
 
-                echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
+                echo "<script>alert('Cadastro atualizado com sucesso!');</script>";
                 echo "<script>window.location = 'perfil.php?v=$v';</script>";
 
-            } else if ($result === false) {
+            } else if (!$result) {
                 
-                echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
-                echo "<script>window.location = 'perfil.php?v=$v';</script>";
-                                
-            } else {
-                $erro = str_replace("'"," ",$result);
-                //exit;
-                echo "<script>alert('Erro ao atualizar: ".$erro."');</script>";
-                echo "<script>window.location = 'editar.php?v=$v';</script>";
-
+                echo "<script>alert('Houve um erro ao atualizar cliente.');</script>";
+                echo "<script>window.location = 'editar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
             }
 
         } else {
             
-            echo "<script>alert('CPF informado eh invalido');</script>";
-            echo "<script>window.location = 'perfil.php?v=$v';</script>";            
+            echo "<script>alert('CPF informado é invalido');</script>";
+            echo "<script>window.location = 'editar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
 
         }
 
     }
 
-    public function desativar($id = null)
+    public function desativarCliente($dados = null)
     {
+        $v             = $dados['v'];
         
-        if ( is_null($id) ) return false;
+        if ( is_null($dados) ) return false;
 
-        $clienteDAO     = new ClienteDAO;
+        $clienteDAO     = new ClienteDAO();
+        
+        $result = $clienteDAO->desativar($dados);
 
-        $result = $clienteDAO->desativarCliente($id);
+        $array = explode('/', $_SERVER['REQUEST_URI']);
 
         if ( $result ) {
+
+
+            if( in_array("admin", $array) ) {
+
+                echo "<script>alert('Cliente desativado com sucesso! ');</script>";
+                echo "<script>window.location = 'listar-clientes.php?v=$v';</script>";    
+            }
 
             echo "<script>alert('Seu cadastro foi desativado com sucesso! Para resgatar entre em contato com a equipe do ServClick. Agradecemos pelo tempo que passamos juntos.');</script>";
             echo "<script>window.location = '../../index.php';</script>";
@@ -220,12 +229,16 @@ class ControllerCliente
 
         $result  = $cdao->carregar($idcliente);
 
+        $cliente->setIdcliente($result[0]['idcliente']); 
         $cliente->setCpf($result[0]['cpf']); 
         $cliente->setNome($result[0]['nome']); 
         $cliente->setEmail($result[0]['email']); 
         $cliente->setFone($result[0]['fone']); 
         $cliente->setLogin($result[0]['login']); 
         $cliente->setFoto($result[0]['foto']); 
+        $cliente->setSenha($result[0]['senha']); 
+        $cliente->setperfil($result[0]['perfil']); 
+        $cliente->setStatus($result[0]['status_']); 
 
         return $cliente;
 
@@ -241,6 +254,16 @@ class ControllerCliente
         }
 
     }
+
+    public function listarCliente()
+    {
+        $cdao    = new ClienteDAO();
+        $list    = $cdao->listar();
+
+        return $list;
+    }
+
+    
 
 }
 

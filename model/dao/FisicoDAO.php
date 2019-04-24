@@ -4,7 +4,7 @@
 	{
 
 		//Carrega um elemento pela chave primária
-		public function carregar($idfisico)
+		public function carregar($idfisico = null)
 		{
 
 			$sql = "SELECT * FROM fisico f
@@ -18,6 +18,7 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 
+
 		//Lista todos os elementos da tabela
 		public function listar()
 		{
@@ -27,9 +28,19 @@
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
+
+		//Lista todos os elementos da tabela
+		public function listarNovo()
+		{
+			
+			$sql = 'SELECT * FROM fisico WHERE status_ = 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
 		
-		//Lista todos os elementos da tabela listando ordenados por uma coluna específica
-		public function pesquisar($pesquisa)
+		//Lista todos os elementos da tabela
+		public function pesquisar($pesquisa = null)
 		{
 			
 			$sql = 'SELECT * FROM fisico ORDER BY '.$coluna;
@@ -37,23 +48,11 @@
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
-		
-		/*//Apaga um elemento da tabela
-		public function deletar($idfisico){
-			
-			$sql = 'DELETE FROM fisico WHERE idfisico = :idfisico';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idfisico",$idfisico);
-			if($consulta->execute())
-				return true;
-			else
-				return false;
-		}*/
 
-		public function desativar($id = null)
+		public function desativar($dados = null)
 		{
 			
-			if ( is_null($id) ) {
+			if ( is_null($dados) ) {
 				
 				return false;
 
@@ -62,7 +61,7 @@
 				$sql = "UPDATE fisico SET status_ = 2 WHERE idfisico = :idfisico";
 
 				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idfisico",$id);
+				$consulta->bindValue(":idfisico",$dados['idfisico']);
 				
 				if($consulta->execute())
 					return true;
@@ -116,7 +115,7 @@
 		}
 		
 		//Atualiza um elemento na tabela
-		public function editar(Fisico $fisico, Endereco $endereco, Pagina $pagina, $id)
+		public function editar(Fisico $fisico, Endereco $endereco, Pagina $pagina)
 		{
 			
 			$sql = "CALL SP_EDITAR_FISICO(:idfisico, :cpf, :nome, :descricao, :email, :fone, :fixo, :status_, :foto, :login, :senha, :perfil, :pagina, 
@@ -161,6 +160,7 @@
 	        return $result["idfisico"]; 
 		}
 
+		//validar CPF do profissional físico
 		public static function validaCpf($cpf = null) 
 		{
 
@@ -210,6 +210,7 @@
 		
 		}
 
+		//verificar se existe o CPF informado na base
 		public static function verificaCpf($cpf)
 		{
 					

@@ -24,7 +24,7 @@
         
         $dados  = $_POST;
 
-        $f->desativar($id);
+        $f->desativarFisico($dados);
         
     }
     

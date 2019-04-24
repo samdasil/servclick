@@ -33,7 +33,7 @@
         
         $dados  = $_POST;
 
-        $c->editar($dados, $id, $aFile);
+        $c->editarCliente($dados, $aFile);
         
     }
 
@@ -149,13 +149,18 @@
             <br>
             <form name="form" method="post" action="" enctype="multipart/form-data">
 
+                <input type="hidden" name="v" value="<?=$v;?>" >
                 <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
+                <input type="hidden" name="status" value="<?=$cliente->getStatus();?>">
+                <input type="hidden" name="perfil" value="<?=$cliente->getPerfil();?>">
+                <input type="hidden" name="login" value="<?=$cliente->getLogin();?>">
+                <input type="hidden" name="senha" value="<?=$cliente->getSenha();?>">
 
                 <label class="form-group">Foto para perfil</label>
 
                 <div class="col-sm-6">
                     <input type="hidden" name="img" value="<?=$cliente->getFoto();?>">
-                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive" alt="Foto Cliente" name="img" id="img">
+                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="Foto Cliente" name="img" id="img">
                 </div>
                 
                 <div class="form-group">

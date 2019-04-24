@@ -40,11 +40,10 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 
-		public function desativar($id = null)
+		public function desativar($dados = null)
 		{
-			$con = new Conexao;
-			
-			if ( is_null($id) ) {
+		
+			if ( is_null($dados['idcliente']) ) {
 				
 				return false;
 
@@ -53,7 +52,7 @@
 				$sql = "UPDATE cliente SET status_ = 2 WHERE idcliente = :idcliente";
 
 				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idcliente",$id);
+				$consulta->bindValue(":idcliente",$dados['idcliente']);
 				
 				if($consulta->execute())
 					return true;
@@ -98,7 +97,7 @@
 		}
 		
 		//atualiza o cadastro do cliente
-		public function editar(Cliente $cliente, Endereco $endereco, $id)
+		public function editar(Cliente $cliente, Endereco $endereco)
 		{
 			
 			$sql = $sql = "CALL SP_EDITAR_CLIENTE(:idcliente, :cpf, :nome, :email, :fone, :login, :senha, :perfil, :foto, :status_, 
@@ -106,7 +105,7 @@
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			
-			$consulta->bindValue(':idcliente',$id); 
+			$consulta->bindValue(':idcliente',$cliente->getIdcliente()); 
 			$consulta->bindValue(':cpf',$cliente->getCpf()); 
 			$consulta->bindValue(':nome',$cliente->getNome()); 
 			$consulta->bindValue(':email',$cliente->getEmail()); 
@@ -134,7 +133,7 @@
 		}
 
 		public static function validaCpf($cpf = null) 
-		{
+		{	
 
 		    // Verifica se um número foi informado
 		    if(empty($cpf)) {

@@ -3,14 +3,6 @@
 	class UsuarioDAO
 	{
 		
-		public function listarUsuario()
-		{
-			
-			$SQL = Conexao::getCon()->query("SELECT * FROM usuario");
-			return $SQL;
-		
-		}
-
 		public function buscarUsuario(Usuario $usuario)
 		{
 			
@@ -153,5 +145,17 @@
 			}
 
 		}
+
+		//Lista todos os USUARIOS
+		public function listar()
+		{
+			
+			$sql = 'CALL SP_LISTAR_USUARIOS()';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
+
 	}
 ?>

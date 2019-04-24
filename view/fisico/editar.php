@@ -20,7 +20,7 @@
     $fisico     = $f->carregarFisico($id);
     $endereco   = $e->carregarEnderecoFisico($id);
     $pagina     = $p->carregarPagina($fisico->getPagina());
-
+    
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
 
@@ -36,7 +36,7 @@
         
         $dados  = $_POST;
 
-        $f->editar($dados, $id, $aFile);
+        $f->editarFisico($dados, $aFile);
         
     }
 
@@ -102,23 +102,7 @@
 </head>
 <body>
     <header id="header">      
-        <!--
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 overflow">
-                   <div class="social-icons pull-right">
-                        <ul class="nav nav-pills">
-                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div> 
-                </div>
-             </div>
-        </div>
-    -->
+    
         <div class="navbar navbar-inverse" role="banner">
             
             <div class="container">
@@ -127,19 +111,7 @@
                     <div class="topo">
                         <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
                     </div>
-                    <!--
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    -->
-                    <!--
-                    <a class="navbar-brand" href="index.html">
-                        <h1><img src="../../assets/images/logo.png" alt="logo"></h1>
-                    </a>
-                    -->
+    
                 </div>
                     
             </div>
@@ -154,8 +126,12 @@
             <br>
 
             <form name="form" method="post" action="" enctype="multipart/form-data">
-
-                <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>">
+                <input type="hidden" name="v" value="<?=$v;?>" >
+                <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>" >
+                <input type="hidden" name="status" value="<?=$fisico->getStatus();?>">
+                <input type="hidden" name="perfil" value="<?=$fisico->getPerfil();?>">
+                <input type="hidden" name="login" value="<?=$fisico->getLogin();?>">
+                <input type="hidden" name="senha" value="<?=$fisico->getSenha();?>">
                 <input type="hidden" name="pagina" value="<?=$fisico->getPagina();?>">
 
                 <label class="form-group">Foto para perfil</label>

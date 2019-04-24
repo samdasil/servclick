@@ -77,7 +77,7 @@
                         <li><a href="servicosaceitos.php?v=<?=$v;?>">Meus Serviços</a></li>
                         <li><a href="orcamentos.php?v=<?=$v;?>">Orçamentos</a></li>
                         <li><a href="notas.php?v=<?=$v;?>">Notas</a></li>
-                        <li><a href="sobre.php?v=<?=$v;?>">Sobre</a></li>
+                        <li><a href="creditos.php?v=<?=$v;?>">Créditos</a></li>
                     </ul>
                 </div>
                     

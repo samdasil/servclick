@@ -101,4 +101,13 @@ class ControllerUsuario {
 
     }
 
+
+    public function listarUsuario()
+    {
+        $udao    = new UsuarioDAO();
+        $list    = $udao->listar();
+        
+        return $list;
+    }
+
 }

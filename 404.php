@@ -34,9 +34,9 @@
                                     <img class="img-responsive" src="assets/images/404.png" alt="">  
                                 </div>
                             </div>
-                            <h2>PAGE NOT FOUND</h2>
-                            <p>The page you are looking for might have been removed, had its name changed.</p>
-                            <a href="home.php" class="btn btn-error">RETURN TO THE HOMEPAGE</a>
+                            <h2>Página não encontrada</h2>
+                            <p>Verifique se o caminho está correto e tente novamente.</p>
+                            <a href="index.php.php" class="btn btn-error">Ir à página de Login</a>
                             <div class="social-link">
                                 <span><a href="#"><i class="fa fa-facebook"></i></a></span>
                                 <span><a href="#"><i class="fa fa-twitter"></i></a></span>

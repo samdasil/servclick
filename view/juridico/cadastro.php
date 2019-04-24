@@ -19,7 +19,7 @@
         
         $dados  = $_POST;
 
-        $controller->cadastrar($dados, $aFile);
+        $controller->cadastrarJuridico($dados, $aFile);
         
     }
 
@@ -102,7 +102,7 @@
                 <label class="form-group">Logo da Empresa</label>
 
                 <div class="col-sm-6">
-                    <img src="../../assets/images/portfolio-details/1.jpg" class="img-responsive" alt="" name="img" id="img" />
+                    <img src="../../assets/images/portfolio/1.jpg" class="img-responsive img-perfil" alt="" name="img" id="img" />
                 </div>
                 <div class="portfolio-view">
                     <ul class="nav nav-pills">

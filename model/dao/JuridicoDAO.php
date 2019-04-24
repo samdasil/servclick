@@ -26,6 +26,16 @@
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
+
+		//Lista todos os elementos da tabela
+		public function listarNovo()
+		{
+			
+			$sql = 'SELECT * FROM juridico WHERE status_ = 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
 		
 		//Lista todos os elementos da tabela listando ordenados por uma coluna específica
 		public function pesquisar($pesquisa)
@@ -49,10 +59,10 @@
 				return false;
 		}*/
 
-		public function desativar($id = null)
+		public function desativar($dados = null)
 		{
 
-			if ( is_null($id) ) {
+			if ( is_null($dados['idjuridico']) ) {
 				
 				return false;
 
@@ -61,7 +71,7 @@
 				$sql = "UPDATE juridico SET status_ = 2 WHERE idjuridico = :idjuridico";
 
 				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idjuridico",$id);
+				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
 				
 				if($consulta->execute())
 					return true;
@@ -117,7 +127,7 @@
 		}
 		
 		//Atualiza um elemento na tabela
-		public function editar(Juridico $juridico, Endereco $endereco, Pagina $pagina, $id)
+		public function editar(Juridico $juridico, Endereco $endereco, Pagina $pagina)
 		{
 			
 			$sql = "CALL SP_EDITAR_JURIDICO(:idjuridico, :cnpj, :descricao, :email, :fone, :fixo, :status_, :razaosocial, :nomefantasia, :responsavel, 									:logo, :login, :senha, :perfil, :pagina,

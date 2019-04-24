@@ -43,7 +43,7 @@
             <div class="row">
                 <div class="col-sm-6">
                     <?php if (!is_null($juridico->getLogo())) { ?>
-                        <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive" alt="">
+                        <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive img-perfil" alt="">
                     <?php } else { ?>
                         <img src="../../assets/images/portfolio-details/1.jpg" class="img-responsive" alt="">
                     <?php } ?>

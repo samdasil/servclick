@@ -3,7 +3,7 @@
 class ControllerFisico
 {
 		
-	public function cadastrar($dados = null, $aFile = null)
+	public function cadastrarFisico($dados = null, $aFile = null)
     {
 
         if ( !isset($dados) ) return false;
@@ -33,7 +33,7 @@ class ControllerFisico
                 $fisico->setSenha(base64_encode($dados['senha']));
                 $fisico->setPerfil(3); // 3=fisico
                 $fisico->setFoto($foto);
-                $fisico->setStatus(1); //1=ativo 2=inativo
+                $fisico->setStatus(3); //1=ativo 2=inativo 3=pendente
 
                 $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
                 $endereco->setLogradouro(ucwords($dados['logradouro']));
@@ -114,10 +114,10 @@ class ControllerFisico
 
     }
 
-    public function editar($dados = null, $id = null, $aFile = null)
+    public function editarFisico($dados = null, $aFile = null)
     {
 
-        $v = base64_encode($id);
+        $v           = $dados['v'];
         $fisico      = new Fisico();
         $endereco    = new Endereco(); 
         $pagina      = new Pagina();
@@ -147,12 +147,10 @@ class ControllerFisico
             $fisico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
             $fisico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
             $fisico->setLogin(strtolower($dados['login']));
-            if(isset($dados['senha'])){
-                $fisico->setSenha(base64_encode($dados['senha']));    
-            }
-            $fisico->setPerfil(3); // 2=fisico
+            $fisico->setSenha(base64_encode($dados['senha']));
+            $fisico->setPerfil($dados['perfil']); // 2=fisico
             $fisico->setFoto($foto);
-            $fisico->setStatus(1); //1=ativo 2=inativo
+            $fisico->setStatus($dados['status']); //1=ativo 2=inativo 3 pendente
             $fisico->setPagina($dados['pagina']);
 
             $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
@@ -170,8 +168,8 @@ class ControllerFisico
             $pagina->setGoogle($dados['google']);
             $pagina->setSite($dados['site']);
             
-            $result = $fisicoDAO->editar($fisico,$endereco, $pagina, $id);
-
+            $result = $fisicoDAO->editar($fisico,$endereco, $pagina);
+            
             if( $result > 0 ){
                 
                 if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
@@ -180,14 +178,23 @@ class ControllerFisico
                     $tamanho = $aFile['foto']['size'];
                     $imagem  = $aFile['foto']['name'];
                     $path    = $aFile['foto']['tmp_name'];
-                    //var_dump($aFile);
                     
-                    move_uploaded_file($path, $target);                 
+                    $array = explode('/', $_SERVER['REQUEST_URI']);
+                    
+                    if(move_uploaded_file($path, $target)){
 
-                } 
+                        if( in_array("admin", $array) ) {
+
+                            echo "<script>alert('Profissional atualizado com sucesso! ');</script>";
+                            echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+                        }
+
+                    }
+
+                }
 
                 echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
-                echo "<script>window.location = 'perfil.php?v=$v';</script>";
+                echo "<script>window.location = 'perfil.php?v=$v';</script>";                 
 
             } elseif (!$result) {
 
@@ -205,16 +212,26 @@ class ControllerFisico
 
     }
 
-    public function desativar($id = null)
+    public function desativarFisico($dados = null)
     {
         
+        $v             = $dados['v'];
+
         if ( is_null($id) ) return false;
 
         $fisicoDAO     = new fisicoDAO;
 
-        $result = $fisicoDAO->desativarfisico($id);
+        $result = $fisicoDAO->desativar($dados);
+
+        $array = explode('/', $_SERVER['REQUEST_URI']);
 
         if ( $result ) {
+
+            if( in_array("admin", $array) ) {
+
+                echo "<script>alert('Profissional desativado com sucesso! ');</script>";
+                echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+            }
 
             echo "<script>alert('Seu cadastro foi desativado com sucesso! Para resgatar entre em contato com a equipe do ServClick. Agradecemos pelo tempo que passamos juntos.');</script>";
             echo "<script>window.location = '../../index.php';</script>";
@@ -228,7 +245,7 @@ class ControllerFisico
 
     }
 
-    public function carregarFisico($idfisico)
+    public function carregarFisico($idfisico = null)
     {
 
         $fisico  = new Fisico();
@@ -244,11 +261,30 @@ class ControllerFisico
         $fisico->setFone($result[0]['fone']); 
         $fisico->setFixo($result[0]['fixo']); 
         $fisico->setLogin($result[0]['login']); 
+        $fisico->setSenha($result[0]['senha']); 
         $fisico->setFoto($result[0]['foto']); 
         $fisico->setPagina($result[0]['pagina']); 
+        $fisico->setStatus($result[0]['status_']); 
+        $fisico->setPerfil($result[0]['perfil']); 
 
         return $fisico;
 
+    }
+
+    public function listarFisico()
+    {
+        $fdao    = new FisicoDAO();
+        $list    = $fdao->listar();
+
+        return $list;
+    }
+
+    public function listarNovoFisico()
+    {
+        $fdao    = new FisicoDAO();
+        $list    = $fdao->listarNovo();
+
+        return $list;
     }
 
 }
