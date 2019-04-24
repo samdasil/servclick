@@ -125,15 +125,15 @@ class ControllerJuridico
 
     }
 
-    public function desativarJuridico($id = null)
+    public function desativarJuridico($dados = null)
     {
-        $v             = $id['v'];
+        $v             = $dados['v'];
 
-        if ( is_null($id) ) return false;
+        if ( is_null($dados) ) return false;
 
         $juridicoDAO     = new JuridicoDAO;
 
-        $result = $juridicoDAO->desativar($id);
+        $result = $juridicoDAO->desativar($dados);
 
         $array = explode('/', $_SERVER['REQUEST_URI']);
 
@@ -294,6 +294,34 @@ class ControllerJuridico
         $list    = $jdao->listarNovo();
 
         return $list;
+    }
+
+    public function validarJuridico($dados = null)
+    {
+        $v             = $dados['v'];
+
+        if ( is_null($dados) ) return false;
+
+        $juridicoDAO     = new JuridicoDAO;
+
+        $result = $juridicoDAO->validar($dados);
+
+        $array = explode('/', $_SERVER['REQUEST_URI']);
+
+        if ( $result ) {
+
+            if( in_array("admin", $array) ) {
+
+                echo "<script>alert('Profissional ativado com sucesso! ');</script>";
+                echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+            }
+
+        } else {
+
+            echo "<script>alert('Nao foi possivel ativar o perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+            echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+
+        }
     }
 
 }

@@ -24,7 +24,7 @@
         
         $dados  = $_POST;
 
-        $j->desativarJuridico($id);
+        $j->desativarJuridico($dados);
         
     }
     
@@ -111,6 +111,7 @@
                     
                     <form name="form" method="post" action="">
                         <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>">
+                        <input type="hidden" name="v" value="<?=$v;?>" >
                         <div class="form-group">
                             <input type="submit" name="submit" class="btn btn-danger" value="EXCLUIR PERFIL">
                         </div>

@@ -13,6 +13,13 @@
     $endereco   = $e->carregarEnderecoJuridico($get);
     $pagina     = $p->carregarPagina($juridico->getPagina());
 
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST) ){
+
+        $dados  = $_POST;
+        $j->validarJuridico($dados);
+
+    }
 ?>
     <script type="text/javascript">
         function alterarImagem() {
@@ -140,7 +147,7 @@
                                   </div>
                                   
                                   <div class="form-group">
-                                    <input type="submit" name="submit" class="btn btn-success" value="VALIDAR PERFIL">
+                                    <input type="submit" name="submit" class="btn btn-submit" value="VALIDAR PERFIL">
                                 </div>
                             </form>
                             <div class="topo">

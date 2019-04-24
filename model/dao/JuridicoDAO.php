@@ -47,18 +47,6 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 		
-		/*//Apaga um elemento da tabela
-		public function deletar($idjuridico){
-			
-			$sql = 'DELETE FROM juridico WHERE idjuridico = :idjuridico';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idjuridico",$idjuridico);
-			if($consulta->execute())
-				return true;
-			else
-				return false;
-		}*/
-
 		public function desativar($dados = null)
 		{
 
@@ -80,6 +68,27 @@
 			}
 		}
 		
+		public function validar($dados = null)
+		{
+
+			if ( is_null($dados) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE juridico SET status_ = 2 WHERE idjuridico = :idjuridico";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
+
 		//Insere um elemento na tabela
 		public function cadastrar(Juridico $juridico, Endereco $endereco, Pagina $pagina)
 		{
