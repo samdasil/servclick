@@ -25,3 +25,29 @@ function alterarLogo() {
     }
 
 }
+
+function next(obj) {
+
+              document.getElementById('div_dados').style.display="none";
+              document.getElementById('div_endereco').style.display="none";
+              document.getElementById('div_acesso').style.display="none";
+
+           switch (obj.id) {
+              case 'dados-right':
+              document.getElementById('div_dados').style.display="none";
+              document.getElementById('div_endereco').style.display="block";
+              break
+              case 'endereco-right':
+              document.getElementById('div_endereco').style.display="none";
+              document.getElementById('div_acesso').style.display="block";
+              break
+              case 'endereco-left':
+              document.getElementById('div_endereco').style.display="none";
+              document.getElementById('div_dados').style.display="block";
+              break
+              case 'acesso-left':
+              document.getElementById('div_acesso').style.display="none";
+              document.getElementById('div_endereco').style.display="block";
+              break
+           }
+        }

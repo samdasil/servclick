@@ -1,14 +1,18 @@
 <?php
 	
-	define('ENVIROMENT', "debug");
+	define('ENVIROMENT', "sammy");
 
-	if ( ENVIROMENT == 'debug') {
+	if ( ENVIROMENT == 'sammy') {
 
 		define('BASE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/projects/git/servclick/');
 
+	} else if ( ENVIROMENT == 'daly_e_helo') {
+		
+		define('BASE_DIR', $_SERVER['DOCUMENT_ROOT'] . '/projects/servclick/');
+
 	} else {
 		
-		define('BASE_DIR', '172.20.10.10/projects/git/servclick/');
+		define('BASE_DIR', $_SERVER['DOCUMENT_ROOT']);
 
 	}
 	
