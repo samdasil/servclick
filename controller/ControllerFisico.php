@@ -221,7 +221,7 @@ class ControllerFisico
 
         $fisicoDAO     = new fisicoDAO;
 
-        $result = $fisicoDAO->desativar($dados['idfisico']);
+        $result = $fisicoDAO->desativar($dados);
 
         $array = explode('/', $_SERVER['REQUEST_URI']);
 
@@ -285,6 +285,36 @@ class ControllerFisico
         $list    = $fdao->listarNovo();
 
         return $list;
+    }
+
+    public function validarFisico($dados = null)
+    {
+        
+        $v             = $dados['v'];
+
+        if ( is_null($dados) ) return false;
+
+        $fisicoDAO     = new fisicoDAO;
+
+        $result = $fisicoDAO->validar($dados);
+
+        $array = explode('/', $_SERVER['REQUEST_URI']);
+
+        if ( $result ) {
+
+            if( in_array("admin", $array) ) {
+
+                echo "<script>alert('Profissional ativado com sucesso! ');</script>";
+                echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+            }
+
+        } else {
+
+            echo "<script>alert('Nao foi possivel ativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+            echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+
+        }
+
     }
 
 }

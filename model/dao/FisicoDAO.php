@@ -228,5 +228,26 @@
 			
 		}
 
+		public function validar($dados = null)
+		{
+
+			if ( is_null($dados) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE fisico SET status_ = 2 WHERE idfisico = :idfisico";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idfisico",$dados['idfisico']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
+
 	}
 ?>

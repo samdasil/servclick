@@ -66,6 +66,7 @@
                         <li><a href="servicos.php?v=<?=$v;?>">Meus Serviços</a></li>
                         <li><a href="relatorios.php?v=<?=$v;?>">Relatórios</a></li>
                         <li><a href="config.php?v=<?=$v;?>">Config</a></li>
+                        <li><a href="../../index.php?v=<?=$v;?>">Sair</a></li>
                     </ul>
                 </div>
                     
