@@ -1,94 +1,7 @@
 <?php
 		
 	class JuridicoDAO
-	{
-
-		//Carrega um elemento pela chave primária
-		public function carregar($idjuridico)
-		{
-			$sql = "SELECT * FROM juridico 
-					INNER JOIN endereco  ON juridico   = idjuridico
-					INNER JOIN pagina    ON idpagina   = pagina 
-					WHERE idjuridico = :idjuridico";
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idjuridico", $idjuridico);
-			$consulta->execute();
-			
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-
-		//Lista todos os elementos da tabela
-		public function listar()
-		{
-			
-			$sql = 'SELECT * FROM juridico';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-
-		//Lista todos os elementos da tabela
-		public function listarNovo()
-		{
-			
-			$sql = 'SELECT * FROM juridico WHERE status_ = 3';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-		
-		//Lista todos os elementos da tabela listando ordenados por uma coluna específica
-		public function pesquisar($pesquisa)
-		{
-			
-			$sql = 'SELECT * FROM juridico ORDER BY '.$coluna;
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-		
-		public function desativar($dados = null)
-		{
-
-			if ( is_null($dados['idjuridico']) ) {
-				
-				return false;
-
-			} else {
-
-				$sql = "UPDATE juridico SET status_ = 2 WHERE idjuridico = :idjuridico";
-
-				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
-				
-				if($consulta->execute())
-					return true;
-				else
-					return false;
-			}
-		}
-		
-		public function validar($dados = null)
-		{
-
-			if ( is_null($dados) ) {
-				
-				return false;
-
-			} else {
-
-				$sql = "UPDATE juridico SET status_ = 2 WHERE idjuridico = :idjuridico";
-
-				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
-				
-				if($consulta->execute())
-					return true;
-				else
-					return false;
-			}
-		}
-
+	{	
 		//Insere um elemento na tabela
 		public function cadastrar(Juridico $juridico, Endereco $endereco, Pagina $pagina)
 		{
@@ -135,7 +48,7 @@
 	        return $result["idjuridico"]; 
 		}
 		
-		//Atualiza um elemento na tabela
+				//Atualiza um elemento na tabela
 		public function editar(Juridico $juridico, Endereco $endereco, Pagina $pagina)
 		{
 			
@@ -184,6 +97,91 @@
 	        return $result["idjuridico"]; 
 		}
 
+
+		//Carrega um elemento pela chave primária
+		public function carregar($idjuridico)
+		{
+			$sql = "SELECT * FROM juridico 
+					INNER JOIN endereco  ON juridico   = idjuridico
+					INNER JOIN pagina    ON idpagina   = pagina 
+					WHERE idjuridico = :idjuridico";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":idjuridico", $idjuridico);
+			$consulta->execute();
+			
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
+		//Lista todos os elementos da tabela
+		public function listar()
+		{
+			
+			$sql = 'SELECT * FROM juridico WHERE status_ <> 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
+		//Lista todos os elementos da tabela
+		public function listarNovo()
+		{
+			
+			$sql = 'SELECT * FROM juridico WHERE status_ = 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+		
+		public function pesquisar($pesquisa)
+		{
+			
+			$sql = 'SELECT * FROM juridico ORDER BY '.$coluna;
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+		
+		public function desativar($dados = null)
+		{
+
+			if ( is_null($dados['idjuridico']) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE juridico SET status_ = 2 WHERE idjuridico = :idjuridico";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
+		
+		public function validar($dados = null)
+		{
+
+			if ( is_null($dados) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE juridico SET status_ = 1 WHERE idjuridico = :idjuridico";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
 
 	}
 ?>

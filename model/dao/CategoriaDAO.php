@@ -24,7 +24,6 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 		
-		//Lista todos os elementos da tabela listando ordenados por uma coluna específica
 		public function pesquisar($pesquisa)
 		{
 			

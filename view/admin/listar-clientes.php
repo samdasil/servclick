@@ -14,9 +14,23 @@
     <section id="projects" class="padding-top">
         <div class="container">
             <div class="row">
-                <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
+
+                <div class="col-md-3">
+                  <div id="section-profissionais">
+                    <?php include 'novos-profissionais.php'; ?>
+                  </div>
+                </div>
+
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
+
+                        <div class="row">
+                            <div class="col-md-5 col-sm-8">
+                                <h4>Clientes</h4>
+                            </div>
+                            <div class="col-md-7 col-sm-8"></div>
+                        </div>
+
                         
                         <div class="content">
                             <div class="container-fluid">
@@ -33,7 +47,7 @@
                                             <th>E-mail</th>
                                             <th>Fone</th>
                                             <th>Status</th>
-                                            <th></th>
+                                            <th class="actions"></th>
                                           </thead>
                                           <tbody>
                                             <?php foreach ($clientes as $cliente) { ?>

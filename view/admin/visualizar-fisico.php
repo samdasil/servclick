@@ -41,110 +41,79 @@
         })
 
     </script>
-    <section id="projects" class="padding-top">
+    
+    <section id="portfolio" class="padding-top">
         <div class="container">
             <div class="row">
-                <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
-                <div class="col-md-9 col-sm-8">
-                    <div class="row">
-                      <div class="col-md-6 col-sm-12">
-                          <div class="contact-form">
-                              <h2>Profissional Físico</h2>
-                              <form id="form" name="contact-form" method="post" action="">
-                                  <input type="hidden" name="v" value="<?=$v;?>" >
-                                  
-                                  <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>">
-                                  <input type="hidden" name="pagina" value="<?=$fisico->getPagina();?>">
-
-                                  <div class="form-group">
-                                      <label class="form-group">Perfil</label>                        
-                                      <input type="hidden" name="img" value="<?=$fisico->getFoto();?>">
-                                      <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive" alt="Logo da Empresa" name="img" id="img" style="width: 25%;" readonly>
-                                  </div>
-
-                                  <label class="form-group">Dados</label>
-
-                                  <div class="form-group">
-                                      <input type="text" name="cpf" id="cpf" class="form-control" required="required" placeholder="CPF" autocomplete="off" maxlength="14" minlength="14" value="<?=$fisico->getCpf();?>" readonly >
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="nome" class="form-control" required="required" placeholder="Nome" autocomplete="off" value="<?=$fisico->getNome();?>" readonly >
-                                  </div>
-                                  <div class="form-group">
-                                      <textarea name="descricao" id="descricao" required="required" class="form-control" rows="6" placeholder="Descreva seu trabalho" readonly><?=$fisico->getDescricao();?></textarea>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$fisico->getEmail();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$fisico->getFone();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$fisico->getFixo();?>" readonly>
-                                  </div>
-
-                                  <label class="form-group">Endereço</label>
-
-                                  <div class="form-group">
-                                      <input type="text" class="form-control" name="cep" id="cep" maxlength="9" placeholder="CEP" autocomplete="off" minlength="9" value="<?=$endereco->getCep();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="logradouro" class="form-control" required="required" placeholder="Logradouro" autocomplete="off" value="<?=$endereco->getLogradouro();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="cidade" class="form-control" required="required" placeholder="Cidade" autocomplete="off" value="<?=$endereco->getCidade();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="bairro" class="form-control" required="required" placeholder="Bairro" autocomplete="off" value="<?=$endereco->getBairro();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="estado" class="form-control" required="required" placeholder="Estado" maxlength="2" minlength="2" autocomplete="off" value="<?=$endereco->getEstado();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="numero" class="form-control" placeholder="Nº" autocomplete="off" value="<?=$endereco->getNumero();?>" readonly>
-                                  </div>
-                                  <div class="form-group">
-                                      <input type="text" name="complemento" class="form-control" placeholder="Quadra, apto ..." autocomplete="off" value="<?=$endereco->getComplemento();?>" readonly>
-                                  </div>
-
-                                  <label class="form-group">Páginas e websites <small>(url)</small></label>
-
-                                  <div class="form-group">
-                                      <input type="url" name="facebook" class="form-control" placeholder="Facebook" value="<?=$pagina->getFacebook();?>" readonly>
-                                  </div>
-                                  
-                                  <div class="form-group">
-                                      <input type="url" name="instagram" class="form-control"  placeholder="Instagram" value="<?=$pagina->getInstagram();?>" readonly>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <input type="url" name="pinterest" class="form-control"  placeholder="Pinterest"  value="<?=$pagina->getPinterest();?>" readonly>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <input type="url" name="twitter" class="form-control"  placeholder="Twitter" value="<?=$pagina->getTwitter();?>" readonly>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <input type="url" name="google" class="form-control"  placeholder="Google" value="<?=$pagina->getGoogle();?>" readonly>
-                                  </div>
-
-                                  <div class="form-group">
-                                      <input type="url" name="site" class="form-control"  placeholder="Site" value="<?=$pagina->getSite();?>" readonly>
-                                  </div>
-
-                                  <div class="buttons-action">
-                                        <a href="editar-fisico.php?v=<?=$v;?>&get=<?=$get?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
-                                  </div>
-                                  <br>
-                                  <div class="topo">
-                                      <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
-                                  </div>
-                              </form>
-                          </div>
-                      </div>
+                <div class="col-md-3">
+                    <div id="section-profissionais">
+                        <?php include 'novos-profissionais.php'; ?>
                     </div>
                 </div>
+            
+                <div class="col-md-9">
+                    <div class="contact-form">
+                        <h4 class="titulo">Profissional Pessoa Física</h4>
+
+                        <div class="col-md-3">
+                            <div class="portfolio-wrapper">
+                                <div class="portfolio-single">
+                                
+                                    <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-perfil" alt="" name="img" id="img" />
+                                
+                                </div>
+                            </div>
+                            
+                            <div class="form-group text-center">
+                                <label ><?=$fisico->getNome();?></label>
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">                        
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        
+                                        <p class="subtitulo"><strong>Dados </strong></p>
+                                        <p class="linha"><strong>CPF           : </strong> <?=$fisico->getCpf();?></p>
+                                        <p class="linha"><strong>Descrição     : </strong> <?=$fisico->getDescricao();?></p>
+                                        <p class="linha"><strong>E-mail        : </strong> <?=$fisico->getEmail();?></p>
+                                        <p class="linha"><strong>Fone          : </strong> <?=$fisico->getFone();?></p>
+                                        <p class="linha"><strong>Fixo          : </strong> <?=$fisico->getFixo();?></p>
+                                        <br>
+                                        <p class="subtitulo"><strong>Endereço </strong></p>
+                                        <p class="linha"><?=$endereco->getLogradouro();?>, <?=$endereco->getNumero();?></p>
+                                        <p class="linha"><?=$endereco->getCidade();?> - <?=$endereco->getBairro();?>, <?=$endereco->getEstado();?></p>
+                                        <br>
+                                        <p class="subtitulo"><strong>Páginas </strong></p>
+                                        <p class="linha"><strong>Facebook          : </strong> <?=$pagina->getFacebook();?></p>
+                                        <p class="linha"><strong>Instagram         : </strong> <?=$pagina->getInstagram();?></p>
+                                        <p class="linha"><strong>Pinterest         : </strong> <?=$pagina->getPinterest();?></p>
+                                        <p class="linha"><strong>Twitter           : </strong> <?=$pagina->getTwitter();?></p>
+                                        <p class="linha"><strong>Site              : </strong> <?=$pagina->getSite();?></p>
+                                    </div> 
+                                   
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                         <div class="buttons-action">
+                                            <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="buttons-action">
+                                            <a href="editar-fisico.php?v=<?=$v;?>&get=<?=$get?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                                         </div>
+                                    </div>   
+                                </div>
+                   
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>

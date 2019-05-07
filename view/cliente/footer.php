@@ -5,7 +5,7 @@
                     <!--<img src="../../assets/images/home/under.png" class="img-responsive inline" alt="">-->
                 </div>
                 
-                <div class="col-sm-12">
+                <div class="">
                     <div class="copyright-text text-center">
                         <p>&copy; servClick</p>
                     </div>

@@ -13,54 +13,6 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 
-		//Lista todos os clientes
-		public function listar()
-		{
-			
-			$sql = 'SELECT * FROM cliente';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-		
-		//lista os clientes de acordo com o parametro passado
-		public function pesquisar($pesquisa)
-		{
-			
-			$sql = "SELECT * FROM cliente 
-					WHERE 
-					nome 	LIKE '%".$pesquisa."%' OR 
-					email 	LIKE '%".$pesquisa."%' OR 
-					login 	LIKE '%".$pesquisa."%' OR 
-					fone 	LIKE '%".$pesquisa."%' OR 
-					idcliente = ".$pesquisa."";
-
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-
-		public function desativar($dados = null)
-		{
-		
-			if ( is_null($dados['idcliente']) ) {
-				
-				return false;
-
-			} else {
-
-				$sql = "UPDATE cliente SET status_ = 2 WHERE idcliente = :idcliente";
-
-				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idcliente",$dados['idcliente']);
-				
-				if($consulta->execute())
-					return true;
-				else
-					return false;
-			}
-		}
-
 		//cadastra o cliente no banco
 		public function cadastrar(Cliente $cliente, Endereco $endereco) 
 		{	
@@ -94,6 +46,16 @@
 
 	        return $result["idcliente"]; 
 	    	
+		}
+		
+		//Lista todos os clientes
+		public function listar()
+		{
+			
+			$sql = 'SELECT * FROM cliente';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 		
 		//atualiza o cadastro do cliente
@@ -130,6 +92,44 @@
 
 	        return $result["idcliente"]; 
 
+		}
+
+		public function desativar($dados = null)
+		{
+		
+			if ( is_null($dados['idcliente']) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE cliente SET status_ = 2 WHERE idcliente = :idcliente";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idcliente",$dados['idcliente']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
+
+		//lista os clientes de acordo com o parametro passado
+		public function pesquisar($pesquisa)
+		{
+			
+			$sql = "SELECT * FROM cliente 
+					WHERE 
+					nome 	LIKE '%".$pesquisa."%' OR 
+					email 	LIKE '%".$pesquisa."%' OR 
+					login 	LIKE '%".$pesquisa."%' OR 
+					fone 	LIKE '%".$pesquisa."%' OR 
+					idcliente = ".$pesquisa."";
+
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 
 		public static function validaCpf($cpf = null) 
@@ -197,32 +197,6 @@
 			}
 			
 		}
-
-		
-		/*public static function logar($login, $senha)
-		{
-
-			$sql = "CALL SP_REALIZAR_LOGIN(:login, :senha)";
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindParam(":login", $login);
-			$consulta->bindValue(":senha", $senha);
-			$consulta->execute();
-			
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}*/
-
-		//Apaga um elemento da tabela
-		/*public function deletar($idcliente){
-			//include("conexao.php");
-			//$conexao = new Model\Conexao();
-			$sql = 'DELETE FROM cliente WHERE idcliente = :idcliente';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idcliente",$idcliente);
-			if($consulta->execute())
-				return true;
-			else
-				return false;
-		}*/
 
 	}
 ?>

@@ -71,14 +71,14 @@
             
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home.php?v=<?=$v;?>">Home</a></li>
-                        <li><a href="perfil.php?v=<?=$v;?>">Perfil</a></li>
-                        <li><a href="listarsolicitacoes.php?v=<?=$v;?>">Solicitações</a></li>
-                        <li><a href="servicosaceitos.php?v=<?=$v;?>">Meus Serviços</a></li>
-                        <li><a href="orcamentos.php?v=<?=$v;?>">Orçamentos</a></li>
-                        <li><a href="notas.php?v=<?=$v;?>">Notas</a></li>
-                        <li><a href="creditos.php?v=<?=$v;?>">Créditos</a></li>
-                        <li><a href="../../index.php">Sair</a></li>
+                        <li><i class="fa fa-home fa-2x"><a href="home.php?v=<?=$v;?>">Home</a></i></li>
+                        <li><i class="fa fa-user fa-2x"><a href="perfil.php?v=<?=$v;?>">Perfil</a></i></li>
+                        <li><i class="fa fa-globe fa-2x"><a href="listarsolicitacoes.php?v=<?=$v;?>">Solicitações</a></i></li>
+                        <li><i class="fa fa-info-circle fa-2x"><a href="servicosaceitos.php?v=<?=$v;?>">Meus Serviços</a></i></li>
+                        <li><i class="fa fa-btc fa-2x"><a href="orcamentos.php?v=<?=$v;?>">Orçamentos</a></i></li>
+                        <li><i class="fa fa-star fa-2x"><a href="notas.php?v=<?=$v;?>">Notas</a></i></li>
+                        <li><i class="fa fa-code fa-2x"><a href="creditos.php?v=<?=$v;?>">Créditos</a></i></li>
+                        <li><i class="fa fa-close fa-2x"><a href="../../index.php">Sair</a></i></li>
                     </ul>
                 </div>
                     

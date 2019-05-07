@@ -24,8 +24,7 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 		
-		//Lista todos os elementos da tabela listando ordenados por uma coluna específica
-		public function pesquisar($pesquisar)
+		public function pesquisar($pesquisa)
 		{
 			
 			$sql = 'SELECT * FROM administrador ORDER BY '.$coluna;
@@ -33,18 +32,6 @@
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
-		
-		/*//Apaga um elemento da tabela
-		public function deletar($idadmin){
-			
-			$sql = 'DELETE FROM administrador WHERE idadmin = :idadmin';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idadmin",$idadmin);
-			if($consulta->execute())
-				return true;
-			else
-				return false;
-		}*/
 		
 		//Insere um elemento na tabela
 		public function cadastrar(Administrador $administrador)

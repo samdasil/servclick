@@ -99,34 +99,21 @@
 </head>
 <body>
     <header id="header">      
-        <!--
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 overflow">
-                   <div class="social-icons pull-right">
-                        <ul class="nav nav-pills">
-                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div> 
-                </div>
-             </div>
-        </div>
-    -->
+       
         <div class="navbar navbar-inverse" role="banner">
             
             <div class="container">
                 
                 <div class="navbar-header">
                     <div class="topo">
-                        <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                        <a class="arrow" href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                        <div class="topo-arrow">
+                            <label>Editar Perfil</label>
+                        </div>
                     </div>
-                   
+    
                 </div>
-            
+
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="home.php?v=<?=$v;?>">Home</a></li>
@@ -144,7 +131,7 @@
 
     <div class="col-md-4 col-sm-12">
         <div class="contact-form bottom">
-            <h2>Alguns campos não podem ser alterados</h2>
+            <h3>Alguns campos não podem ser alterados</h3>
             <h5>Caso queira, contacte o administrador</h5>
             <br>
             <form name="form" method="post" action="" enctype="multipart/form-data">
@@ -170,13 +157,13 @@
                 <label class="form-group">Dados</label>
 
                 <div class="form-group">
-                    <input type="text" name="cpf" id="cpf" class="form-control" placeholder="CPF" value="<?=$cliente->getCpf();?>" readonly >
+                    <input type="text" name="cpf" id="cpf" class="form-control" placeholder="CPF" value="<?=$cliente->getCpf();?>" title="CPF" readonly >
                 </div>
                 <div class="form-group">
                     <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" value="<?=$cliente->getNome();?>" readonly >
                 </div>
                 <div class="form-group">
-                    <input type="email" name="email" id="email" class="form-control" required="required" placeholder="E-mail" value="<?=$cliente->getEmail();?>">
+                    <input type="email" name="email" id="email" class="form-control" required="required" placeholder="E-mail" value="<?=$cliente->getEmail();?>" title="E-mail">
                 </div>
                 <div class="form-group">
                     <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" value="<?=$cliente->getFone();?>" maxlength="15" minlength="15" >
@@ -206,6 +193,7 @@
                     <input type="text" name="complemento" id="complemento" class="form-control" placeholder="Quadra, apto ..." value="<?=$endereco->getComplemento();?>">
                 </div>
 
+                <!--
                 <label class="form-group">Configuração de acesso</label>
 
                 <div class="form-group">
@@ -215,18 +203,24 @@
                     <input type="password" name="senha" id="senha" class="form-control" required="required" placeholder="*********" minlength="5"> 
                     <small>Mínimo de 5 dígitos</small>
                 </div>
-
-                <input type="hidden" name="metodo" value="editar">
-                <input type="hidden" name="classe" value="Cliente">
+                -->
+                <input type="hidden" name="login" value="<?=$cliente->getLogin();?>">
+                <input type="hidden" name="senha" value="<?=$cliente->getSenha();?>">
 
                 <div class="form-group">
                     <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
                 </div>
 
-                <div class="form-group">
-                    <a type="submit" href="desativar.php?v=<?=$v;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
-                    <small>Desativar meu perfil</small>
-                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <div class="buttons-action">
+                                <a type="submit" href="desativar.php?v=<?=$v;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
+                                <small>Desativar meu perfil</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
 
             </form>            
 

@@ -12,6 +12,7 @@ class ControllerCliente
         $endereco    = new Endereco(); 
         $clienteDAO  = new ClienteDAO();
         $enderecoDAO = new EnderecoDAO();
+        $array = explode('/', $_SERVER['REQUEST_URI']);
 
         $cpf  = str_replace(".", "", str_replace("-", "", $dados['cpf']));
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
@@ -113,13 +114,12 @@ class ControllerCliente
         $endereco    = new Endereco; 
         $clienteDAO  = new ClienteDAO;
         $EnderecoDAO = new EnderecoDAO;
+        $array = explode('/', $_SERVER['REQUEST_URI']);
 
         $cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
-        $valida = $clienteDAO->validaCpf($cpf);
-
-        if($valida) {
+        if(ClienteDAO::validaCpf($cpf)) {
 
             if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
                 $foto =  $dados['login'] . time('ss') . ".jpg";
@@ -134,9 +134,7 @@ class ControllerCliente
             $cliente->setEmail(strtolower($dados['email']));
             $cliente->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
             $cliente->setLogin(strtolower($dados['login']));
-            if(isset($dados['senha'])){
-                $cliente->setSenha(base64_encode($dados['senha']));    
-            }
+            $cliente->setSenha(base64_encode($dados['senha']));    
             $cliente->setPerfil($dados['perfil']); // 2=cliente
             $cliente->setFoto($foto);
             $cliente->setStatus($dados['status']); //1=ativo 2=inativo
@@ -159,30 +157,41 @@ class ControllerCliente
                     $tamanho = $aFile['foto']['size'];
                     $imagem  = $aFile['foto']['name'];
                     $path    = $aFile['foto']['tmp_name'];
-                    
-                    $array = explode('/', $_SERVER['REQUEST_URI']);
-                    
-                   if( in_array("admin", $array) ) {
 
-                        echo "<script>alert('Cliente atualizado com sucesso!');</script>";
-                        echo "<script>window.location = 'listar-clientes.php?v=$v';</script>";    
-                    }                 
+                    move_uploaded_file($path, $target);
 
                 }
 
-                echo "<script>alert('Cadastro atualizado com sucesso!');</script>";
-                echo "<script>window.location = 'perfil.php?v=$v';</script>";
+                if( in_array("admin", $array) ) {
+
+                    echo "<script>alert('Cliente atualizado com sucesso!');</script>";
+                    echo "<script>window.location = 'listar-clientes.php?v=$v';</script>";    
+                } else {
+                    echo "<script>alert('Cadastro atualizado com sucesso!');</script>";
+                    echo "<script>window.location = 'perfil.php?v=$v';</script>";
+                }
 
             } else if (!$result) {
+
+                 if( in_array("admin", $array) ) {
+                    echo "<script>alert('Houve um erro ao atualizar cliente.');</script>";
+                    echo "<script>window.location = 'editar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
+                 } else {
+                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
+                    echo "<script>window.location = 'perfil.php?v=$v';</script>";
+                 }
                 
-                echo "<script>alert('Houve um erro ao atualizar cliente.');</script>";
-                echo "<script>window.location = 'editar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
             }
 
         } else {
             
-            echo "<script>alert('CPF informado é invalido');</script>";
-            echo "<script>window.location = 'editar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
+            if( in_array("admin", $array) ) {
+                echo "<script>alert('CPF informado é invalido');</script>";
+                echo "<script>window.location = 'editar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
+            } else {
+                echo "<script>alert('CPF informado é invalido');</script>";
+                echo "<script>window.location = 'perfil.php?v=$v';</script>";            
+            }
 
         }
 
@@ -214,8 +223,13 @@ class ControllerCliente
 
         } else {
 
-            echo "<script>alert('Nao foi possivel desativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-            echo "<script>window.location = 'view/cliente/home.php';</script>";
+           if( in_array("admin", $array) ) {
+                echo "<script>alert('Nao foi possivel desativar o perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+                echo "<script>window.location = 'desativar-cliente.php?v=$v&get=".$dados['idcliente']."';</script>";
+            } else {
+                echo "<script>alert('Nao foi possivel desativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+                echo "<script>window.location = 'view/cliente/home.php';</script>";
+            }
 
         }
 

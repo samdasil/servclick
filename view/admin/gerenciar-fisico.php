@@ -12,12 +12,27 @@
     <section id="projects" class="padding-top">
         <div class="container">
             <div class="row">
-                <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
+
+                <div class="col-md-3">
+                  <div id="section-profissionais">
+                    <?php include 'novos-profissionais.php'; ?>
+                  </div>
+                </div>
+
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
-                        <div class="topo" style="text-align: right;">
-                            <a href="cadastrar-fisico.php?v=<?=$v;?>"><i class="fa fa-plus fa-3x"></i></a>
+
+                        <div class="row">
+                            <div class="col-md-5 col-sm-8">
+                                <h4>Profissional Pessoa Física</h4>
+                            </div>
+                            <div class="col-md-7 col-sm-8">
+                                <div class="topo" style="text-align: right; padding-right: 15px;">
+                                    <a href="cadastrar-fisico.php?v=<?=$v;?>" title="Cadastrar" ><i class="fa fa-plus fa-2x"></i></a>
+                                </div>
+                            </div>
                         </div>
+
                         <div class="content">
                             <div class="container-fluid">
                               <div class="row">
@@ -32,8 +47,7 @@
                                             <th>Nome</th>
                                             <th>E-mail</th>
                                             <th>Status</th>
-                                            <th></th>
-                                            <th style="width: 20px;"></th>
+                                            <th class="actions"></th>
                                           </thead>
                                           <tbody>
                                             <?php foreach ($fisicos as $fisico) { ?>
@@ -61,21 +75,22 @@
                         </div>
                         <div class="portfolio-pagination">
                             <ul class="pagination">
-                              <li><a href="../../assets/#">left</a></li>
-                              <li><a href="../../assets/#">1</a></li>
-                              <li><a href="../../assets/#">2</a></li>
-                              <li class="active"><a href="../../assets/#">3</a></li>
-                              <li><a href="../../assets/#">4</a></li>
-                              <li><a href="../../assets/#">5</a></li>
-                              <li><a href="../../assets/#">6</a></li>
-                              <li><a href="../../assets/#">7</a></li>
-                              <li><a href="../../assets/#">8</a></li>
-                              <li><a href="../../assets/#">9</a></li>
-                              <li><a href="../../assets/#">right</a></li>
+                                <li><a href="../../assets/#">left</a></li>
+                                <li><a href="../../assets/#">1</a></li>
+                                <li><a href="../../assets/#">2</a></li>
+                                <li class="active"><a href="../../assets/#">3</a></li>
+                                <li><a href="../../assets/#">4</a></li>
+                                <li><a href="../../assets/#">5</a></li>
+                                <li><a href="../../assets/#">6</a></li>
+                                <li><a href="../../assets/#">7</a></li>
+                                <li><a href="../../assets/#">8</a></li>
+                                <li><a href="../../assets/#">9</a></li>
+                                <li><a href="../../assets/#">right</a></li>
                             </ul>
                         </div>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>

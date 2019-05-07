@@ -12,11 +12,25 @@
     <section id="projects" class="padding-top">
         <div class="container">
             <div class="row">
-                <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
+
+                <div class="col-md-3">
+                  <div id="section-profissionais">
+                    <?php include 'novos-profissionais.php'; ?>
+                  </div>
+                </div>
+
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
-                        <div class="topo" style="text-align: right;">
-                            <a href="cadastrar-categoria.php?v=<?=$v;?>"><i class="fa fa-plus fa-3x"></i></a>
+
+                        <div class="row">
+                            <div class="col-md-3 col-sm-8">
+                                <h4>Categorias</h4>
+                            </div>
+                            <div class="col-md-9 col-sm-8">
+                                <div class="topo" style="text-align: right; padding-right: 15px;">
+                                    <a href="cadastrar-categoria.php?v=<?=$v;?>"  title="Cadastrar"><i class="fa fa-plus fa-2x"></i></a>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="content">
@@ -30,7 +44,7 @@
                                           <thead class="table-list">
                                             <th>ID</th>
                                             <th>Descrição</th>
-                                            <th></th>
+                                            <th class="actions"></th>
                                           </thead>
                                           <tbody>
                                             <?php foreach ($categorias as $categoria) { ?>

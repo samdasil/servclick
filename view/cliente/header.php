@@ -62,11 +62,11 @@
                         <li><a href="home.php?v=<?=$v;?>">Home</a></li>
                         <li><a href="perfil.php?v=<?=$v;?>">Perfil</a></li>
                         <li><a href="buscarprofissional.php?v=<?=$v;?>">Buscar profissional</a></li>
-                        <li><a href="criarservico.php?v=<?=$v;?>">Novo Serviço</a></li>
+                        <li><a href="criarservico.php?v=<?=$v;?>">Solicitar Serviço</a></li>
                         <li><a href="servicos.php?v=<?=$v;?>">Meus Serviços</a></li>
                         <li><a href="relatorios.php?v=<?=$v;?>">Relatórios</a></li>
                         <li><a href="config.php?v=<?=$v;?>">Config</a></li>
-                        <li><a href="../../index.php?v=<?=$v;?>">Sair</a></li>
+                        <li><a href="../../index.php">Sair</a></li>
                     </ul>
                 </div>
                     

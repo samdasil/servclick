@@ -19,7 +19,6 @@
 		
 		public function realizarLogin($login, $senha)
 		{
-		
 			$sql = "CALL SP_REALIZAR_LOGIN(:login, :senha)";
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindParam(":login", $login);
@@ -43,116 +42,58 @@
 
 		}
 		
-		public function editarAcesso(Usuario $usuario, $id)
+		public function editarAcesso($usuario)
 		{
-
-			$con = new Conexao;
-
-			if(!Usuario::verificaUsuario($id)) return false;
-
-			if(isset($_SESSION['idadmin'])) {
-
-				$query = "UPDATE administrador SET login = ?, senha = ? WHERE idadmin = ?";
-
-				$stmt = Conexao::getCon()->getConexao()->prepare($query);
-
-				$stmt->bind_param("ssi", $p1, $p2, $p3);
-
-				$p1 = $usuario->getLogin();
-				$p2 = $usuario->getSenha();
-				$p3 = $id;
-
-				$stmt->execute();
-
-				if($stmt->affected_rows > 0) {
+			
+			switch ($usuario->getPerfil()) {
+				case 1:
+					$table = 'administrador';
+					$user  = 'idadmin';
+					$id    = $usuario->getIdadmin();
+					break;
+				case 2:
+					$table  = 'cliente';
+					$user 	= 'idcliente';
+					$id     = $usuario->getIdfisico();
+					break;
+				case 1:
+					$table  = 'profissional';
+					if($usuario->getIdfisico()  > 0) {
+						$table  = 'fisico';
+						$user 	= 'idfisico';
+						$id    = $usuario->getIdfisico();
+					}else if($usuario->getIdfisico() > 0){
+						$table  = 'juridico';
+						$user 	= 'idjuridico';
+						$id    = $usuario->getIdjuridico();
+					}
+					break;
+				default:
 					
-					return true;
-
-				} else {
-					
-					return false;
-				}
-
-			} else if(isset($_SESSION['idcliente'])) {
-
-				$query = "UPDATE cliente SET login = ?, senha = ? WHERE idcliente = ?";
-
-				$stmt = Conexao::getCon()->getConexao()->prepare($query);
-
-				$stmt->bind_param("ssi", $p1, $p2, $p3);
-
-				$p1 = $dados['login'];
-				$p2 = $dados['senha'];
-				$p3 = $id;
-
-				$stmt->execute();
-
-				if($stmt->affected_rows > 0) {
-					
-					return true;
-
-				} else {
-					
-					return false;
-				}
-
-			} else if(isset($_SESSION['idfisico'])) {
-
-				$query = "UPDATE fisico SET login = ?, senha = ? WHERE idfisico = ?";
-
-				$stmt = Conexao::getCon()->getConexao()->prepare($query);
-
-				$stmt->bind_param("ssi", $p1, $p2, $p3);
-
-				$p1 = $dados['login'];
-				$p2 = $dados['senha'];
-				$p3 = $id;
-
-				$stmt->execute();
-
-				if($stmt->affected_rows > 0) {
-					
-					return true;
-
-				} else {
-					
-					return false;
-				}
-
-			} else if(isset($_SESSION['idjuridico'])) {
-
-				$query = "UPDATE juridico SET login = ?, senha = ? WHERE idjuridico = ?";
-
-				$stmt = Conexao::getCon()->getConexao()->prepare($query);
-
-				$stmt->bind_param("ssi", $p1, $p2, $p3);
-
-				$p1 = $dados['login'];
-				$p2 = $dados['senha'];
-				$p3 = $id;
-
-				$stmt->execute();
-
-				if($stmt->affected_rows > 0) {
-					
-					return true;
-
-				} else {
-					
-					return false;
-				}
-
+					break;
 			}
+
+			$sql = "UPDATE $table SET login = :login, senha = :senha WHERE $id = :user";
+
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":login", $usuario->getLogin());
+			$consulta->bindValue(":senha", $usuario->getSenha());
+			$consulta->bindValue(":id"   , $id);
+
+			if($consulta->execute())
+				return true;
+			else
+				return false;
 
 		}
 
 		//Lista todos os USUARIOS
 		public function listar()
 		{
-			
 			$sql = 'CALL SP_LISTAR_USUARIOS()';
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->execute();
+
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 

@@ -1,18 +1,34 @@
 <?php
     
-    if(!session_start()) session_start();
+    /*if(!session_start()) session_start();
     if(!isset($_SESSION['idcliente'])){
         header('Location: ../../index.php');
+    }*/
+    if(!isset($_GET['v'])) {
+        header('Location: ../../index.php');
     }
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/controller/ControllerCliente.php';
-    require_once $_SERVER['DOCUMENT_ROOT'].'/projects/servclick/class/Cliente.php';
-    $cdao = new ClienteDao;
-    $cliente = new Cliente;
-    $endDao = new EnderecoDao;
-    $endereco = new Endereco;
-    $id = $_SESSION['idcliente'];
-    $cliente  = $cdao->buscarClienteId($id);
-    $endereco = $endDao->buscarEnderecoCliente($cliente->getIdcliente());
+
+    require_once '../../config.php';
+
+    $c          = new ControllerCliente();
+    $e          = new ControllerEndereco();
+    $u          = new ControllerUsuario();
+    $cliente    = new Cliente();
+    $endereco   = new Endereco();
+    $usuario    = new Usuario();
+    $id         = base64_decode($_GET['v']);
+    $v          = base64_encode($id);
+    $cliente    = $c->carregarCliente($id);
+    $endereco   = $e->carregarEnderecoCliente($id);
+
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST) ){
+        
+        $dados  = $_POST;
+
+        $u->editarUsuario($dados);
+        
+    }
     
 ?>
 
@@ -46,80 +62,42 @@
     <script type="text/javascript" src="../../assets/js/jquery.mask.min.js"></script>
     <!--<script type="text/javascript" src="../../assets/js/buscaCep.js"></script>-->
     
-    <script type="text/javascript">
-        function alterarImagem() {
-            
-            var input = document.getElementById("foto");
-            var fReader = new FileReader();
-            fReader.readAsDataURL(input.files[0]);
-            fReader.onloadend = function(event){
-                var img = document.getElementById("img");
-                img.src = event.target.result;
-            //document.form.img.src = document.form.foto.files[0].name;   
-            }
-
-        }
-
-    </script>
-
-    <!-- script mask -->
-    <script type="text/javascript">
-        
-        $(document).ready(function(){
-            $("#cpf").mask('000.000.000-00')
-            $("#cep").mask('00000-000')
-            $("#fone").mask('(00) 00000-0000')
-        })
-
-    </script>
 </head>
 <body>
     <header id="header">      
-        <!--
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12 overflow">
-                   <div class="social-icons pull-right">
-                        <ul class="nav nav-pills">
-                            <li><a href=""><i class="fa fa-facebook"></i></a></li>
-                            <li><a href=""><i class="fa fa-twitter"></i></a></li>
-                            <li><a href=""><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href=""><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href=""><i class="fa fa-linkedin"></i></a></li>
-                        </ul>
-                    </div> 
-                </div>
-             </div>
-        </div>
-    -->
+       
         <div class="navbar navbar-inverse" role="banner">
             
             <div class="container">
                 
                 <div class="navbar-header">
                     <div class="topo">
-                        <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                        <a class="arrow" href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                        <div class="topo-arrow">
+                            <label>Configuração de acesso</label>
+                        </div>
                     </div>
-                   
                 </div>
-            
-                <div class="collapse navbar-collapse">
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home.php">Home</a></li>
-                        <li><a href="perfil.php">Meu Perfil</a></li>
-                        <li><a href="listarsolicitacoes.php">Solicitações de Serviços</a></li>
-                        <li><a href="servicosaceitos.php">Meus Serviços</a></li>
-                    </ul>
-                </div>
-                    
+
             </div>
+
         </div>
+
     </header>
+
 
 <div class="col-md-4 col-sm-12">
         <div class="contact-form bottom">
-            <form name="form" method="post" action="../../router.php" enctype="multipart/form-data">
-                <label class="form-group">Configuração de acesso</label>
+            <form name="form" method="post" action="" enctype="multipart/form-data">
+
+                <input type="hidden" name="v" value="<?=$v;?>" >
+                <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
+                <input type="hidden" name="perfil" value="<?=$cliente->getPerfil();?>">
+
+                <div class="col-sm-6">
+                    <img src="../../assets/images/portfolio/cadeado.png" class="img-responsive" alt="Foto Cliente" name="img" id="img">
+                    <br>
+                </div>
 
                 <div class="form-group">
                     <input type="text" name="login" id="login" class="form-control" required="required" placeholder="Login" value="<?=$cliente->getLogin();?>" minlength="3" >
@@ -132,9 +110,6 @@
                 <div class="form-group">
                     <input type="password" name="senha2" id="senha2" class="form-control" required="required" placeholder="Confirmar senha" minlength="5"> 
                 </div>
-
-                <input type="hidden" name="metodo" value="editar">
-                <input type="hidden" name="classe" value="Usuario">
 
                 <div class="form-group">
                     <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">

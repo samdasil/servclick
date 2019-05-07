@@ -44,11 +44,6 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet"> 
     <link href="../../assets/css/main.css" rel="stylesheet">
     <link href="../../assets/css/responsive.css" rel="stylesheet">
-
-    <!--[if lt IE 9]>
-        <script src="js/html5shiv.js"></script>
-        <script src="js/respond.min.js"></script>
-    <![endif]-->       
     <link rel="shortcut icon" href="../../assets/images/ico/favicon.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
@@ -58,8 +53,17 @@
     <script type="text/javascript" src="../../assets/js/jquery.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.mask.min.js"></script>
-    <!--<script type="text/javascript" src="../../assets/js/buscaCep.js"></script>-->
+    <!-- script mask -->
+    <script type="text/javascript">
+        
+        $(document).ready(function(){
+            $("#cnpj").mask('00.000.000/0000-00')
+            $("#cpf").mask('000.000.000-00')
+            $("#cep").mask('00000-000')
+            $("#fone").mask('(00) 00000-0000')
+        })
 
+    </script>
 </head>
 <body>
     <header id="header">      
@@ -101,13 +105,13 @@
                     </div>
                     <div class="project-info overflow">
                          <div class="col-md-3 col-sm-6">
-                            <h2>Dados</h2>
+                            <h2 class="titulo">Dados</h2>
                             <strong>CPF</strong>
-                            <p><?=$cliente->getCpf();?></p>
+                            <p id="cpf"><?=$cliente->getCpf();?></p>
                             <strong>E-mail</strong>
                             <p><?=$cliente->getEmail();?></p>
                             <strong>Fone</strong>
-                            <p><?=$cliente->getFone();?></p>
+                            <p id="fone"><?=$cliente->getFone();?></p>
                             <br>
                             <strong>Para confirmar exclusão, clique no botão abaixo.</strong>
                             <br>

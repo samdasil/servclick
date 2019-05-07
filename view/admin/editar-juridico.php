@@ -27,7 +27,8 @@
         }
 
         $dados  = $_POST;
-        $j->atualizarJuridico($dados, $aFile);
+        
+        $j->editarJuridico($dados, $aFile);
 
     }
 
@@ -56,119 +57,190 @@
             $("#cpf").mask('000.000.000-00')
             $("#cep").mask('00000-000')
             $("#fone").mask('(00) 00000-0000')
+            $("#fixo").mask('(00) 0000-0000')
         })
 
     </script>
-    <section id="portfolio-information" class="padding-top">
+
+
+    <section id="portfolio" class="padding-top">
         <div class="container">
-            <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
             <div class="row">
-                <div class="col-sm-6">
-                    <br>
-                    <h2>Profissional Jurídico</h2>
-                    <form name="form" method="post" action="" enctype="multipart/form-data">
-                        <input type="hidden" name="v" value="<?=$v;?>" >
+                <div class="col-md-3">
+                    <div id="section-profissionais">
+                        <?php include 'novos-profissionais.php'; ?>
+                    </div>
+                </div>
+            
+                <div class="col-md-9">
+                    <div class="contact-form">
+                        <h4 class="titulo">Profissional Pessoa Jurídica</h4>
 
-                        <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>">
-                        <input type="hidden" name="pagina" value="<?=$juridico->getPagina();?>">
-                        <input type="hidden" name="status" value="<?=$juridico->getStatus();?>">
-                        <input type="hidden" name="perfil" value="<?=$juridico->getPerfil();?>">
-                        <input type="hidden" name="login" value="<?=$juridico->getLogin();?>">
-                        <input type="hidden" name="senha" value="<?=$juridico->getSenha();?>">
+                        <form name="form" method="post" action="" enctype="multipart/form-data">
+                            <input type="hidden" name="v" value="<?=$v;?>" >
+                            <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>">
+                            <input type="hidden" name="pagina" value="<?=$juridico->getPagina();?>">
+                            <input type="hidden" name="status" value="<?=$juridico->getStatus();?>">
+                            <input type="hidden" name="perfil" value="<?=$juridico->getPerfil();?>">
+                            <input type="hidden" name="login" value="<?=$juridico->getLogin();?>">
+                            <input type="hidden" name="senha" value="<?=$juridico->getSenha();?>">
 
-                        <div class="form-group">
-                            <label class="form-group">Perfil</label>                        
-                            <input type="hidden" name="img" value="<?=$juridico->getLogo();?>">
-                            <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-responsive" alt="Logo da Empresa" name="img" id="img" style="width: 25%;" >
-                        </div>
-                        <div class="form-group">
-                            <input type="file" name="logo" id="logo" class="form-control" onchange="alterarImagem()">
-                        </div>
-                        <label class="form-group">Dados</label>
-                        
-                        <div class="form-group">
-                            <input type="text" name="cnpj" id="cnpj" class="form-control" required="required" placeholder="CNPJ" autocomplete="off" maxlength="18" minlength="18" value="<?=$juridico->getCnpj();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="razaosocial" class="form-control" required="required" placeholder="Razão Social" autocomplete="off"  value="<?=$juridico->getRazaosocial();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="nomefantasia" class="form-control" required="required" placeholder="Nome Fantasia" autocomplete="off"  value="<?=$juridico->getNomefantasia();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="responsavel" class="form-control" required="required" placeholder="responsavel" autocomplete="off" value="<?=$juridico->getResponsavel();?>" >
-                        </div>
-                        <div class="form-group">
-                            <textarea name="descricao" id="descricao" required="required" class="form-control" rows="6" placeholder="Descreva seu trabalho" > <?=$juridico->getDescricao();?>></textarea>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$juridico->getEmail();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$juridico->getFone();?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$juridico->getFixo();?>" >
-                        </div>
+                            <div class="col-md-3">
+                                <div class="portfolio-wrapper">
+                                    <div class="portfolio-single">
+                                        
+                                        <input type="hidden" name="img" value="<?=$juridico->getLogo();?>">
+                                        <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-perfil" alt="" name="img" id="img" />
 
-                        <label class="form-group">Endereço</label>
+                                        <div class="portfolio-view">
+                                            <ul class="nav nav-pills">
+                                                <li>
+                                                    <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
+                                                    <input type="file" name="logo" id="logo" class="form-control" accept="image/png, image/jpeg" onchange="alterarImagem()" />
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group text-center">
+                                    <label >Foto do perfil</label>
+                                </div>
+                            </div>
 
-                        <div class="form-group">
-                            <input type="text" class="form-control" name="cep" id="cep" maxlength="9" placeholder="CEP" autocomplete="off" minlength="9" value="<?=$endereco->getCep();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="logradouro" class="form-control" required="required" placeholder="Logradouro" autocomplete="off" value="<?=$endereco->getLogradouro();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="cidade" class="form-control" required="required" placeholder="Cidade" autocomplete="off" value="<?=$endereco->getCidade();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="bairro" class="form-control" required="required" placeholder="Bairro" autocomplete="off" value="<?=$endereco->getBairro();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="estado" class="form-control" required="required" placeholder="Estado" maxlength="2" minlength="2" autocomplete="off" value="<?=$endereco->getEstado();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="numero" class="form-control" placeholder="Nº" autocomplete="off" value="<?=$endereco->getNumero();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="complemento" class="form-control" placeholder="Quadra, apto ..." autocomplete="off" value="<?=$endereco->getComplemento();?>" >
-                        </div>
+                            <div class="col-md-9">
+                                <label class="form-group">Dados</label>
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="cnpj" id="cnpj" class="form-control" required="required" placeholder="CNPJ" autocomplete="off" maxlength="18" minlength="18" value="<?=$juridico->getCnpj();?>">
+                                        </div> 
+                                        <div class="col-md-8">
+                                            <input type="text" name="responsavel" class="form-control" required="required" placeholder="Responsavel" autocomplete="off" value="<?=$juridico->getResponsavel();?>" >
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <label class="form-group">Páginas e websites <small>(url)</small></label>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="text" name="razaosocial" class="form-control" required="required" placeholder="Razão Social" autocomplete="off" value="<?=$juridico->getRazaosocial();?>">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <input type="url" name="facebook" class="form-control" placeholder="Facebook" value="<?=$pagina->getFacebook();?>" >
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="url" name="instagram" class="form-control"  placeholder="Instagram" value="<?=$pagina->getInstagram();?>" >
-                        </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="text" name="nomefantasia" class="form-control" required="required" placeholder="Nome Fantasia" autocomplete="off" value="<?=$juridico->getNomefantasia();?>">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <input type="url" name="pinterest" class="form-control"  placeholder="Pinterest" value="<?=$pagina->getPinterest();?>" >
-                        </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <textarea name="descricao" id="descricao" required="required" class="form-control" rows="6" placeholder="Descreva seu trabalho"><?=$juridico->getDescricao();?></textarea>
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <input type="url" name="twitter" class="form-control"  placeholder="Twitter" value="<?=$pagina->getTwitter();?>" >
-                        </div>
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$juridico->getEmail();?>">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$juridico->getFone();?>">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$juridico->getFixo();?>">
+                                        </div>
+                                    </div>
+                                </div>
+                              
+                                <label class="form-group">Endereço</label>
 
-                        <div class="form-group">
-                            <input type="url" name="google" class="form-control"  placeholder="Google" value="<?=$pagina->getGoogle();?>" >
-                        </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" name="cep" id="cep" maxlength="9" placeholder="CEP" autocomplete="off" minlength="9" value="<?=$endereco->getCep();?>">
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <input type="url" name="site" class="form-control"  placeholder="Site" value="<?=$pagina->getSite();?>" >
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
-                        </div>
-                        <br>
-                        <div class="topo">
-                            <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
-                        </div>
-                    </form>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <input type="text" name="logradouro" id="logradouro" class="form-control" required="required" placeholder="Logradouro" autocomplete="off" value="<?=$endereco->getLogradouro();?>">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="numero" id="numero" class="form-control" placeholder="Nº" autocomplete="off" value="<?=$endereco->getNumero();?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="cidade" id="cidade" class="form-control" required="required" placeholder="Cidade" autocomplete="off" value="<?=$endereco->getCidade();?>" >
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" name="bairro" id="bairro" class="form-control" required="required" placeholder="Bairro" autocomplete="off" value="<?=$endereco->getBairro();?>" >
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="estado" id="estado" class="form-control" required="required" placeholder="Estado" maxlength="2" minlength="2" autocomplete="off" value="<?=$endereco->getEstado();?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="text" name="complemento" class="form-control" placeholder="Quadra, apto ..." autocomplete="off" value="<?=$endereco->getComplemento();?>">
+                                         </div>
+                                     </div>
+                                 </div>
+
+                                <label class="form-group">Páginas e websites <small>(url)</small></label>
+
+                                <div class="form-group">
+                                    <input type="url" name="facebook" class="form-control" placeholder="Facebook" value="<?=$pagina->getFacebook();?>">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <input type="url" name="instagram" class="form-control"  placeholder="Instagram" value="<?=$pagina->getInstagram();?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="url" name="pinterest" class="form-control"  placeholder="Pinterest" value="<?=$pagina->getPinterest();?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="url" name="twitter" class="form-control"  placeholder="Twitter" value="<?=$pagina->getTwitter();?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="url" name="google" class="form-control"  placeholder="Google" value="<?=$pagina->getGoogle();?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="url" name="site" class="form-control"  placeholder="Site" value="<?=$pagina->getSite();?>">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                                </div>
+                                <br>
+                                <div class="topo">
+                                    <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

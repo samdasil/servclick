@@ -30,7 +30,7 @@
     <link href="../../assets/css/animate.min.css" rel="stylesheet"> 
 	<link href="../../assets/css/main.css" rel="stylesheet">
 	<link href="../../assets/css/responsive.css" rel="stylesheet">    
-    <link rel="shortcut icon" href="../../assets/images/ico/favicon.png">
+    <link rel="shortcut icon" href="../../assets/images/logo/servclick-50x42.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/ico/apple-touch-icon-72-precomposed.png">
@@ -38,11 +38,12 @@
     <script type="text/javascript" src="../../assets/js/jquery.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.maskedinput.js"></script>
     <script type="text/javascript" src="../../assets/js/jquery.mask.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/buscaCep.js"></script>
 </head><!--/head-->
 
 <body>
 	<header id="header">      
-        <div class="navbar navbar-inverse" role="banner">
+        <div class="navbar-admin navbar-inverse" role="banner">
             <div class="container">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -52,9 +53,11 @@
                         <span class="icon-bar"></span>
                     </button>
 
-                    <a class="navbar-brand" href="home.php">
-                        <h1><img src="../../assets/images/logo.png" alt="logo"></h1>
-                    </a>
+                    <div class="navbar-logo">
+                        <a class="navbar-brand" href="home.php">
+                            <h1><img src="../../assets/images/logo/serv-topo-180x58.png" alt="logo"></h1>
+                        </a>
+                    </div>
                     
                 </div>
                 <div class="collapse navbar-collapse">

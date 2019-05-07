@@ -1,10 +1,13 @@
 <?php
 
-    unset($_GET);
-    
-    
+    if(!isset($_SESSION)) {
+        session_start();
+        session_unset();
+        session_destroy();
+    }
+
     require 'config.php';
-    
+
     $controller = new ControllerUsuario();
 
     // caso receba dados via POST ou GET
@@ -40,7 +43,7 @@
     <link href="assets/css/main.css" rel="stylesheet">
     <link href="assets/css/responsive.css" rel="stylesheet">
 
-    <link rel="shortcut icon" href="assets/images/ico/favicon.png">
+    <link rel="shortcut icon" href="assets/images/logo/servclick-50x42.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
@@ -48,29 +51,29 @@
     <script type="text/javascript">var switchTo5x=true;</script>
 </head>
 <body>
-    <header id="header">      
+
+    <header style="margin-top: 60px;">
         
     </header>
-    
-
+ 
 	<section id="portfolio">
 	    <div class="container">
 
             <div class="col-sm-12">
-                <img src="assets/images/logo-login.png" class="img-responsive" alt="" style="margin-left:auto; margin-right: auto;">
+                <img src="assets/images/logo/servclick-200x155.png" class="img-responsive login" alt="" >
             </div>
         
             <br>
-	        <form id="" name="contact-form" method="post" action="">
+	        <form id="" name="contact-form" method="post" action="" class="contact-form-login">
 
                 <input type="hidden" name="metodo" value="realizarLogin">
                 <input type="hidden" name="classe" value="Usuario">
 
                 <div class="form-group">
-                    <input type="text" name="login" class="form-control input-login" required="required" placeholder="Login" autofocus >
+                    <input type="text" name="login" class="form-control" required="required" placeholder="Login" autofocus >
                 </div>
                 <div class="form-group">
-                    <input type="password" name="senha" class="form-control input-login" required="required" placeholder="*********">
+                    <input type="password" name="senha" class="form-control" required="required" placeholder="*********">
                 </div>
 
                 <div class="form-group">
@@ -90,10 +93,6 @@
     <footer id="footer">
         <div class="container">
             <div class="row">
-                <div class="col-sm-12 text-center bottom-separator">
-                    <!--<img src="../../assets/images/home/under.png" class="img-responsive inline" alt="">-->
-                </div>
-                
                 <div class="col-sm-12">
                     <div class="copyright-text text-center">
                         <p>&copy; servClick</p>

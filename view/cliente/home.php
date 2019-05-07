@@ -38,7 +38,11 @@
 </head>
 <body>
     <header id="header">      
-        <div class="navbar navbar-inverse" role="banner"></div>
+        <div class="navbar" role="banner">
+        	<div class="navbar-header">
+                    
+            </div>
+        </div>
     </header>
 
 	<section id="portfolio">
@@ -86,7 +90,7 @@
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">
-			                    <h2>NOVO SERVIÇO</h2>
+			                    <h2>SOLICITAR SERVIÇO</h2>
 			                </div>
 			            </div>
 			        </div>

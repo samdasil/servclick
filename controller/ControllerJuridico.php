@@ -6,6 +6,12 @@ class ControllerJuridico
 	public function cadastrarJuridico($dados = null, $aFile = null)
     {
 
+        $array = explode('/', $_SERVER['REQUEST_URI']);
+        if( in_array("admin", $array) ) {
+            $v = $dados['v'];
+        }
+
+
         if ( !isset($dados) ) return false;
         
         $juridico      = new Juridico();
@@ -13,6 +19,7 @@ class ControllerJuridico
         $pagina        = new Pagina();
         $juridicoDAO   = new JuridicoDAO();
         $EnderecoDAO   = new EnderecoDAO();
+        $array = explode('/', $_SERVER['REQUEST_URI']);
 
         //$cpf  = str_replace(".", "", str_replace("-", "", $dados['cpf']));
         //$cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
@@ -63,38 +70,37 @@ class ControllerJuridico
                         $imagem  = $aFile['logo']['name'];
                         $path    = $aFile['logo']['tmp_name'];
 
-                        $array = explode('/', $_SERVER['REQUEST_URI']);
-                        
-                        if ( move_uploaded_file($path, $target) ) {
+                        move_uploaded_file($path, $target);
 
-                            if( in_array("admin", $array) ) {
-
-                                echo "<script>alert('Profissional cadastrado com sucesso! ');</script>";
-                                echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
-                            }
-
+                        if( in_array("admin", $array) ) {
+                            echo "<script>alert('Profissional cadastrado com sucesso! ');</script>";
+                            echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+                        } else {
                             echo "<script>alert('Seu cadastro foi efetuado com sucesso!');</script>";
                             echo "<script>window.location = '../../index.php';</script>";
-
-                        } else {
-
-                            echo "<script>alert('Ocorreu um erro ao salvar a foto, mas seu cadastro foi realizado!');</script>";
-                            echo "<script>window.location = '../../index.php';</script>";
-
                         }
 
                     } else {
 
-                        echo "Imagem não setada";
-                        //exit;
+                        if( in_array("admin", $array) ) {
+                            echo "<script>alert('Ocorreu um erro ao salvar a foto, mas o cadastro foi realizado!');</script>";
+                            echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>"; 
+                        } else {
+                            echo "<script>alert('Ocorreu um erro ao salvar a foto, mas seu cadastro foi realizado!');</script>";
+                            echo "<script>window.location = '../../index.php';</script>";
+                        }
 
                     }
 
                 } elseif (!$result) {
 
-                    echo "<script>alert('Houve um erro ao realizar seu cadastro, tente novamente.');</script>";
-                    echo "<script>window.location = 'cadastro.php';</script>";
-
+                    if( in_array("admin", $array) ) {
+                        echo "<script>alert('Ocorreu um erro ao cadastrar Profissional');</script>";
+                        echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";
+                    } else {
+                        echo "<script>alert('Houve um erro ao realizar seu cadastro, tente novamente.');</script>";
+                        echo "<script>window.location = 'cadastro.php';</script>";
+                    }
                 }
                 
             /*} else {
@@ -143,16 +149,21 @@ class ControllerJuridico
 
                 echo "<script>alert('Profissional desativado com sucesso! ');</script>";
                 echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+            } else {
+                echo "<script>alert('Seu cadastro foi desativado com sucesso! Para resgatar entre em contato com a equipe do ServClick. Agradecemos pelo tempo que passamos juntos.');</script>";
+                echo "<script>window.location = '../../index.php';</script>";
             }
 
-            echo "<script>alert('Seu cadastro foi desativado com sucesso! Para resgatar entre em contato com a equipe do ServClick. Agradecemos pelo tempo que passamos juntos.');</script>";
-            echo "<script>window.location = '../../index.php';</script>";
-
+            
         } else {
 
-            echo "<script>alert('Nao foi possivel desativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-            echo "<script>window.location = 'view/juridico/home.php?v=$v';</script>";
-
+            if( in_array("admin", $array) ) {
+                echo "<script>alert('Nao foi possivel desativar o perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+                echo "<script>window.location = 'desativar-juridico.php?v=$v&get=".$dados['idjuridico']."';</script>";
+            } else {
+                echo "<script>alert('Nao foi possivel desativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+                echo "<script>window.location = 'view/juridico/home.php?v=$v';</script>";
+            }
         }
 
     }
@@ -179,7 +190,8 @@ class ControllerJuridico
         $juridico->setLogo($result[0]['logo']); 
         $juridico->setPagina($result[0]['pagina']); 
         $juridico->setStatus($result[0]['status_']); 
-
+        $juridico->setPerfil($result[0]['perfil']); 
+        
         return $juridico;
 
     }
@@ -202,6 +214,7 @@ class ControllerJuridico
         $juridicoDAO = new JuridicoDAO();
         $EnderecoDAO = new EnderecoDAO();
         $paginaDAO   = new PaginaDAO();
+        $array = explode('/', $_SERVER['REQUEST_URI']);
 
         //$cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
         //$cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
@@ -209,10 +222,10 @@ class ControllerJuridico
         //$valida = $juridicoDAO->validaCpf($cpf);
 
         //if($valida) {
+            
 
             if ( isset($aFile['logo']['name']) && !empty($aFile) ) {
                 $logo =  $dados['login'] . time('ss') . ".jpg";
-                
             } else {
                 $logo = $dados['img'];
             }
@@ -258,25 +271,29 @@ class ControllerJuridico
                     $tamanho = $aFile['logo']['size'];
                     $imagem  = $aFile['logo']['name'];
                     $path    = $aFile['logo']['tmp_name'];
-                    
-                   if(move_uploaded_file($path, $target)){
 
-                        if( in_array("admin", $array) ) {
+                    move_uploaded_file($path, $target);
 
-                            echo "<script>alert('Profissional atualizado com sucesso! ');</script>";
-                            echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
-                        }
-                    }
-                } 
+                }
 
-                echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
-                echo "<script>window.location = 'perfil.php?v=$v';</script>";  
+                if( in_array("admin", $array) ) {
+                    echo "<script>alert('Profissional atualizado com sucesso! ');</script>";
+                    echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+                } else {
+                    echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
+                    echo "<script>window.location = 'perfil.php?v=$v';</script>";  
+                }
 
             } elseif (!$result) {
 
-                echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
-                echo "<script>window.location = 'editar-juridico.php?v=$v&get=".$dados['idjuridico']."';</script>";
+                 if( in_array("admin", $array) ) {
 
+                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
+                    echo "<script>window.location = 'editar-juridico.php?v=$v&get=".$dados['idjuridico']."';</script>";
+                }else{
+                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
+                    echo "<script>window.location = 'perfil.php?v=$v';</script>";
+                }
             }
 
         /*} else {

@@ -10,7 +10,7 @@
     $cliente  = $c->carregarCliente($get);
     $endereco = $e->carregarEnderecoCliente($get);
 
-    // caso receba dados via POST ou GET
+    // caso receba dados via POST 
     if( isset($_POST) && !empty($_POST) ){
 
         if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
@@ -24,7 +24,7 @@
         }
 
         $dados  = $_POST;
-        $c->atualizarCliente($dados, $aFile);
+        $c->editarCliente($dados, $aFile);
 
     }
 
@@ -56,13 +56,19 @@
 
     </script>
 
-    <section id="portfolio-information" class="padding-top">
+    <section id="portfolio" class="padding-top">
         <div class="container">
-            <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
             <div class="row">
-                <div class="col-sm-6">
-                    <br>
-                    <h2>Cliente</h2>
+                <div class="col-md-3">
+                    <div id="section-profissionais">
+                        <?php include 'novos-profissionais.php'; ?>
+                    </div>
+                </div>
+            
+                <div class="col-md-9">
+                    <div class="contact-form">
+                        <h4 class="titulo">Editar Cliente</h4>
+
                     <form name="form" method="post" action="" enctype="multipart/form-data">
 
                         <input type="hidden" name="v" value="<?=$v;?>" >
@@ -72,67 +78,111 @@
                         <input type="hidden" name="login" value="<?=$cliente->getLogin();?>">
                         <input type="hidden" name="senha" value="<?=$cliente->getSenha();?>">
 
-                        <div class="col-sm-6">
-                            <label class="form-group">Perfil</label>                        
-                            <input type="hidden" name="img" value="<?=$cliente->getFoto();?>">
-                            <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive" alt="Foto Cliente" name="img" id="img">
-                        </div>
-                        
-                        <div class="form-group">
-                            <input type="file" name="foto" id="foto" class="form-control" onchange="alterarImagem()">
+                        <div class="col-md-3">
+                            <div class="portfolio-wrapper">
+                                <div class="portfolio-single">
+                                    
+                                    <input type="hidden" name="img" value="<?=$cliente->getFoto();?>">
+                                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-perfil" alt="" name="img" id="img" />
+
+                                    <div class="portfolio-view">
+                                        <ul class="nav nav-pills">
+                                            <li>
+                                                <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
+                                                <input type="file" name="foto" id="foto" class="form-control" accept="image/png, image/jpeg" onchange="alterarImagem()" />
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group text-center">
+                                <label >Foto do perfil</label>
+                            </div>
                         </div>
 
-                        <label class="form-group">Dados</label>
+                        <div class="col-md-9">
+                                <label class="form-group">Dados</label>
+                            
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="cpf" id="cpf" class="form-control" required="required" placeholder="CPF" autocomplete="off" maxlength="14" minlength="14" value="<?=$cliente->getCpf();?>"  >
+                                        </div> 
+                                        <div class="col-md-8">
+                                            <input type="text" name="nome" class="form-control" required="required" placeholder="Nome" autocomplete="off" value="<?=$cliente->getNome();?>"  >
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <input type="text" name="cpf" id="cpf" class="form-control" placeholder="CPF" value="<?=$cliente->getCpf();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" value="<?=$cliente->getNome();?>" >
-                        </div>
-                        <div class="form-group">
-                            <input type="email" name="email" id="email" class="form-control" required="required" placeholder="E-mail" value="<?=$cliente->getEmail();?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" value="<?=$cliente->getFone();?>" maxlength="15" minlength="15" >
-                        </div>
-                        
-                        <label class="form-group">Endereço</label>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$cliente->getEmail();?>" >
+                                        </div>
+                                        <div class="col-md-4">
+                                            <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$cliente->getFone();?>" >
+                                        </div>
+                                    </div>
+                                </div>
 
-                        <div class="form-group">
-                            <input type="text" name="cep" id="cep" class="form-control" required="required" placeholder="CEP" value="<?=$endereco->getCep();?>" minlength="9" maxlength="9">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="logradouro" id="logradouro" class="form-control" required="required" placeholder="Logradouro" value="<?=$endereco->getLogradouro();?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="cidade" id="cidade" class="form-control" required="required" placeholder="Cidade" value="<?=$endereco->getCidade();?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="bairro" id="bairro" class="form-control" required="required" placeholder="Bairro" value="<?=$endereco->getBairro();?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="estado" id="estado" class="form-control" required="required" placeholder="Estado" value="<?=$endereco->getEstado();?>" maxlength="2" minlength="2">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="numero" id="numero" class="form-control" placeholder="Nº" value="<?=$endereco->getNumero();?>">
-                        </div>
-                        <div class="form-group">
-                            <input type="text" name="complemento" id="complemento" class="form-control" placeholder="Quadra, apto ..." value="<?=$endereco->getComplemento();?>">
-                        </div>
+                                <label class="form-group">Endereço</label>
 
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
-                        </div>
-                        <br>
-                        <div class="form-group">
-                            <a type="submit" href="desativar-cliente.php?v=<?=$v;?>&get=<?=$get;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
-                            <small>Desativar perfil</small>
-                        </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <input type="text" class="form-control" name="cep" id="cep" maxlength="9" placeholder="CEP" autocomplete="off" minlength="9" value="<?=$endereco->getCep();?>">
+                                        </div>
+                                    </div>
+                                </div>
 
-                    </form>            
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-9">
+                                            <input type="text" name="logradouro" id="logradouro" class="form-control" required="required" placeholder="Logradouro" autocomplete="off" value="<?=$endereco->getLogradouro();?>">
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="numero" id="numero" class="form-control" placeholder="Nº" autocomplete="off" value="<?=$endereco->getNumero();?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <input type="text" name="cidade" id="cidade" class="form-control" required="required" placeholder="Cidade" autocomplete="off" value="<?=$endereco->getCidade();?>" >
+                                        </div>
+                                        <div class="col-md-5">
+                                            <input type="text" name="bairro" id="bairro" class="form-control" required="required" placeholder="Bairro" autocomplete="off" value="<?=$endereco->getBairro();?>" >
+                                        </div>
+                                        <div class="col-md-3">
+                                            <input type="text" name="estado" id="estado" class="form-control" required="required" placeholder="Estado" maxlength="2" minlength="2" autocomplete="off" value="<?=$endereco->getEstado();?>">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <input type="text" name="complemento" class="form-control" placeholder="Quadra, apto ..." autocomplete="off" value="<?=$endereco->getComplemento();?>">
+                                         </div>
+                                     </div>
+                                 </div>
+
+                                <div class="form-group">
+                                    <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                                </div>
+                                <br>
+                                <div class="form-group">
+                                    <a type="submit" href="desativar-cliente.php?v=<?=$v;?>&get=<?=$get;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
+                                    <small>Desativar perfil</small>
+                                </div>
+                            </div>
+                        </form>            
                 </div>
             </div>
-        </div>
+        </div>  
     </section>
+
 <?php require_once 'footer.php'; ?>

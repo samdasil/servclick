@@ -1,8 +1,38 @@
+@media only screen and (max-width : 360px) {
+  .contact-form{
+    width: 100%;
+    margin: 0 auto 0 auto;
+  }
+
+  .contact-form-login{
+    width: 100%;
+    margin: 0 auto 0 auto;
+  }
+
+  .portfolio-view {
+      display: none;
+      position: absolute;
+      top: 0px;
+      height: 92%;
+      background: #00aeef7a;
+      width: 91%;
+      border-radius: 50%;
+      text-align: center;
+      cursor: pointer;
+  }
+
+}
+
 @media only screen and (min-width : 768px) {
   .nav.navbar-nav > li:hover > ul.sub-menu{
     display: block;
     -webkit-animation: fadeInUp 400ms;
     animation: fadeInUp 400ms;
+  }
+
+  .contact-form-login{
+    width: 30%;
+    margin: 0 auto 0 auto;
   }
 
   ul.sub-menu {
@@ -23,7 +53,7 @@
   }
 
   .input-login{
-    width: 90%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
    }
@@ -223,7 +253,7 @@
 
   #header {
     padding-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 0px;
   }
 
   .social-icons.pull-right{
@@ -232,14 +262,14 @@
 
   #header .navbar-inverse .navbar-toggle,
   #header .navbar-inverse .navbar-toggle:focus {
-    border-color: #567793;
+    border-color: #ffffff;
     margin-top: 15px;
     margin-right: 5px;
     outline: none;
   }
 
   .navbar-header .navbar-toggle .icon-bar {
-    background-color: #567793;
+    background-color: #fbfbfb;
   }
 
   #header .navbar-inverse .navbar-toggle:hover {
@@ -256,7 +286,7 @@
   }
 
   .navbar.navbar-inverse {
-    margin-top: 20px;
+    margin-top: 0px;
     padding-left: 15px;
     padding-right: 15px;
   }
@@ -276,7 +306,7 @@
   }
 
   #header .navbar-nav.navbar-right li > a {
-    padding: 10px 0;
+    padding: 10px 10px;
   }
 
   #header .navbar-nav li ul.sub-menu li a {

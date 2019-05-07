@@ -3,18 +3,32 @@
 
 <?php
 
-  $u          = new ControllerUsuario();  
+  $u          = new ControllerUsuario();
   $usuario    = new Usuario();
   $usuarios   = $u->listarUsuario();
-
+  
 ?>
 
     <section id="projects" class="padding-top">
         <div class="container">
             <div class="row">
-                <div id="section_profissionais"><?php include 'novos-profissionais.php'; ?></div>
+
+                <div class="col-md-3">
+                  <div id="section-profissionais">
+                    <?php include 'novos-profissionais.php'; ?>
+                  </div>
+                </div>
+
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
+
+                        <div class="row">
+                            <div class="col-md-5 col-sm-8">
+                                <h4>Usuários</h4>
+                            </div>
+                            <div class="col-md-7 col-sm-8"></div>
+                        </div>
+
                         
                         <div class="content">
                             <div class="container-fluid">
@@ -26,19 +40,31 @@
                                         <table class="table table-hover">
                                           <thead class="table-list">
                                             <th>ID</th>
-                                            <th>Nome</th>
-                                            <th></th>
-                                            <th style="width: 20px;"></th>
+                                            <th>Perfil</th>
+                                            <th>Login</th>
+                                            <th>Status</th>
+                                            <th class="actions"></th>   
                                           </thead>
                                           <tbody>
                                             <?php foreach ($usuarios as $usuario) { ?>
                                                 <tr>
-                                                  <td><?=$usuario['nome'];?></td>
-                                                  <td><?=$usuario['login'];?></td>
-                                                  <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizarUsuario.php"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editarUsuario.php"><i class="fa fa-pencil"></i></a>
-                                                  </td>
+                                                    <td><?=$usuario['id'];?></td>
+                                                    <?php if($usuario['perfil'] == 1){ 
+                                                            echo "<td>Administrador</td>";
+                                                          }else if($usuario['perfil'] == 2){
+                                                            echo "<td>Cliente</td>";
+                                                          }else if($usuario['perfil'] == 3){
+                                                            echo "<td>Profissional</td>";
+                                                          }
+
+                                                    ?>
+                                                    
+                                                    <td><?=$usuario['login'];?></td>
+                                                    <td></td>
+                                                    <td class="text-primary">
+                                                        <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizarUsuario.php"><i class="fa fa-eye"></i></a>
+                                                        <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editarUsuario.php"><i class="fa fa-pencil"></i></a>
+                                                    </td>
                                                 </tr>
                                             <?php } ?>
                                           </tbody>

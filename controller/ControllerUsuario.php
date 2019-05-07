@@ -67,35 +67,62 @@ class ControllerUsuario {
 
     }
 
-    public function editar($dados = null, $id = null, $aFile = null)
+    public function editarUsuario($dados = null)
     {
         
         if ( !isset($dados) ) return false;
+        $v = $dados['v'];
 
-        $usuario    = new Usuario;
+        $usuario    = new Usuario();
+        $usuarioDao = new UsuarioDao();
         
-        $usuarioDao = new UsuarioDao;
-                
-        $usuario->setLogin(strtolower($dados['login']));
-            
-        if(isset($dados['senha'])) {
+        switch ($dados['perfil']) {
+            case 1:
+                $admin   = new Administrador();
+                $admin->setIdAdmin($dados['idadmin']);
+                $admin->setLogin(strtolower($dados['login']));
+                $admin->setSenha(base64_encode($dados['senha']));
+                $admin->setPerfil($dados['perfil']);
+                $result = $usuarioDao->editarAcesso($admin);
+                break;
+            case 2:
+                $cliente = new Cliente();
+                $cliente->setIdcliente($dados['idcliente']);
+                $cliente->setLogin(strtolower($dados['login']));
+                $cliente->setSenha(base64_encode($dados['senha']));
+                $cliente->setPerfil($dados['perfil']);
+                $result = $usuarioDao->editarAcesso($cliente);
+                break;
+            case 3:
+                if(isset($dados['idfisico'])){
+                    $fisico  = new Fisico();
+                    $fisico->setIdfisico($dados['idfisico']);
+                    $fisico->setLogin(strtolower($dados['login']));
+                    $fisico->setSenha(base64_encode($dados['senha']));
+                    $fisico->setPerfil($dados['perfil']);    
+                    $result = $usuarioDao->editarAcesso($fisico);
+                }else if(isset($dados['idjuridco'])){               
+                    $juridico = new Juridico();
+                    $juridico->setIdjuridico($dados['idjuridico']);
+                    $juridico->setLogin(strtolower($dados['login']));
+                    $juridico->setSenha(base64_encode($dados['senha']));
+                    $juridico->setPerfil($dados['perfil']);
+                    $result = $usuarioDao->editarAcesso($juridico);
+                }
 
-            $usuario->setSenha(base64_encode($dados['senha']));    
+                break;
             
         }
+            
         
-        $result = $usuarioDao->editarAcesso($usuario, $id);
-        
-        if( $result === true ){
+        if( $result ){
             
             echo "<script>alert('Acesso atualizado com sucesso!');</script>";
-            //echo "<script>window.location = 'view/cliente/home.php';</script>";
+            echo "<script>window.location = 'view/cliente/home.php?v=$v';</script>";
 
         } else {
-            $erro = str_replace("'"," ",$result);
-            //exit;
             echo "<script>alert('Erro ao atualizar: ".$erro."');</script>";
-            //echo "<script>window.location = 'view/cliente/editar.php';</script>";
+            echo "<script>window.location = 'view/cliente/editar.php?v=$v';</script>";
 
         }
 

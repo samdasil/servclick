@@ -30,7 +30,7 @@
                     <div class="action">
                         <div class="col-sm-12">
                             <h1 class="title"><?=$fisico->getNome();?></h1>
-                            <p>Responsável</p>
+                            <!--<p>Responsável</p>-->
                         </div>
                     </div>
                 </div>

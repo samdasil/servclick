@@ -1,75 +1,7 @@
 <?php
 		   
 	class FisicoDAO
-	{
-
-		//Carrega um elemento pela chave primária
-		public function carregar($idfisico = null)
-		{
-
-			$sql = "SELECT * FROM fisico f
-					INNER JOIN endereco e ON e.fisico   = f.idfisico
-					INNER JOIN pagina p   ON p.idpagina = f.pagina 
-					WHERE f.idfisico = :idfisico";
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":idfisico", $idfisico);
-			$consulta->execute();
-			
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-
-
-		//Lista todos os elementos da tabela
-		public function listar()
-		{
-			
-			$sql = 'SELECT * FROM fisico';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-
-		//Lista todos os elementos da tabela
-		public function listarNovo()
-		{
-			
-			$sql = 'SELECT * FROM fisico WHERE status_ = 3';
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-		
-		//Lista todos os elementos da tabela
-		public function pesquisar($pesquisa = null)
-		{
-			
-			$sql = 'SELECT * FROM fisico ORDER BY '.$coluna;
-			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->execute();
-			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
-		}
-
-		public function desativar($dados = null)
-		{
-			
-			if ( is_null($dados) ) {
-				
-				return false;
-
-			} else {
-
-				$sql = "UPDATE fisico SET status_ = 2 WHERE idfisico = :idfisico";
-
-				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idfisico",$dados['idfisico']);
-				
-				if($consulta->execute())
-					return true;
-				else
-					return false;
-			}
-		}
-		
+	{	
 		//Insere um elemento na tabela
 		public function cadastrar(Fisico $fisico, Endereco $endereco, Pagina $pagina)
 		{
@@ -160,6 +92,72 @@
 	        return $result["idfisico"]; 
 		}
 
+		//Carrega um elemento pela chave primária
+		public function carregar($idfisico = null)
+		{
+
+			$sql = "SELECT * FROM fisico f
+					INNER JOIN endereco e ON e.fisico   = f.idfisico
+					INNER JOIN pagina p   ON p.idpagina = f.pagina 
+					WHERE f.idfisico = :idfisico";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":idfisico", $idfisico);
+			$consulta->execute();
+			
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
+		//Lista todos os elementos da tabela
+		public function listar()
+		{
+			
+			$sql = 'SELECT * FROM fisico WHERE status_ <> 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
+		//Lista todos os elementos da tabela
+		public function listarNovo()
+		{
+			
+			$sql = 'SELECT * FROM fisico WHERE status_ = 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+		
+		//Lista todos os elementos da tabela
+		public function pesquisar($pesquisa = null)
+		{
+			
+			$sql = 'SELECT * FROM fisico ORDER BY '.$coluna;
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
+		public function desativar($dados = null)
+		{
+			
+			if ( is_null($dados['idfisico']) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE fisico SET status_ = 2 WHERE idfisico = :idfisico";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idfisico",$dados['idfisico']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}		
+
 		//validar CPF do profissional físico
 		public static function validaCpf($cpf = null) 
 		{
@@ -189,6 +187,7 @@
 		        $cpf == '77777777777' || 
 		        $cpf == '88888888888' || 
 		        $cpf == '99999999999') {
+
 		        return false;
 		     // Calcula os digitos verificadores para verificar se o
 		     // CPF é válido
@@ -237,7 +236,7 @@
 
 			} else {
 
-				$sql = "UPDATE fisico SET status_ = 2 WHERE idfisico = :idfisico";
+				$sql = "UPDATE fisico SET status_ = 1 WHERE idfisico = :idfisico";
 
 				$consulta = Conexao::getCon()->prepare($sql);
 				$consulta->bindValue(":idfisico",$dados['idfisico']);

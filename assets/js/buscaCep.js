@@ -41,7 +41,7 @@ $(document).ready(function(){
                         $("#bairro").val(dados.bairro);
                         $("#cidade").val(dados.localidade);
                         $("#estado").val(dados.uf);
-                        //document.getElementById("numero").focus();
+                        document.getElementById("numero").focus();
 
                         //$("#ibge").val(dados.ibge);
                     } //end if.

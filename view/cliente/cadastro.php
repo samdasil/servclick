@@ -103,7 +103,7 @@
     <div class="col-md-4 col-sm-12">
           
         <div class="contact-form bottom">
-            <h2>Bem vindo à nossa página de cadastro para Clientes!</h2>
+            <h3>Bem vindo à nossa página de cadastro para Clientes!</h3>
             <h5>Crie seu perfil e encontre os melhores profissionais</h5>
             <br>
 
