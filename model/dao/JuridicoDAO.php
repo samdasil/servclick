@@ -2,13 +2,11 @@
 		
 	class JuridicoDAO
 	{	
-		//Insere um elemento na tabela
+
 		public function cadastrar(Juridico $juridico, Endereco $endereco, Pagina $pagina)
 		{
 
-			$sql = "CALL SP_CADASTRAR_JURIDICO(:cnpj, :descricao, :email, :fone, :fixo, :status_, :razaosocial, :nomefantasia, :responsavel, :logo, :login, 							   :senha, :perfil, 
-											   :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento,
-											   :facebook, :instagram, :pinterest, :twitter, :google, :site)";
+			$sql = "CALL SP_CADASTRAR_JURIDICO(:descricao, :fixo, :fone, :email, :responsavel, :foto, :nomefantasia, :cnpj, :razaosocial, :login, :senha, :perfil, :status_, :area, :cep, :logradouro, :numero, :bairro, :cidade, :estado, :complemento, :site, :google, :twitter, :pinterest, :facebook, :instagram)";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			
@@ -17,14 +15,15 @@
 			$consulta->bindValue(':email',$juridico->getEmail()); 
 			$consulta->bindValue(':fone',$juridico->getFone()); 
 			$consulta->bindValue(':fixo',$juridico->getFixo()); 
-			$consulta->bindValue(':status_',$juridico->getStatus()); 
+			$consulta->bindValue(':status_',$juridico->getStatus_()); 
 			$consulta->bindValue(':razaosocial',$juridico->getRazaosocial()); 
 			$consulta->bindValue(':nomefantasia',$juridico->getNomefantasia()); 
 			$consulta->bindValue(':responsavel',$juridico->getResponsavel()); 
-			$consulta->bindValue(':logo',$juridico->getLogo()); 
+			$consulta->bindValue(':foto',$juridico->getFoto()); 
 			$consulta->bindValue(':login',$juridico->getLogin()); 
 			$consulta->bindValue(':senha',$juridico->getSenha()); 
 			$consulta->bindValue(':perfil',$juridico->getPerfil()); 
+			$consulta->bindValue(':area',$juridico->getArea());
 			
 			$consulta->bindValue(':cep',$endereco->getCep()); 
 			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
@@ -40,7 +39,7 @@
 			$consulta->bindValue(':twitter',$pagina->getTwitter()); 
 			$consulta->bindValue(':google',$pagina->getGoogle()); 
 			$consulta->bindValue(':site',$pagina->getSite());
-
+			
 			$consulta->execute();
 
 	    	$result = $consulta->fetch(PDO::FETCH_ASSOC);
@@ -102,8 +101,6 @@
 		public function carregar($idjuridico)
 		{
 			$sql = "SELECT * FROM juridico 
-					INNER JOIN endereco  ON juridico   = idjuridico
-					INNER JOIN pagina    ON idpagina   = pagina 
 					WHERE idjuridico = :idjuridico";
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":idjuridico", $idjuridico);
@@ -113,11 +110,16 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listar()
+		public function listarAtivos($idarea)
 		{
 			
-			$sql = 'SELECT * FROM juridico WHERE status_ <> 3';
+			$sql = 'SELECT * FROM juridico
+					INNER JOIN endereco 	ON idendereco 	= endereco
+					INNER JOIN areaatuacao 	ON idarea 		= area
+					INNER JOIN pagina 		ON idpagina 	= pagina
+					WHERE status_ = 1  AND area = :area';
 			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":area", $idarea);
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
@@ -181,6 +183,24 @@
 				else
 					return false;
 			}
+		}
+
+		//verificar se existe Juridico com o CNPJ informado
+		public static function verificaCnpj($cnpj)
+		{
+
+			$sql = "SELECT * FROM juridico WHERE cnpj = :cnpj ";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":cnpj",$cnpj);
+			$consulta->execute();
+			$result = $consulta->fetchAll(PDO::FETCH_ASSOC);
+
+			if ($result) {
+				return true;
+			}else{
+				return false;
+			}
+			
 		}
 
 	}

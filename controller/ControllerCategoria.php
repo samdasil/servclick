@@ -96,10 +96,11 @@ class ControllerCategoria
 
     public function listarCategoria()
     {
+        $cat[]     = new Categoria();
         $cdao    = new CategoriaDAO();
-        $list    = $cdao->listar();
+        $cat    = $cdao->listar();
 
-        return $list;
+        return $cat;
     }
 }
 

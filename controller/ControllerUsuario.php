@@ -1,63 +1,54 @@
 <?php
 
-class ControllerUsuario {
+class ControllerUsuario 
+{
 
     public function realizarLogin($usuario, $pass)
     {
 
-        $login = $usuario;
+        $login  = $usuario;
+        $senha  = md5($pass);
+        $uDao   = new UsuarioDAO();
 
-        $senha = base64_encode($pass);
+        $result = $uDao->realizarLogin($login, $senha);
 
-        $usuarioDao = new UsuarioDAO();
+        //if(!isset($_SESSION)) session_start();
 
-        $result = $usuarioDao->realizarLogin($login, $senha);
-        /*echo "<pre>";
-        print_r($result[0]);
-        echo "</pre>";
-        exit;*/
         if(!$result){
 
-            echo "<script>alert('Login e/ou senha incorretos!');</script>";
+            $_SESSION['login'] =  $usuario;
+            $_SESSION['res']   =  "erro";
+//print_r($_SESSION);exit;
+            //echo "<script>window.location = 'index.php';</script>";
 
-            echo "<script>window.location = 'index.php';</script>";
+        } else {
             
-        }else{
-            
-            if(!isset($_SESSION)) session_start();
             
             if($result[0]['perfil'] == 1){
-                
-                $v    = base64_encode($result[0]['idadmin']);
 
-                echo "<script>alert('Login realizado com sucesso!');</script>";
-
-                echo "<script>window.location = 'view/admin/home.php?v=$v';</script>";
+                $_SESSION['session'] = base64_encode($result[0]['idadmin']);
+                $_SESSION['ret'] =  'success';
+                echo "<script>window.location = 'view/admin/home.php';</script>";
 
             }elseif($result[0]['perfil'] == 2){
 
-                $v    = base64_encode($result[0]['idcliente']);
-
-                echo "<script>alert('Login realizado com sucesso!');</script>";
-
-                echo "<script>window.location = 'view/cliente/home.php?v=$v';</script>";					
+                $_SESSION['session'] = base64_encode($result[0]['idcliente']);
+                $_SESSION['ret'] =  'success';
+                echo "<script>window.location = 'view/cliente/home.php';</script>";					
 
             }elseif($result[0]['perfil'] == 3){
                 
                 if (isset($result[0]['idfisico'])) {
 
-                    $v    = base64_encode($result[0]['idfisico']);
+                    $_SESSION['session'] = base64_encode($result[0]['idfisico']);
+                    $_SESSION['ret'] =  'success';
+                    echo "<script>window.location = 'view/fisico/home.php';</script>";                    
 
-                    echo "<script>alert('Login realizado com sucesso!');</script>";
-
-                    echo "<script>window.location = 'view/fisico/home.php?v=$v';</script>";                    
                 } else if (isset($result[0]['idjuridico'])) {
 
-                    $v    = base64_encode($result[0]['idjuridico']);
-
-                    echo "<script>alert('Login realizado com sucesso!');</script>";
-
-                    echo "<script>window.location = 'view/juridico/home.php?v=$v';</script>";                    
+                    $_SESSION['session'] = base64_encode($result[0]['idjuridico']);
+                    $_SESSION['ret'] =  'success';
+                    echo "<script>window.location = 'view/juridico/home.php';</script>";                    
 
                 }
 
@@ -71,7 +62,6 @@ class ControllerUsuario {
     {
         
         if ( !isset($dados) ) return false;
-        $v = $dados['v'];
 
         $usuario    = new Usuario();
         $usuarioDao = new UsuarioDao();
@@ -81,7 +71,7 @@ class ControllerUsuario {
                 $admin   = new Administrador();
                 $admin->setIdAdmin($dados['idadmin']);
                 $admin->setLogin(strtolower($dados['login']));
-                $admin->setSenha(base64_encode($dados['senha']));
+                $admin->setSenha(md5($dados['senha']));
                 $admin->setPerfil($dados['perfil']);
                 $result = $usuarioDao->editarAcesso($admin);
                 break;
@@ -89,7 +79,7 @@ class ControllerUsuario {
                 $cliente = new Cliente();
                 $cliente->setIdcliente($dados['idcliente']);
                 $cliente->setLogin(strtolower($dados['login']));
-                $cliente->setSenha(base64_encode($dados['senha']));
+                $cliente->setSenha(md5($dados['senha']));
                 $cliente->setPerfil($dados['perfil']);
                 $result = $usuarioDao->editarAcesso($cliente);
                 break;
@@ -98,14 +88,14 @@ class ControllerUsuario {
                     $fisico  = new Fisico();
                     $fisico->setIdfisico($dados['idfisico']);
                     $fisico->setLogin(strtolower($dados['login']));
-                    $fisico->setSenha(base64_encode($dados['senha']));
+                    $fisico->setSenha(md5($dados['senha']));
                     $fisico->setPerfil($dados['perfil']);    
                     $result = $usuarioDao->editarAcesso($fisico);
                 }else if(isset($dados['idjuridco'])){               
                     $juridico = new Juridico();
                     $juridico->setIdjuridico($dados['idjuridico']);
                     $juridico->setLogin(strtolower($dados['login']));
-                    $juridico->setSenha(base64_encode($dados['senha']));
+                    $juridico->setSenha(md5($dados['senha']));
                     $juridico->setPerfil($dados['perfil']);
                     $result = $usuarioDao->editarAcesso($juridico);
                 }
@@ -117,17 +107,16 @@ class ControllerUsuario {
         
         if( $result ){
             
-            echo "<script>alert('Acesso atualizado com sucesso!');</script>";
-            echo "<script>window.location = 'view/cliente/home.php?v=$v';</script>";
+            $_SESSION['acesso'] = 'success';
+            echo "<script>window.location = 'home.php';</script>";
 
         } else {
-            echo "<script>alert('Erro ao atualizar: ".$erro."');</script>";
-            echo "<script>window.location = 'view/cliente/editar.php?v=$v';</script>";
+            $_SESSION['acesso'] = 'erro';
+            echo "<script>window.location = 'config.php';</script>";
 
         }
 
     }
-
 
     public function listarUsuario()
     {
@@ -138,3 +127,5 @@ class ControllerUsuario {
     }
 
 }
+
+?>

@@ -1,5 +1,8 @@
 <?php
 	
+	
+    if(!isset($_SESSION)) session_start();
+
 	define('ENVIROMENT', "sammy");
 
 	if ( ENVIROMENT == 'sammy') {

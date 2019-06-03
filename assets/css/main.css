@@ -19,9 +19,10 @@
     font-size: 14px;
     line-height: 22px;
     color: #23385e;
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     z-index: 2;
+    background-image: url(../../assets/images/background/back.jpg);
   }
 
   .co-body{
@@ -47,7 +48,7 @@
 
 
   a{
-    color:#C03035;
+    color:#fff;
   }
 
   a:hover {
@@ -415,7 +416,10 @@ ul.sub-menu {
 **************************/
 
 #footer {
-
+  position: fixed;
+  bottom: 0;
+  width: 100%;  
+  background-color: whitesmoke;
 }
 
 #footer h1{
@@ -428,8 +432,13 @@ ul.sub-menu {
 }
 
 #message {
-  height: 110px;
+  /*height: 110px;*/
   resize: none;
+  position: absolute;
+  width: 90%;
+  margin: 0px;
+  z-index: 2000;
+  /*top: 55.5vh;  */
 }
 
 .bottom > h2 {
@@ -724,7 +733,7 @@ ul.sub-menu {
 .single-service p {
   padding: 0 48px;
   color: #676666;
-  font-size: 12pt;
+  font-size: 11pt;
 }
 
 .action h1{
@@ -1272,7 +1281,7 @@ Portfolio with right sidebar
 }
 
 .sidebar-item{
-  margin-bottom: 48px;
+  margin-bottom: 10px;
 }
 
 .categories .navbar-stacked li {
@@ -1493,6 +1502,7 @@ Portfolio Details
 
 #portfolio-information.padding-top{
   padding-top: 20px;
+  margin-bottom: 0vh;
 }
 
 .project-name h2{
@@ -1511,7 +1521,7 @@ Portfolio Details
 }
 
 .navbar-default li a{
-  font-size: 12px;
+  font-size: small;
   padding: 0;
   padding-right: 15px;
 }
@@ -1527,7 +1537,7 @@ Portfolio Details
 
 .skills .navbar-default,
 .client .navbar-default{
-  margin-left: 35px;
+  margin-left: 3px;
   
 }
 
@@ -2959,13 +2969,19 @@ span.stButton_gradient,
 
 .right{
   float: right;
+  color: #8e2e2e;
 }
 
+.left{
+  float: left;
+  color: #8e2e2e;
+}
 
 #portfolio{
-  margin-top: 0px;
+  /*margin-top: 10vh;*/
   position: relative;
-  min-height: 475px;
+  min-height: 465px;
+  margin-bottom: 7vh;
 }
 
 .container-form-login{
@@ -3005,8 +3021,10 @@ section .rodape{
   min-height: 1px;
 
 }
+
 #projects{
   min-height: 38em;
+  margin-bottom: 10vh;
 }
 
 .actions{
@@ -3032,7 +3050,9 @@ section .rodape{
    margin: 0 auto 0 auto;
    border-radius: 50%;
    cursor: pointer;
-   width: 100%;
+   /*width: 100%;*/
+    width: 30vh;
+    height: 30vh;
 }
 
 .bckgd{
@@ -3050,7 +3070,7 @@ section .rodape{
   border: 1px solid;
   border-color: #efeaea;
   border-radius: 0%;
-  box-shadow: 5px -5px 10px rgb(0,0,0,0.1);
+  box-shadow: 5px -5px 10px rgba(5, 117, 165, 0.45);
 }
 
 .subtitulo{
@@ -3075,6 +3095,7 @@ font-size: 10pt;
     color: #fff;
     font-weight: normal;
     text-align: center;
+    font-size: 12pt;
 }
 
 .arrow{
@@ -3083,4 +3104,177 @@ font-size: 10pt;
 
 .topo{
   margin-top: 3px;
+}
+
+.header-title{
+  text-align: center;
+}
+
+#endereco-left{
+   color: #8e2e2e;
+}
+
+#acesso-left{
+   color: #8e2e2e;
+}
+
+#area-left{
+   color: #8e2e2e;
+}
+
+#area-right{
+   color: #8e2e2e;
+}
+
+.lupa{
+  opacity: 0.4;
+}
+
+.radio-end{
+    font-weight: 100;
+    color: #9f9696;
+}
+
+#op-endereco{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.projects{
+  /*min-height: 38em;()*/
+  margin-bottom: 10vh;
+}
+
+.green{
+  background-color: #2cf52c;
+}
+
+.upload-foto{
+  display: block;
+  position: relative;
+  width: 25vh;
+  height: 25vh;
+  top: 0;
+  margin-top: -27vh;
+  margin-left: 11vh;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+.photo-new{
+    width: 55vw;
+    height: 30vh;
+    border-radius: 50%;
+    position: relative;
+    top: 0;
+    margin-top: -30vh;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+}
+
+.photo{
+    position: relative;
+    margin-top: -10vh;
+    margin-left: 19.5vh;
+    margin-right: 19.5vh;
+}
+
+.valid{
+  display: none;
+  color: red;
+}
+
+.services{
+  margin-top: 5vh
+}
+
+.resenha {
+  margin-top: 15px;
+  padding: 3px;
+}
+
+.resenha p{
+  color: #595da8;
+  font-size: small;
+}
+
+.blue {
+  color: #595da8;
+}
+
+.menu-profissional-footer{
+  position: fixed;
+  bottom: 30px;
+}
+
+.botoes-footer{
+    background-color: black;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-left: 20px;
+}
+
+.ul-menu-footer{
+  list-style: none;
+  display: inline-flex;
+  margin-left: 10px;
+}
+
+.i-menu-footer{
+  margin-left: 32%;
+  margin-right: 32%;
+  margin-top: 15px;
+}
+
+.red{
+  background-color: red;
+}
+
+.green{
+background-color: green;
+}
+
+.op-right{
+    height: 7vh;
+    width: 7vh;
+    background-color: #6e7c70;
+    position: fixed;
+    bottom: 65px;
+    border-radius: 200px 0px 0px 200px;
+    right: 0;
+}
+
+.op-left{
+    height: 7vh;
+    width: 7vh;
+    background-color: #6e7c70;
+    position: fixed;
+    bottom: 65px;
+    margin-right: 0px;
+    border-radius: 0px 200px 200px 0px;
+    left: 0;
+    display: none;
+}
+
+.op-right i{
+  color: white;
+  margin-left: 2vh;
+  margin-right: 2vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.op-left i{
+  color: white;
+  margin-right: 2vh;
+  margin-left: 2vh;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
+}
+
+.indicacao{
+  padding-top: 15px;
+  line-height: normal;
 }

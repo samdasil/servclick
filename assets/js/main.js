@@ -29,7 +29,7 @@ jQuery(function($) {'use strict';
 			$('.masonery_area').masonry();//Masonry
 		}
 
-		var $portfolio_selectors = $('.portfolio-filter >li>a');
+		var $portfolio_selectors = $('.portfolio-filter >option');
 		
 		if($portfolio_selectors.length) {
 			

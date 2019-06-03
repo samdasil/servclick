@@ -3,7 +3,7 @@
 class Conexao {
     
     /* variáveis de conexao */
-    const DSN  = "mysql:dbname=dbservclick; host=localhost" ;
+    const DSN  = "mysql:dbname=dbserv; host=localhost" ;
 	const USER = "root";
 	const PASS = "";
 	public static $con;

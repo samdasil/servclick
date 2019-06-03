@@ -8,7 +8,9 @@ class Cliente extends Usuario{
     private $email;
     private $fone;
     private $foto;
-    private $status;
+    private $status_;
+    private $dtcadastro;
+    private $endereco;
     
     public function getIdcliente() {
         return $this->idcliente;
@@ -34,8 +36,16 @@ class Cliente extends Usuario{
         return $this->foto;
     }
 
-    public function getStatus() {
-        return $this->status;
+    public function getStatus_() {
+        return $this->status_;
+    }
+
+    public function getDtcadastro() {
+        return $this->dtcadastro;
+    }
+
+    public function getEndereco() {
+        return $this->endereco;
     }
 
     public function setIdcliente($idcliente) {
@@ -62,8 +72,16 @@ class Cliente extends Usuario{
         $this->foto = $foto;
     }
 
-    public function setStatus($status) {
-        $this->status = $status;
+    public function setStatus_($status_) {
+        $this->status_ = $status_;
+    }
+
+    public function setDtcadastro($dtcadastro) {
+        $this->dtcadastro = $dtcadastro;
+    }
+
+    public function setEndereco($endereco) {
+        $this->endereco = $endereco;
     }
     
 }

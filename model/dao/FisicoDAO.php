@@ -6,9 +6,7 @@
 		public function cadastrar(Fisico $fisico, Endereco $endereco, Pagina $pagina)
 		{
 
-			$sql = "CALL SP_CADASTRAR_FISICO(:cpf, :nome, :descricao, :email, :fone, :fixo, :status_, :foto, :login, :senha, :perfil, 
-											 :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento,
-											 :facebook, :instagram, :pinterest, :twitter, :google, :site)";
+			$sql = "CALL SP_CADASTRAR_FISICO(:descricao, :fixo, :fone,  :email, :nome, :cpf, :foto, :login, :senha, :perfil, :status_, :area, :cep, :logradouro, :numero, :bairro, :cidade, :estado, :complemento, :site, :google, :twitter, :pinterest, :facebook, :instagram )";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 		
@@ -18,11 +16,12 @@
 			$consulta->bindValue(':email',$fisico->getEmail()); 
 			$consulta->bindValue(':fone',$fisico->getFone()); 
 			$consulta->bindValue(':fixo',$fisico->getFixo()); 
-			$consulta->bindValue(':status_',$fisico->getStatus()); 
+			$consulta->bindValue(':status_',$fisico->getStatus_()); 
 			$consulta->bindValue(':foto',$fisico->getFoto()); 
 			$consulta->bindValue(':login',$fisico->getLogin()); 
 			$consulta->bindValue(':senha',$fisico->getSenha()); 
 			$consulta->bindValue(':perfil',$fisico->getPerfil()); 
+			$consulta->bindValue(':area',$fisico->getArea()); 
 
 			$consulta->bindValue(':cep',$endereco->getCep()); 
 			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
@@ -50,9 +49,7 @@
 		public function editar(Fisico $fisico, Endereco $endereco, Pagina $pagina)
 		{
 			
-			$sql = "CALL SP_EDITAR_FISICO(:idfisico, :cpf, :nome, :descricao, :email, :fone, :fixo, :status_, :foto, :login, :senha, :perfil, :pagina, 
-											 :cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento,
-											 :facebook, :instagram, :pinterest, :twitter, :google, :site)";
+			$sql = "CALL SP_EDITAR_FISICO(:idfisico, :descricao, :fixo, :fone,  :email, :nome, :cpf, :foto, :login, :senha, :perfil, :status_, :area, :cep, :logradouro, :numero, :bairro, :cidade, :estado, :complemento, :site, :google, :twitter, :pinterest, :facebook, :instagram)";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			
@@ -63,12 +60,13 @@
 			$consulta->bindValue(':email',$fisico->getEmail()); 
 			$consulta->bindValue(':fone',$fisico->getFone()); 
 			$consulta->bindValue(':fixo',$fisico->getFixo()); 
-			$consulta->bindValue(':status_',$fisico->getStatus()); 
+			$consulta->bindValue(':status_',$fisico->getStatus_()); 
 			$consulta->bindValue(':foto',$fisico->getFoto()); 
 			$consulta->bindValue(':login',$fisico->getLogin()); 
 			$consulta->bindValue(':senha',$fisico->getSenha()); 
 			$consulta->bindValue(':perfil',$fisico->getPerfil()); 
 			$consulta->bindValue(':pagina',$fisico->getPagina()); 
+			$consulta->bindValue(':area',$fisico->getArea()); 
 
 			$consulta->bindValue(':cep',$endereco->getCep()); 
 			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
@@ -96,9 +94,7 @@
 		public function carregar($idfisico = null)
 		{
 
-			$sql = "SELECT * FROM fisico f
-					INNER JOIN endereco e ON e.fisico   = f.idfisico
-					INNER JOIN pagina p   ON p.idpagina = f.pagina 
+			$sql = "SELECT * FROM fisico f 
 					WHERE f.idfisico = :idfisico";
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":idfisico", $idfisico);
@@ -108,11 +104,16 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listar()
+		public function listarAtivos($idarea)
 		{
 			
-			$sql = 'SELECT * FROM fisico WHERE status_ <> 3';
+			$sql = 'SELECT * FROM fisico 
+					INNER JOIN endereco 	ON idendereco 	= endereco
+					INNER JOIN areaatuacao 	ON idarea 		= area
+					INNER JOIN pagina 		ON idpagina 	= pagina
+					WHERE status_ = 1 AND area = :area';
 			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":area", $idarea);
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
@@ -158,58 +159,7 @@
 			}
 		}		
 
-		//validar CPF do profissional físico
-		public static function validaCpf($cpf = null) 
-		{
-
-		    // Verifica se um número foi informado
-		    if(empty($cpf)) {
-		        return false;
-		    }
-
-		    // Elimina possivel mascara
-		    $cpf = preg_replace("/[^0-9]/", "", $cpf);
-		    $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
-		    
-		    // Verifica se o numero de digitos informados é igual a 11 
-		    if (strlen($cpf) != 11) {
-		        return false;
-		    }
-		    // Verifica se nenhuma das sequências invalidas abaixo 
-		    // foi digitada. Caso afirmativo, retorna falso
-		    else if ($cpf == '00000000000' || 
-		        $cpf == '11111111111' || 
-		        $cpf == '22222222222' || 
-		        $cpf == '33333333333' || 
-		        $cpf == '44444444444' || 
-		        $cpf == '55555555555' || 
-		        $cpf == '66666666666' || 
-		        $cpf == '77777777777' || 
-		        $cpf == '88888888888' || 
-		        $cpf == '99999999999') {
-
-		        return false;
-		     // Calcula os digitos verificadores para verificar se o
-		     // CPF é válido
-		     } else {   
-		        
-		        for ($t = 9; $t < 11; $t++) {
-		            
-		            for ($d = 0, $c = 0; $c < $t; $c++) {
-		                $d += $cpf{$c} * (($t + 1) - $c);
-		            }
-		            $d = ((10 * $d) % 11) % 10;
-		            if ($cpf{$c} != $d) {
-		                return false;
-		            }
-		        }
-
-		        return true;
-		    }
-		
-		}
-
-		//verificar se existe o CPF informado na base
+		//verificar se existe Fisico com o CPF informado
 		public static function verificaCpf($cpf)
 		{
 					

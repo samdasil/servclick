@@ -10,9 +10,6 @@ class Endereco {
     private $estado;
     private $numero;
     private $complemento;
-    private $cliente;
-    private $juridico;
-    private $fisico;
 
     public function getIdendereco() {
         return $this->idendereco;
@@ -46,17 +43,6 @@ class Endereco {
         return $this->complemento;
     }
 
-    public function getCliente() {
-        return $this->cliente;
-    }
-
-    public function getJuridico() {
-        return $this->juridico;
-    }
-
-    public function getFisico() {
-        return $this->fisico;
-    }
 
     public function setIdendereco($idendereco) {
         $this->idendereco = $idendereco;
@@ -90,16 +76,5 @@ class Endereco {
         $this->complemento = $complemento;
     }
 
-    public function setCliente($cliente) {
-        $this->cliente = $cliente;
-    }
-
-    public function setJuridico($juridico) {
-        $this->juridico = $juridico;
-    }
-
-    public function setFisico($fisico) {
-        $this->fisico = $fisico;
-    }
     
 }

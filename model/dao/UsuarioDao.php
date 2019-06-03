@@ -24,12 +24,12 @@
 			$consulta->bindParam(":login", $login);
 			$consulta->bindValue(":senha", $senha);
 			$consulta->execute();
-			
+
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 
 		}
 
-		public static function verificaUsuario($id)
+		public static function verificaSessao($id)
 		{
 			
 				if(!isset($_SESSION)) session_start();
@@ -54,15 +54,15 @@
 				case 2:
 					$table  = 'cliente';
 					$user 	= 'idcliente';
-					$id     = $usuario->getIdfisico();
+					$id     = $usuario->getIdcliente();
 					break;
-				case 1:
+				case 3:
 					$table  = 'profissional';
 					if($usuario->getIdfisico()  > 0) {
 						$table  = 'fisico';
 						$user 	= 'idfisico';
 						$id    = $usuario->getIdfisico();
-					}else if($usuario->getIdfisico() > 0){
+					}else if($usuario->getIdjuridico() > 0){
 						$table  = 'juridico';
 						$user 	= 'idjuridico';
 						$id    = $usuario->getIdjuridico();
@@ -73,7 +73,7 @@
 					break;
 			}
 
-			$sql = "UPDATE $table SET login = :login, senha = :senha WHERE $id = :user";
+			$sql = "UPDATE $table SET login = :login, senha = :senha WHERE $user = :id";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":login", $usuario->getLogin());
@@ -97,6 +97,19 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 
+
+	    public static function validarLogin($login='')
+	    {
+	        $sql = "SP_VALIDAR_USUARIO(:login)";
+
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":login", $usuario->getLogin());
+
+			if($consulta->execute())
+				return true;
+			else
+				return false;
+	    }
 
 	}
 ?>

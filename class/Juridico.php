@@ -7,7 +7,7 @@ class Juridico extends Profissional{
     private $razaosocial;
     private $nomefantasia;
     private $responsavel;
-    private $logo;
+    private $foto;
     
     public function getIdjuridico() {
         return $this->idjuridico;
@@ -29,8 +29,8 @@ class Juridico extends Profissional{
         return $this->responsavel;
     }
 
-    public function getLogo() {
-        return $this->logo;
+    public function getFoto() {
+        return $this->foto;
     }
 
     public function setIdjuridico($idjuridico) {
@@ -53,8 +53,8 @@ class Juridico extends Profissional{
         $this->responsavel = $responsavel;
     }
 
-    public function setLogo($logo) {
-        $this->logo = $logo;
+    public function setFoto($foto) {
+        $this->foto = $foto;
     }
     
 }

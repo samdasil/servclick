@@ -43,18 +43,20 @@ class ControllerEndereco{
         $endereco = new Endereco();
         $edao     = new EnderecoDAO();
 
-        $result  = $edao->carregarEnderecoCliente($idcliente);
-        
-        $endereco->setCep($result[0]['cep']); 
-        $endereco->setLogradouro($result[0]['logradouro']); 
-        $endereco->setCidade($result[0]['cidade']); 
-        $endereco->setBairro($result[0]['bairro']); 
-        $endereco->setEstado($result[0]['estado']); 
-        $endereco->setNumero($result[0]['numero']); 
-        $endereco->setComplemento($result[0]['complemento']); 
-        $endereco->setCliente($result[0]['cliente']); 
+        if($result  = $edao->carregarEnderecoCliente($idcliente)){
+            $endereco->setCep($result[0]['cep']); 
+            $endereco->setLogradouro($result[0]['logradouro']); 
+            $endereco->setCidade($result[0]['cidade']); 
+            $endereco->setBairro($result[0]['bairro']); 
+            $endereco->setEstado($result[0]['estado']); 
+            $endereco->setNumero($result[0]['numero']); 
+            $endereco->setComplemento($result[0]['complemento']); 
+            $endereco->setCliente($result[0]['cliente']); 
 
-        return $endereco;
+            return $endereco;        
+        }else{
+            return false;
+        }
 
     }
 
@@ -95,6 +97,25 @@ class ControllerEndereco{
         $endereco->setNumero($result[0]['numero']); 
         $endereco->setComplemento($result[0]['complemento']); 
         $endereco->setJuridico($result[0]['juridico']); 
+
+        return $endereco;
+
+    }
+
+    public function carregarEndereco($idendereco)
+    {
+        $endereco = new Endereco();
+        $edao     = new EnderecoDAO();
+
+        $result  = $edao->carregarEndereco($idendereco);
+        
+        $endereco->setCep($result[0]['cep']); 
+        $endereco->setLogradouro($result[0]['logradouro']); 
+        $endereco->setCidade($result[0]['cidade']); 
+        $endereco->setBairro($result[0]['bairro']); 
+        $endereco->setEstado($result[0]['estado']); 
+        $endereco->setNumero($result[0]['numero']); 
+        $endereco->setComplemento($result[0]['complemento']);; 
 
         return $endereco;
 

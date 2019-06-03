@@ -1,14 +1,8 @@
 <?php
-    
-    /*if(!session_start()) session_start();
-    if(!isset($_SESSION['idcliente'])){
-        header('Location: ../../index.php');
-    }*/
-    if(!isset($_GET['v'])) {
-        header('Location: ../../index.php');
-    }
 
     require_once '../../config.php';
+
+    if(!isset($_SESSION['session'])) header('Location: ../../index.php');
 
     $c          = new ControllerCliente();
     $e          = new ControllerEndereco();
@@ -16,7 +10,7 @@
     $cliente    = new Cliente();
     $endereco   = new Endereco();
     $usuario    = new Usuario();
-    $id         = base64_decode($_GET['v']);
+    $id         = base64_decode($_SESSION['session']);
     $v          = base64_encode($id);
     $cliente    = $c->carregarCliente($id);
     $endereco   = $e->carregarEnderecoCliente($id);
@@ -87,6 +81,21 @@
 
 
 <div class="col-md-4 col-sm-12">
+    <!-- ERRO AO ATUALIZAR ACESSO -->
+    <?php 
+        if((isset($_GET['edit']) && !empty($_GET['edit']) && $_GET['edit'] == 'erro')) { ?>
+           <script type="text/javascript">
+                setTimeout(function() {
+                $('#message').fadeOut(8000, function(){
+                    $(this).remove();
+                });
+            });
+            </script>
+            <div class="alert alert-success alert-dismissible" role="alert" id="message">
+                <strong>Erro!</strong><br> Ocorreu um erro ao atualizar.
+            </div> 
+    <?php } ?>
+
         <div class="contact-form bottom">
             <form name="form" method="post" action="" enctype="multipart/form-data">
 

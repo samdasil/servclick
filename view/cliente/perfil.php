@@ -1,37 +1,7 @@
-<?php 
-    
-    if(!session_start()) session_start();
+<?php require_once 'header.php'; ?>
 
-    if(!isset($_GET['v'])){
-        header('Location: ../../index.php');
-    }
-    
-    require 'header.php'; 
-    require_once '../../config.php';
-    
-    $c          = new ControllerCliente();
-    $e          = new ControllerEndereco();
-    $cliente    = new Cliente;
-    $endereco   = new Endereco;
-    $id         = base64_decode($_GET['v']);
-    $v          = base64_encode($id);
-    $cliente    = $c->carregarCliente($id);
-    $endereco   = $e->carregarEnderecoCliente($id);
+    <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-?>
-    
-    <!-- script mask -->
-    <script type="text/javascript">
-        
-        $(document).ready(function(){
-            $("#cnpj").mask('00.000.000/0000-00')
-            $("#cpf").mask('000.000.000-00')
-            $("#cep").mask('00000-000')
-            $("#fone").mask('(00) 00000-0000')
-        })
-
-    </script>
-    
     <section id="page-breadcrumb">
         <div class="vertical-center sun">
              <div class="container">
@@ -48,9 +18,12 @@
 
    <section id="portfolio-information" class="padding-top">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-6">
-                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="" id="img">
+
+            <?php require_once 'alert.php'; ?>
+
+            <div class="row padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+                <div class="col-sm-6" data-wow-duration="500ms" data-wow-delay="300ms">
+                    <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="Foto do perfil" id="img">
                 </div>
                 <div class="col-sm-6">
                     <div class="project-name overflow">
@@ -83,7 +56,7 @@
                     
                     <div class="buttons-action">
                         <div class="col-md-3 col-sm-6">
-                            <a href="editar.php?v=<?=$v;?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                            <a href="editar.php"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
                         </div>
                     </div>
                 </div>

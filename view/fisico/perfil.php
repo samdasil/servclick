@@ -43,28 +43,19 @@
             <div class="row">
                 <div class="col-sm-6">
                     <?php if (!is_null($fisico->getFoto())) { ?>
-                        <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive" alt="">
+                        <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive img-perfil" alt="">
                     <?php } else { ?>
-                        <img src="../../assets/images/portfolio-details/1.jpg" class="img-responsive" alt="">
+                        <img src="../../assets/images/portfolio-details/1.jpg" class="img-responsive img-perfil" alt="">
                     <?php } ?>
                 </div>
                 <div class="col-sm-6">
-                    <div class="project-name overflow">
-                        <!--
-                        <h2 class="bold">Nome da Empresa</h2>
-                        
-                        <ul class="nav navbar-nav navbar-default">
-                            <li><a href="#"><i class="fa fa-clock-o"></i>February11,2014</a></li>
-                            <li><a href="#"><i class="fa fa-tag"></i>Branding</a></li>
-                        </ul>
-                    -->
-                    </div>
+                    
                     <div class="project-info overflow">
-                        <h3>Descrição</h3>
+                        <h2 class="titulo">Descrição</h2>
                         <p><?=$fisico->getDescricao();?></p>
                         </div>
                     <div class="skills overflow">
-                        <h3>Categorias</h3>
+                        <h2 class="titulo">Categorias</h2>
                         <ul class="nav navbar-nav navbar-default">
                             <li><a href="#"><i class="fa fa-check-square"></i>Design</a></li>
                             <li><a href="#"><i class="fa fa-check-square"></i>HTML/CSS</a></li>
@@ -73,7 +64,7 @@
                         </ul>
                     </div>
                     <div class="client overflow">
-                        <h3>Meus Clientes:</h3>
+                        <h2 class="titulo">Meus Clientes</h2>
                         <ul class="nav navbar-nav navbar-default">
                             <li><a href="#"><i class="fa fa-bolt"></i>Okler Themes</a></li>
                         </ul>
@@ -87,5 +78,9 @@
                     <div class="buttons-action">
                         <a href="editar.php?v=<?=$v;?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
 <?php require_once 'footer.php'; ?>

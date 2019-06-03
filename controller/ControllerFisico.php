@@ -6,126 +6,108 @@ class ControllerFisico
 	public function cadastrarFisico($dados = null, $aFile = null)
     {
 
-        if ( !isset($dados) ) return false;
+        if ( !isset($dados) || Usuario::validarLogin($dados['login']) ) return 0;
 
         $fisico      = new Fisico();
         $endereco    = new Endereco(); 
+        $area        = new AreaAtuacao();
         $pagina      = new Pagina();
         $fisicoDAO   = new FisicoDAO();
         $EnderecoDAO = new EnderecoDAO();
+        $areaDAO     = new AreaAtuacaoDAO();
+        $paginaDAO   = new PaginaDAO();
         
         $array = explode('/', $_SERVER['REQUEST_URI']);
-        if( in_array("admin", $array) ) {
-            $v = $dados['v'];
-        }
 
         $cpf  = str_replace(".", "", str_replace("-", "", $dados['cpf']));
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
         if (!FisicoDAO::verificaCpf($cpf)) {
 
-            if ( FisicoDAO::validaCpf($cpf) ) {
+            $foto =  $dados['login'] . time('ss') . ".jpg";
 
-                $foto =  $dados['login'] . time('ss') . ".jpg";
+            $fisico->setCpf($cpf);
+            $fisico->setNome(ucwords($dados['nome']));
+            $fisico->setDescricao(ucwords($dados['descricao']));
+            $fisico->setEmail(strtolower($dados['email']));
+            $fisico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
+            $fisico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
+            $fisico->setLogin(strtolower($dados['login']));
+            $fisico->setSenha(md5($dados['senha']));
+            $fisico->setPerfil(3); // 3=fisico
+            $fisico->setFoto($foto);
+            $fisico->setStatus_(3); //1=ativo 2=inativo 3=pendente
+            $fisico->setArea($dados['area']);
 
-                $fisico->setCpf($cpf);
-                $fisico->setNome(ucwords($dados['nome']));
-                $fisico->setDescricao(ucwords($dados['descricao']));
-                $fisico->setEmail(strtolower($dados['email']));
-                $fisico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
-                $fisico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
-                $fisico->setLogin(strtolower($dados['login']));
-                $fisico->setSenha(base64_encode($dados['senha']));
-                $fisico->setPerfil(3); // 3=fisico
-                $fisico->setFoto($foto);
-                $fisico->setStatus(3); //1=ativo 2=inativo 3=pendente
+            $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
+            $endereco->setLogradouro(ucwords($dados['logradouro']));
+            $endereco->setCidade(ucwords($dados['cidade']));
+            $endereco->setBairro(ucwords($dados['bairro']));
+            $endereco->setEstado(strtoupper($dados['estado']));
+            $endereco->setNumero($dados['numero']);
+            $endereco->setComplemento($dados['complemento']);
 
-                $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
-                $endereco->setLogradouro(ucwords($dados['logradouro']));
-                $endereco->setCidade(ucwords($dados['cidade']));
-                $endereco->setBairro(ucwords($dados['bairro']));
-                $endereco->setEstado(strtoupper($dados['estado']));
-                $endereco->setNumero($dados['numero']);
-                $endereco->setComplemento($dados['complemento']);
+            $pagina->setFacebook(strtolower($dados['facebook']));
+            $pagina->setInstagram(strtolower($dados['instagram']));
+            $pagina->setPinterest(strtolower($dados['pinterest']));
+            $pagina->setTwitter(strtolower($dados['twitter']));
+            $pagina->setGoogle(strtolower($dados['google']));
+            $pagina->setSite(strtolower($dados['site']));
+            
+            $result = $fisicoDAO->cadastrar($fisico, $endereco, $pagina);
 
-                $pagina->setFacebook($dados['facebook']);
-                $pagina->setInstagram($dados['instagram']);
-                $pagina->setPinterest($dados['pinterest']);
-                $pagina->setTwitter($dados['twitter']);
-                $pagina->setGoogle($dados['google']);
-                $pagina->setSite($dados['site']);
+            if ( $result > 0 ) { 
 
-                $result = $fisicoDAO->cadastrar($fisico, $endereco, $pagina);
+                if ( $aFile['foto']['size'] > 0 ) {
 
-                if ( $result > 0 ) { 
-
-                    if ( $aFile['foto']['size'] > 0 ) {
-
-                        $target  = BASE_DIR."assets/images/fisico/" . $foto;
-                        $tamanho = $aFile['foto']['size'];
-                        $imagem  = $aFile['foto']['name'];
-                        $path    = $aFile['foto']['tmp_name'];
-                        
-                         move_uploaded_file($path, $target);
-
-                        if( in_array("admin", $array) ) {
-                            echo "<script>alert('Profissional cadastrado com sucesso! ');</script>";
-                            echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
-                        } else {
-                            echo "<script>alert('Seu cadastro foi efetuado com sucesso!');</script>";
-                            echo "<script>window.location = '../../index.php';</script>";
-                        }
-
-                    } else {
-
-                        if( in_array("admin", $array) ) {
-                            echo "<script>alert('Ocorreu um erro ao salvar a foto, mas o cadastro foi realizado!');</script>";
-                            echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>"; 
-                        } else {
-                            echo "<script>alert('Ocorreu um erro ao salvar a foto, mas seu cadastro foi realizado!');</script>";
-                            echo "<script>window.location = '../../index.php';</script>";
-                        }
-
-                    }
-
-                } elseif (!$result) {
+                    $target  = BASE_DIR."assets/images/fisico/" . $foto;
+                    $tamanho = $aFile['foto']['size'];
+                    $imagem  = $aFile['foto']['name'];
+                    $path    = $aFile['foto']['tmp_name'];
+                    
+                    move_uploaded_file($path, $target);
 
                     if( in_array("admin", $array) ) {
-                        echo "<script>alert('Ocorreu um erro ao cadastrar Profissional');</script>";
-                        echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";
+                        $_SESSION['fisico-cad'] =  'success';
+                        echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
                     } else {
-                        echo "<script>alert('Houve um erro ao realizar seu cadastro, tente novamente.');</script>";
-                        echo "<script>window.location = 'cadastro.php';</script>";
+                        $_SESSION['cadastro'] =  'success';
+                        echo "<script>window.location = '../../index.php';</script>";
                     }
+
+                } else {
+
+                    if( in_array("admin", $array) ) {
+                        $_SESSION['fisico-cad'] =  'erro';
+                        echo "<script>window.location = 'gerenciar-fisico.php';</script>"; 
+                    } else {
+                        $_SESSION['cadastro'] =  'erro';
+                        echo "<script>window.location = '../../index.php';</script>";
+                    }
+
                 }
-                
+
             } else {
 
                 if( in_array("admin", $array) ) {
-                    echo "<script>alert('CPF informado é invalido');</script>";
-                    echo "<script>window.location = 'cadastrar-fisico.php?v=$v';</script>";
+                    $_SESSION['fisico-cad'] =  'erro';
+                    echo "<script>window.location = 'gerenciar-fisico.php';</script>";
                 } else {
-                    echo "<script>alert('CPF informado é invalido');</script>";
-                    echo "<script>window.location = 'cadastro.php';</script>";            
-                }        
-
+                    $_SESSION['fisico-cad'] =  'erro';
+                    echo "<script>window.location = 'cadastro.php';</script>";
+                }
             }
 
         } else {
 
-            //echo "<script>alert('CPF informado já existe em nossa base, deseja recuperar deu cadastro ?');</script>";
-            //echo "<script>window.location = 'cadastro.php';</script>";            
-
             echo "<SCRIPT LANGUAGE='JavaScript' TYPE='text/javascript'>
                 
-                  decisao = confirm('CPF informado já existe em nossa base deseja recuperar deu cadastro ?');
+                  decisao = confirm('CPF informado já existe em nossa base deseja recuperar seu acesso ?');
                   if (decisao){
-                    alert ('Enviamos uma confirmação para o email cadastrado favor verifique e siga as instruçoes enviadas.');
+                    alert ('Enviamos uma confirmação para o email cadastrado favor verifique e siga as instruções enviadas.');
                   } 
 
                  </SCRIPT>";
-            
-            //echo "<script>window.location = 'cadastro.php';</script>";            
 
         }
 
@@ -134,13 +116,15 @@ class ControllerFisico
     public function editarFisico($dados = null, $aFile = null)
     {
 
-        $v           = $dados['v'];
         $fisico      = new Fisico();
         $endereco    = new Endereco(); 
+        $area        = new AreaAtuacao();
         $pagina      = new Pagina();
         $fisicoDAO   = new FisicoDAO();
         $EnderecoDAO = new EnderecoDAO();
         $paginaDAO   = new PaginaDAO();
+        $areaDAO     = new AreaAtuacaoDAO();
+
         $array = explode('/', $_SERVER['REQUEST_URI']);
 
         $cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
@@ -162,12 +146,10 @@ class ControllerFisico
             $fisico->setEmail(strtolower($dados['email']));
             $fisico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
             $fisico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
-            $fisico->setLogin(strtolower($dados['login']));
-            $fisico->setSenha(base64_encode($dados['senha']));
-            $fisico->setPerfil($dados['perfil']); // 2=fisico
             $fisico->setFoto($foto);
-            $fisico->setStatus($dados['status']); //1=ativo 2=inativo 3 pendente
+            $fisico->setStatus_($dados['status_']); //1=ativo 2=inativo 3 pendente
             $fisico->setPagina($dados['pagina']);
+            $fisico->setArea($dados['area']);
 
             $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
             $endereco->setLogradouro(ucwords($dados['logradouro']));
@@ -184,7 +166,7 @@ class ControllerFisico
             $pagina->setGoogle($dados['google']);
             $pagina->setSite($dados['site']);
             
-            $result = $fisicoDAO->editar($fisico,$endereco, $pagina);
+            $result = $fisicoDAO->editar($fisico, $endereco, $pagina);
             
             if( $result > 0 ){
                 
@@ -200,20 +182,21 @@ class ControllerFisico
 
                 if( in_array("admin", $array) ) {
 
-                    echo "<script>alert('Profissional atualizado com sucesso! ');</script>";
-                    echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+                    $_SESSION['profissional-edit'] = 'success';
+                    echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
                 } else {
-                    echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
-                    echo "<script>window.location = 'perfil.php?v=$v';</script>";
+                    $_SESSION['edit'] = 'success';
+                    echo "<script>window.location = 'perfil.php';</script>";
                 }
 
             } elseif (!$result) {
 
                 if( in_array("admin", $array) ) {
-                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
-                    echo "<script>window.location = 'validar-fisico.php?v=$v&get=".$dados['idfisico']."';</script>";
+                    $_SESSION['fisico-edit'] = 'erro';
+                    $_SESSION['fisico']      = $dados['idfisico'];
+                    echo "<script>window.location = 'validar-fisico.php';</script>";
                 } else {
-                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
+                    $_SESSION['edit'] = 'erro';
                     echo "<script>window.location = 'perfil.php?v=$v';</script>";
                 }
             }
@@ -221,11 +204,12 @@ class ControllerFisico
         } else {
             
             if( in_array("admin", $array) ) {
-                echo "<script>alert('CPF informado é invalido');</script>";
-                echo "<script>window.location = 'editar-fisico.php?v=$v&get=".$dados['idfisico']."';</script>";
+                $_SESSION['cpf'] = 'erro';
+                $_SESSION['fisico']      = $dados['idfisico'];
+                echo "<script>window.location = 'editar-fisico.php';</script>";
             } else {
-                echo "<script>alert('CPF informado é invalido');</script>";
-                echo "<script>window.location = 'perfil.php?v=$v';</script>";            
+                $_SESSION['cpf'] = 'erro';
+                echo "<script>window.location = 'perfil.php';</script>";            
             }
         }
 
@@ -233,8 +217,6 @@ class ControllerFisico
 
     public function desativarFisico($dados = null)
     {
-        
-        $v             = $dados['v'];
 
         if ( is_null($dados) ) return false;
 
@@ -247,21 +229,24 @@ class ControllerFisico
         if ( $result ) {
 
             if( in_array("admin", $array) ) {
-                echo "<script>alert('Profissional desativado com sucesso! ');</script>";
-                echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+
+                $_SESSION['fisico-del'] = 'success';
+                echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
+
             } else {
+
                 echo "<script>alert('Seu cadastro foi desativado com sucesso! Para resgatar entre em contato com a equipe do ServClick. Agradecemos pelo tempo que passamos juntos.');</script>";
                 echo "<script>window.location = '../../index.php';</script>";
             }
-
-            
+          
         } else {
 
             if( in_array("admin", $array) ) {
-                echo "<script>alert('Nao foi possivel desativar o perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-                echo "<script>window.location = 'desativar-fisico.php?v=$v&get=".$dados['idfisico']."';</script>";
+                $_SESSION['fisico-del'] = 'erro';
+                $_SESSION['fisico'] = $dados['idfisico'];
+                echo "<script>window.location = 'desativar-fisico.php';</script>";
             } else {
-                echo "<script>alert('Nao foi possivel desativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
+                $_SESSION['del'] = 'erro';
                 echo "<script>window.location = 'view/fisico/home.php';</script>";
             }
         }
@@ -271,34 +256,41 @@ class ControllerFisico
     public function carregarFisico($idfisico = null)
     {
 
-        $fisico  = new Fisico();
+        $fisico   = new Fisico();
         $fdao     = new FisicoDAO();
 
-        $result  = $fdao->carregar($idfisico);
+        $result   = $fdao->carregar($idfisico);
 
-        $fisico->setIdfisico($result[0]['idfisico']); 
-        $fisico->setCpf($result[0]['cpf']); 
-        $fisico->setNome($result[0]['nome']); 
-        $fisico->setDescricao($result[0]['descricao']); 
-        $fisico->setEmail($result[0]['email']); 
-        $fisico->setFone($result[0]['fone']); 
-        $fisico->setFixo($result[0]['fixo']); 
-        $fisico->setLogin($result[0]['login']); 
-        $fisico->setSenha($result[0]['senha']); 
-        $fisico->setFoto($result[0]['foto']); 
-        $fisico->setPagina($result[0]['pagina']); 
-        $fisico->setStatus($result[0]['status_']); 
-        $fisico->setPerfil($result[0]['perfil']); 
+        if($result){
+            $fisico->setIdfisico($result[0]['idfisico']); 
+            $fisico->setCpf($result[0]['cpf']); 
+            $fisico->setNome($result[0]['nome']); 
+            $fisico->setDescricao($result[0]['descricao']); 
+            $fisico->setEmail($result[0]['email']); 
+            $fisico->setFone($result[0]['fone']); 
+            $fisico->setFixo($result[0]['fixo']); 
+            $fisico->setLogin($result[0]['login']); 
+            $fisico->setSenha($result[0]['senha']); 
+            $fisico->setFoto($result[0]['foto']); 
+            $fisico->setPagina($result[0]['pagina']); 
+            $fisico->setArea($result[0]['area']); 
+            $fisico->setStatus_($result[0]['status_']); 
+            $fisico->setPerfil($result[0]['perfil']); 
+            $fisico->setArea($result[0]['area']); 
+            $fisico->setEndereco($result[0]['endereco']); 
 
-        return $fisico;
+            return $fisico;
+        } else {
+            return false;
+        }
 
     }
 
-    public function listarFisico()
+    public function listarFisico($idarea)
     {
         $fdao    = new FisicoDAO();
-        $list    = $fdao->listar();
-
+        $list    = $fdao->listarAtivos($idarea['id']);
+ 
         return $list;
     }
 
@@ -312,8 +304,6 @@ class ControllerFisico
 
     public function validarFisico($dados = null)
     {
-        
-        $v             = $dados['v'];
 
         if ( is_null($dados) ) return false;
 
@@ -325,16 +315,13 @@ class ControllerFisico
 
         if ( $result ) {
 
-            if( in_array("admin", $array) ) {
-
-                echo "<script>alert('Profissional ativado com sucesso! ');</script>";
-                echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
-            }
+            $_SESSION['ativar'] = 'success';
+            echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
 
         } else {
 
-            echo "<script>alert('Nao foi possivel ativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-            echo "<script>window.location = 'gerenciar-fisico.php?v=$v';</script>";    
+            $_SESSION['ativar'] = 'erro';
+            echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
 
         }
 

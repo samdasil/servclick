@@ -14,6 +14,19 @@
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
 
+		//carrega o endereco solicitado
+		public function carregarEndereco($idendereco)
+		{
+
+			$sql =  "SELECT  *
+					 FROM endereco
+					 WHERE idendereco = :idendereco";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":idendereco",$idendereco);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
 		//carrega o endereco do cliente solicitado
 		public function carregarEnderecoCliente($idcliente)
 		{
