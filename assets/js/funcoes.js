@@ -439,6 +439,17 @@ function tamanhoCampo(){
 
 }
 
+function fone(){
+    var ddd = document.getElementById('ddd').value;
+    //console.log(cep);
+
+    if(ddd.length>1){
+        //console.log(fone.value)
+        $('#fone').focus();
+    }
+
+}
+
 //Quando o campo cep perde o foco.
 //$("#cep").blur(function() {
 function buscaCep(){
@@ -651,4 +662,20 @@ function validFormCliente() {
         return true;
     }
 
+}
+
+$(window).on('load', function() {
+    var pre_loader = $('#preloader');
+    pre_loader.fadeOut('slow', function() {
+      $(this).remove();
+    });
+});
+
+function preloader() {
+    
+    var pre_loader = $('#preloader');
+    pre_loader.fadeOut('slow', function() {
+      $(this).remove();
+    });
+    
 }

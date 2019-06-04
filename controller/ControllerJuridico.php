@@ -6,7 +6,7 @@ class ControllerJuridico
 	public function cadastrarJuridico($dados = null, $aFile = null)
     {
 
-        if ( !isset($dados) || Usuario::validarLogin($dados['login']) ) return 0;
+        if ( !isset($dados) || UsuarioDAO::verificarLogin($dados['login']) ) return 0;
         
         $juridico    = new Juridico();
         $endereco    = new Endereco(); 

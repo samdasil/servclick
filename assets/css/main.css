@@ -754,6 +754,7 @@ ul.sub-menu {
 .title {
   color: #404040;
   font-weight: 300;
+  margin-bottom: 0;
 }
 
 .single-features {
@@ -2784,6 +2785,8 @@ span.stButton_gradient,
 .buttons-action{
   margin-top: 20px;
   margin-bottom: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 /* TABLE LIST */
@@ -3037,7 +3040,7 @@ section .rodape{
 }
 
 .contact-form-login{
-  width: 30%;
+  width: 70%;
   margin: 0 auto 0 auto;
 }
 
@@ -3128,6 +3131,7 @@ font-size: 10pt;
 
 .lupa{
   opacity: 0.4;
+  margin-top: 15vh
 }
 
 .radio-end{
@@ -3206,6 +3210,7 @@ font-size: 10pt;
 .menu-profissional-footer{
   position: fixed;
   bottom: 30px;
+  width: 90%;
 }
 
 .botoes-footer{
@@ -3219,7 +3224,7 @@ font-size: 10pt;
 .ul-menu-footer{
   list-style: none;
   display: inline-flex;
-  margin-left: 10px;
+  margin-left: 40px;
 }
 
 .i-menu-footer{
@@ -3277,4 +3282,19 @@ background-color: green;
 .indicacao{
   padding-top: 15px;
   line-height: normal;
+}
+
+.media-body{
+  padding-top: 8px;
+}
+
+div#preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 99999;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  background: #fff url('../../assets/images/logo/preloader.gif') no-repeat center center;
 }

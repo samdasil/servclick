@@ -1,4 +1,4 @@
-<?php
+﻿<?php
 
     require_once 'header.php';
     
@@ -27,9 +27,7 @@
             $(document).ready(function(){
                 $( '#areas' ).change(function() {
                     area = $('#area').val();
-                    console.log(area);
                     $.post('carregarProfissionais.php',{id:area},function(data){
-                        
                         $('#profissionais').html(data);
                 ﻿        $('#profissionais').css('display', 'block');
                         $('#lupa').css('display', 'none');
@@ -43,7 +41,7 @@
             <div class="col-sm-6">
                 <div class="form-group">
                     <label><i class="fa fa-list">&nbsp&nbsp</i>Categoria</label>
-                    <select class="form-control" id='categoria'>
+                    <select class="form-control" id='categoria' >
                         <option selected></option>
                         <?php foreach ($categoria as $item) {
                             echo "<option value='".$item['idcategoria']."'>".$item['descricao']."</option>";

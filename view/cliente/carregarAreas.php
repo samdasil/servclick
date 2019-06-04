@@ -15,7 +15,7 @@
         echo "<div class='col-sm-6'>";
         echo "<div class='form-group'>";
         echo "    <label><i class='fa fa-delicious'>&nbsp&nbsp</i>Área de Atuação</label>";
-        echo "    <select id='area' name='area' class='form-control' >";
+        echo "    <select id='area' name='area' class='form-control'>";
                     echo "<option value='' disabled selected></option>";
 			        foreach ($area as $item) {
 			            echo "<option value='".$item['idarea']."'>".$item['descricao']."</option>";

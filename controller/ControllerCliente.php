@@ -6,7 +6,7 @@ class ControllerCliente
     public function cadastrarCliente($dados = null, $aFile = null)
     {
 
-        if ( !isset($dados) || Usuario::validarLogin($dados['login']) ) return 0;
+        if ( !isset($dados) || UsuarioDAO::verificaLogin($dados['login']) ) return 0;
 
         $cliente     = new Cliente();
         $endereco    = new Endereco(); 

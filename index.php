@@ -30,9 +30,15 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="assets/images/ico/apple-touch-icon-57-precomposed.png">
+        <script type="text/javascript" src="assets/js/jquery.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.maskedinput.js"></script>
+        <script type="text/javascript" src="assets/js/jquery.mask.min.js"></script>
+        <script type="text/javascript" src="assets/js/buscaCep.js"></script>
+        <script type="text/javascript" src="assets/js/funcoes.js"></script>
         <script type="text/javascript">var switchTo5x=true;</script>
     </head>
     <body>
+        <div id="preloader"></div>
 
         <header style="margin-top: 60px;"></header>
      
@@ -49,10 +55,10 @@
     	        <form  name="contact-form" method="post" action="" class="contact-form-login">
 
                     <div class="form-group">
-                        <input type="text" name="login" class="form-control" required="required" placeholder="Login" value=''  autofocus>
+                        <input type="text" name="login" class="form-control text-center" required="required" placeholder="Login" value=''  autofocus />
                     </div>
                     <div class="form-group">
-                        <input type="password" name="senha" class="form-control" required="required" placeholder="*********" >
+                        <input type="password" name="senha" class="form-control  text-center" required="required" placeholder="*********" >
                     </div>
 
                     <div class="form-group">

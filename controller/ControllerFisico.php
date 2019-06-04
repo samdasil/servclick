@@ -6,7 +6,7 @@ class ControllerFisico
 	public function cadastrarFisico($dados = null, $aFile = null)
     {
 
-        if ( !isset($dados) || Usuario::validarLogin($dados['login']) ) return 0;
+        if ( !isset($dados) || UsuarioDAO::verificaLogin($dados['login']) ) return 0;
 
         $fisico      = new Fisico();
         $endereco    = new Endereco(); 

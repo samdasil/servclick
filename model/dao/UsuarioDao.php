@@ -98,12 +98,12 @@
 		}
 
 
-	    public static function validarLogin($login='')
+	    public static function verificarLogin($login='')
 	    {
 	        $sql = "SP_VALIDAR_USUARIO(:login)";
 
 			$consulta = Conexao::getCon()->prepare($sql);
-			$consulta->bindValue(":login", $usuario->getLogin());
+			$consulta->bindValue(":login", $login);
 
 			if($consulta->execute())
 				return true;

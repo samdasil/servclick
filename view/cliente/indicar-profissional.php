@@ -2,11 +2,13 @@
 
 	require_once 'header.php';
 
+    $c          = new ControllerCliente();
     $f          = new ControllerFisico();
     $j          = new ControllerJuridico();
     $e          = new ControllerEndereco();
     $p          = new ControllerPagina();
     $a          = new ControllerAreaAtuacao();
+    $cliente    = new Cliente();
     $endereco   = new Endereco();
     $pagina     = new Pagina();
     $area       = new AreaAtuacao();
@@ -33,7 +35,14 @@
         $pagina       = $p->carregarPagina($profissional->getPagina());
         $area         = $a->carregarArea($profissional->getArea());
         //print_r($juridico);exit;
-    } 
+    }
+
+    if( isset($_POST) && !empty($_POST) ){
+        $nome = $_POST['nome'];
+        $fone = '55'.preg_replace("/[^0-9]/", "", $_POST['fone']);
+        $link = 'https://api.whatsapp.com/send?phone='.$fone.'&text=Olá%20'.$nome.'%20,%20esse%20é%20um%20teste%de%mensagem';
+        echo "<script>window.location = '".$link."';</script>";
+    }
     
 ?>
 
@@ -52,13 +61,18 @@
                         </div>
                         <div class='media-body indicacao'>
                         	<?php if($perfil == 'fisico'){ ?>
-                            	<h4><?=$profissional->getNome();?></h4>
+                            	<h4 style="margin-bottom: 5px;"><?=$profissional->getNome();?></p>
+                                <p><?=$area->getDescricao();?></p>    
+                                <!--<p id="cpf"><?=$profissional->getCpf();?></h4>-->
                             <?php } else {?>
-                            	<h4><?=$profissional->getRazaosocial();?></h4>
+                            	<h4 style="margin-bottom: 5px;"><?=$profissional->getRazaosocial();?></h4>
+                                <p><?=$area->getDescricao();?></p>    
+                                <!--<p id="cnpj"><?=$profissional->getCnpj();?></p>-->
                             <?php } ?>
                           	<p><?=$endereco->getBairro();?>, <?=$endereco->getCidade();?>-<?=$endereco->getEstado();?></p>
                           	<p>Fone: <?=$profissional->getFone();?></p>
                           	<p>E-mail: <?=$profissional->getEmail();?></p>
+                            <p><?=$pagina->getSite();?></p>
                       	</div>
                   	</div>
              	</div>
@@ -66,23 +80,26 @@
     	</div>
 
 		<section class="projects">
+            <form name="indicacao" action="" method="POST">
 
-			<label>Informe o número para quem quer indicá-lo</label>
-			<table style="width: 100%;">
-				<td style="width: 80px;padding-right: 15px;">
-					<input type="text" name="ddd" id="ddd" class="form-control" required="required" placeholder="DDD" autocomplete="off" />
-				</td>
-				<td>
-					<input type="text" name="tel" id="fone" class="form-control" placeholder="Telefone" autocomplete="off" maxlength="15" required/>
-				</td>
-			</table>
+                <label>Qual o nome do seu contato ?</label>
+                <input type="text" name="nome" class="form-control" autofocus/>
+    			<label>Informe o número para quem quer indicá-lo</label>
+    			<table style="width: 100%;">
+    				<td style="width: 100px;padding-right: 15px;">
+    					<!--<input type="text" name="ddd" id="ddd" class="form-control" required="required" placeholder="DDD" autocomplete="off" maxlength="2" onkeypress="fone()" />-->
+    				</td>				<td>
+    					<input type="text" name="fone" id="fone" class="form-control" placeholder="Telefone" autocomplete="off" maxlength="15" required/>
+    				</td>
+    			</table>
 
-			<div style="margin-top: 40px;"></div>
+    			<div style="margin-top: 40px;"></div>
 
-			<div class="form-group">
-                <a href="" type="button" name="indicar" class="btn btn-submit">Compartilhar</a>
-            </div>
+    			<div class="form-group">
+                    <button type="submit" name="indicar" class="btn btn-submit">Compartilhar</button>
+                </div>
 
+            </form>
 		</section>
 
 	</div>
