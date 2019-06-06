@@ -9,7 +9,6 @@
     $cliente    = new Cliente();
     $endereco   = new Endereco();
     $id         = base64_decode($_SESSION['session']);
-    $v          = base64_encode($id);
     $cliente    = $c->carregarCliente($id);
     $endereco   = $e->carregarEndereco($cliente->getEndereco());
 

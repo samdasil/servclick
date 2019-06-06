@@ -127,6 +127,16 @@
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 		}
+
+		//Lista todos os elementos da tabela
+		public function listar()
+		{
+			
+			$sql = 'SELECT * FROM fisico ORDER BY status_ asc';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
 		
 		//Lista todos os elementos da tabela
 		public function pesquisar($pesquisa = null)

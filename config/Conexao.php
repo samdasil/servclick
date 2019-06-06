@@ -8,11 +8,6 @@ class Conexao {
 	const PASS = "";
 	public static $con;
 
-	/* construtor da classe conexão, chmando o métod getCon() */
-	public function __construct() {
-		//getCon();
-	}
-
 	/* gerar nova conexao ao banco de dados */
 	public static function getCon() 
 	{

@@ -56,14 +56,10 @@
 		public function editar(Administrador $administrador)
 		{
 			
-			$sql = 'UPDATE administrador SET nome = :nome, login = :login, senha = :senha, status_ = :status_, perfil = :perfil WHERE idadmin = :idadmin';
+			$sql = 'UPDATE administrador SET nome = :nome WHERE idadmin = :idadmin';
 			$consulta = Conexao::getCon()->prepare($sql);
 
 			$consulta->bindValue(':nome',$administrador->getNome()); 
-			$consulta->bindValue(':login',$administrador->getLogin()); 
-			$consulta->bindValue(':senha',$administrador->getSenha()); 
-			$consulta->bindValue(':status_',$administrador->getStatus()); 
-			$consulta->bindValue(':perfil',$administrador->getPerfil()); 
 			$consulta->bindValue(':idadmin',$administrador->getIdadmin()); 
 			
 			if($consulta->execute())

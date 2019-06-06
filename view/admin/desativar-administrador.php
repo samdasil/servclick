@@ -5,7 +5,7 @@
 
   $a             = new ControllerAdministrador();
   $administrador = new Administrador();
-  $administrador = $a->carregarAdministrador($get);
+  $administrador = $a->carregarAdministrador($_GET['p']);
 
   // caso receba dados via POST ou GET
   if( isset($_POST) && !empty($_POST)){
@@ -45,16 +45,19 @@
                         </div>
 
                         <form name="form" method="post" action="">
-                            <input type="hidden" name="v" value="<?=$v;?>" >
                             <input type="hidden" name="idadmin" value="<?=$administrador->getIdadmin();?>" >
                         
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-danger" value="DESATIVAR PERFIL">
-                            </div>
-                            <div class="col-md-6">
-                                 <div class="buttons-action">
-                                    <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                     <div class="buttons-action float-left">
+                                        <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                    </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="buttons-action float-right">
+                                        <input type="submit" name="submit" class="btn btn-warning" value="Desativar perfil">
+                                    </div>
+                                </div>   
                             </div>
                         </form>
                         

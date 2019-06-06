@@ -83,16 +83,10 @@
             <form name="indicacao" action="" method="POST">
 
                 <label>Qual o nome do seu contato ?</label>
-                <input type="text" name="nome" class="form-control" autofocus/>
+                <input type="text" name="nome" class="form-control" required autofocus/>
     			<label>Informe o número para quem quer indicá-lo</label>
-    			<table style="width: 100%;">
-    				<td style="width: 100px;padding-right: 15px;">
-    					<!--<input type="text" name="ddd" id="ddd" class="form-control" required="required" placeholder="DDD" autocomplete="off" maxlength="2" onkeypress="fone()" />-->
-    				</td>				<td>
-    					<input type="text" name="fone" id="fone" class="form-control" placeholder="Telefone" autocomplete="off" maxlength="15" required/>
-    				</td>
-    			</table>
-
+				<input type="text" name="fone" id="fone" class="form-control" placeholder="Telefone" autocomplete="off" maxlength="15" required/>
+    			
     			<div style="margin-top: 40px;"></div>
 
     			<div class="form-group">

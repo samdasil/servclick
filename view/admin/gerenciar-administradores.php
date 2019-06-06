@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8">
                                 <div class="topo" style="text-align: right; padding-right: 15px;">
-                                    <a href="cadastrar-administrador.php?v=<?=$v;?>" title="Cadastrar"><i class="fa fa-plus fa-2x"></i></a>
+                                    <a href="cadastrar-administrador.php" title="Cadastrar" class="cad"><i class="fa fa-plus fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -54,9 +54,9 @@
                                                   <td><?=$administrador['nome'];?></td>
                                                   <?php if($administrador['status_'] == 1) echo "<th>ativo</th>"; else echo "<th>inativo</th>"; ?>
                                                   <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-administrador.php?v=<?=$v;?>&get=<?=$administrador['idadmin'];?>"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-administrador.php?v=<?=$v;?>&get=<?=$administrador['idadmin'];?>"><i class="fa fa-pencil"></i></a>
-                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="desativar-administrador.php?v=<?=$v;?>&get=<?=$administrador['idadmin'];?>"><i class="fa fa-trash"></i></a>
+                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-administrador.php?p=<?=$administrador['idadmin'];?>"><i class="fa fa-eye"></i></a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-administrador.php?p=<?=$administrador['idadmin'];?>"><i class="fa fa-pencil"></i></a>
+                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="desativar-administrador.php?p=<?=$administrador['idadmin'];?>"><i class="fa fa-trash"></i></a>
                                                   </td>
                                                 </tr>
                                             <?php } ?>

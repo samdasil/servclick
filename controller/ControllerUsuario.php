@@ -5,21 +5,14 @@ class ControllerUsuario
 
     public function realizarLogin($usuario, $pass)
     {
-
-        $login  = $usuario;
-        $senha  = md5($pass);
         $uDao   = new UsuarioDAO();
 
-        $result = $uDao->realizarLogin($login, $senha);
-
-        //if(!isset($_SESSION)) session_start();
+        $result = $uDao->realizarLogin($usuario, md5($pass));
 
         if(!$result){
 
             $_SESSION['login'] =  $usuario;
             $_SESSION['res']   =  "erro";
-//print_r($_SESSION);exit;
-            //echo "<script>window.location = 'index.php';</script>";
 
         } else {
             

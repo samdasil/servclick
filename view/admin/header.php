@@ -1,45 +1,17 @@
 <?php
-
-  if(!isset($_GET['v']) || empty($_GET['v'])) header('Location: ../../index.php');
       
-  require_once '../../config.php';
+    require '../../config.php';
+    require_once 'head.php';
+    if(!isset($_SESSION['session'])) header('Location: ../../index.php');
 
+    $id     = base64_decode($_SESSION['session']);
+    $a      = new ControllerAdministrador();
+    $admin  = new Administrador();
 
-  if(isset($_GET['get']) && !empty($_GET['get'])) {
-  //id da classe em foco
-    $get = $_GET['get']; 
-  }
-  //id do usuario logado 
-  $id         = base64_decode($_GET['v']); 
-
-  //id do usuario criptografado 
-  $v          = base64_encode($id);
+    $admin  = $a->carregarAdministrador($id) ;
 
 ?>
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>servClick</title>
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../assets/css/font-awesome.min.css" rel="stylesheet">
-    <link href="../../assets/css/lightbox.css" rel="stylesheet"> 
-    <link href="../../assets/css/animate.min.css" rel="stylesheet"> 
-	<link href="../../assets/css/main.css" rel="stylesheet">
-	<link href="../../assets/css/responsive.css" rel="stylesheet">    
-    <link rel="shortcut icon" href="../../assets/images/logo/servclick-50x42.png">
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../../assets/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../../assets/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../../assets/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="../../assets/images/ico/apple-touch-icon-57-precomposed.png">
-    <script type="text/javascript" src="../../assets/js/jquery.js"></script>
-    <script type="text/javascript" src="../../assets/js/jquery.maskedinput.js"></script>
-    <script type="text/javascript" src="../../assets/js/jquery.mask.min.js"></script>
-    <script type="text/javascript" src="../../assets/js/buscaCep.js"></script>
-</head><!--/head-->
+
 
 <body>
 	<header id="header">      
@@ -62,17 +34,17 @@
                 </div>
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="home.php?v=<?=$v;?>">Home</a></li>
+                        <li><a href="home.php">Home</a></li>
                         <li class="dropdown"><a href="#">Profissionais <i class="fa fa-angle-down"></i></a>
                             <ul role="menu" class="sub-menu">
-                                <li><a href="gerenciar-juridico.php?v=<?=$v;?>">Pessoa Juridica</a></li>
-                                <li><a href="gerenciar-fisico.php?v=<?=$v;?>">Pessoa Fisica</a></li>
+                                <li><a href="gerenciar-juridico.php">Pessoa Juridica</a></li>
+                                <li><a href="gerenciar-fisico.php">Pessoa Fisica</a></li>
                             </ul>
                         </li>                    
-                        <li><a href="listar-clientes.php?v=<?=$v;?>">Clientes</a></li>
-                        <li><a href="gerenciar-categorias.php?v=<?=$v;?>">Categorias</a></li>
-                        <li><a href="gerenciar-usuarios.php?v=<?=$v;?>">Usuários</a></li>
-                        <li><a href="gerenciar-administradores.php?v=<?=$v;?>">Administradores</a></li>
+                        <li><a href="listar-clientes.php">Clientes</a></li>
+                        <li><a href="gerenciar-categorias.php">Categorias</a></li>
+                        <li><a href="gerenciar-usuarios.php">Usuários</a></li>
+                        <li><a href="gerenciar-administradores.php">Administradores</a></li>
                         <li><a href="../../index.php">Sair</a></li>
                     </ul>
                 </div>
@@ -82,5 +54,5 @@
     <!--/#header-->
     
 <script type="text/javascript">
-    var intervalo = setInterval(function() {$('#section_profissionais').load('novos-profissionais.php?v=<?=$v;?>');}, 5000);
+    var intervalo = setInterval(function() {$('#section_profissionais').load('novos-profissionais.php');}, 5000);
 </script>

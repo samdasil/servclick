@@ -1,8 +1,5 @@
 
-<?php 
-    include 'header.php'; 
-  
-?>
+<?php require_once 'header.php'; ?>
 
     <section id="projects" class="padding-top">
         <div class="container">

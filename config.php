@@ -3,6 +3,8 @@
 	
     if(!isset($_SESSION)) session_start();
 
+    header('Content-type: text/html; charset=utf-8'); 
+
 	define('ENVIROMENT', "sammy");
 
 	if ( ENVIROMENT == 'sammy') {

@@ -89,3 +89,17 @@ if((isset($_SESSION['acesso']) && !empty($_SESSION['acesso']) && $_SESSION['aces
     </div> 
 <?php unset($_SESSION['acesso']); } ?>
 
+<!-- DENUNCIA REALIZADA COM SUCESSO -->
+<?php 
+if((isset($_SESSION['denuncia']) && !empty($_SESSION['denuncia']) && $_SESSION['denuncia'] == 'success')) { ?>
+   <script type="text/javascript">
+        setTimeout(function() {
+        $('#message').fadeOut(8000, function(){
+            $(this).remove();
+        });
+    });
+    </script>
+    <div class="alert alert-success alert-dismissible" role="alert" id="message">
+        <strong>Sucesso!</strong><br> Denúncia realizada com sucesso.
+    </div> 
+<?php unset($_SESSION['denuncia']); } ?>

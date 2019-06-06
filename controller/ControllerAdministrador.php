@@ -36,23 +36,18 @@ class ControllerAdministrador
 
     public function editarAdministrador($dados = null)
     {
-
-        $v                 = $dados['v'];
         $administrador     = new Administrador();
         $administradorDAO  = new AdministradorDAO();
 
         $administrador->setIdadmin($dados['idadmin']);
         $administrador->setNome(ucwords($dados['nome']));
-        $administrador->setLogin(strtolower(($dados['login'])));
-        $administrador->setSenha(ucwords(base64_encode($dados['senha'])));
         $administrador->setPerfil(1);
-        $administrador->setStatus(1);
         
         $result = $administradorDAO->editar($administrador);
 
         if ( $result > 0 ) {            
 
-            echo "<script>alert('Administrador atualizado com sucesso!');</script>";
+            $_SESSION['edit'] = 'success';
             echo "<script>window.location = 'gerenciar-administradores.php?v=$v';</script>";
 
         } elseif (!$result) {

@@ -3,19 +3,16 @@
 
 <?php
 
-  $a             = new ControllerAdministrador();
-  $administrador = new Administrador();
-  $administrador = $a->carregarAdministrador($get);
-
-  // caso receba dados via POST ou GET
-  if( isset($_POST) && !empty($_POST)){
-
-      $dados  = $_POST;
-
-      $a->editarAdministrador($dados);
-      
-  }
-
+    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $a             = new ControllerAdministrador();
+    $administrador = new Administrador();
+    $administrador = $a->carregarAdministrador($_GET['p']);
+    
+    //chama controller
+    if ( isset($_POST) && !empty($_POST) ) {
+        $dados = $_POST;
+        $a->editarAdministrador($dados);
+    }
 ?>
 
     <section id="portfolio" class="padding-top">
@@ -32,8 +29,6 @@
                         <h4 class="titulo">Editar Administrador</h4>
 
                         <form id="form" name="contact-form" method="post" action="">
-                            
-                            <input type="hidden" name="v" value="<?=$v;?>" >
 
                             <div class="row">
                                 <div class="col-md-2">
@@ -41,7 +36,7 @@
                                         <input type="text" name="idadmin" class="form-control" placeholder="ID" value="<?=$administrador->getIdadmin();?>" readonly>
                                     </div>
                                 </div>
-                                <div class="col-md-8">
+                                <div class="col-md-10">
                                     <div class="form-group">
                                         <input type="text" name="nome" class="form-control" placeholder="Nome" value="<?=$administrador->getNome();?>" required="required" autofocus>
                                     </div>
@@ -72,12 +67,17 @@
                             </div>
                             -->
 
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
-                            </div>
-                            <div class="navbar-header">
-                            <div class="topo">
-                                <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                     <div class="buttons-action float-left">
+                                        <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="buttons-action float-right">
+                                        <input type="submit" name="submit" class="btn btn-success" value="Enviar Atualização">
+                                    </div>
+                                </div>   
                             </div>
 
                         </form>

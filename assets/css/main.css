@@ -3298,3 +3298,41 @@ div#preloader {
   overflow: visible;
   background: #fff url('../../assets/images/logo/preloader.gif') no-repeat center center;
 }
+
+.op-denuncia{
+  padding-bottom: 10px;
+}
+
+.op-item{
+  height: 5vh;
+    vertical-align: middle;
+    padding-top: 4vh;
+    padding-bottom: 2vh;
+    padding-right: 15px;
+    padding-left: 15px;
+    font-size: 1.3em;
+    width: 100%;
+}
+
+.novos-profissionais{
+  width: 50px; 
+  height: 50px;
+}
+
+.return{
+  color: #c25454;
+}
+
+.cad{
+  color: #c25454;
+}
+
+.float-left{
+  float: left;
+  margin-left: 0;
+}
+
+.float-right{
+  float: right;
+  margin-right: 0;
+}

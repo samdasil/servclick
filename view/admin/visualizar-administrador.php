@@ -1,11 +1,13 @@
 
-<?php include 'header.php'; ?>
+<?php 
+    
+    require_once 'header.php';
 
-<?php
-
-  $a             = new ControllerAdministrador();
-  $administrador = new Categoria();
-  $administrador = $a->carregarAdministrador($get);
+    $p = isset($_GET['p']) ? $_GET['p'] : 0;
+ 
+    $a             = new ControllerAdministrador();
+    $administrador = new Administrador();
+    $administrador = $a->carregarAdministrador($_GET['p']);
 
 ?>
 
@@ -37,13 +39,13 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                 <div class="buttons-action">
-                                    <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                 <div class="buttons-action float-left">
+                                    <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="buttons-action">
-                                    <a href="editar-administrador.php?v=<?=$v;?>&get=<?=$get?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                                <div class="buttons-action float-right">
+                                    <a href="editar-administrador.php?p=<?=$p?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
                                  </div>
                             </div>   
                         </div>
