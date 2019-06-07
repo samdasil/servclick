@@ -2,19 +2,20 @@
 <?php include 'header.php'; ?>
 
 <?php
+    
+    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $c          = new ControllerCategoria();
+    $categoria  = new Categoria();
+    $categoria  = $c->carregarCategoria($p);
 
-  $c          = new ControllerCategoria();
-  $categoria  = new Categoria();
-  $categoria  = $c->carregarCategoria($get);
-
-  // caso receba dados via POST ou GET
-  if( isset($_POST) && !empty($_POST)){
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST)){
 
       $dados  = $_POST;
 
       $c->deletarCategoria($dados);
       
-  }
+    }
 
 ?>
 
@@ -48,13 +49,17 @@
                             <input type="hidden" name="v" value="<?=$v;?>" >
                             <input type="hidden" name="idcategoria" value="<?=$categoria->getIdcategoria();?>" >
                         
-                            <div class="form-group">
-                                <input type="submit" name="submit" class="btn btn-danger" value="DELETAR CATEGORIA">
-                            </div>
-                            <div class="col-md-6">
-                                 <div class="buttons-action">
-                                    <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                            <div class="row">
+                                <div class="col-md-6">
+                                     <div class="buttons-action float-left">
+                                        <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                    </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="buttons-action float-right">
+                                        <input type="submit" name="submit" class="btn btn-warning" value="Deletar categoria">
+                                    </div>
+                                </div>   
                             </div>
                         </form>
                                

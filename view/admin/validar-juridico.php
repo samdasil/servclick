@@ -1,17 +1,18 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
 
+    $p          = isset($_GET['p']) ? $_GET['p'] : 0;
     $j          = new ControllerJuridico();
     $e          = new ControllerEndereco();
-    $p          = new ControllerPagina();
+    $pg         = new ControllerPagina();
     $juridico   = new Juridico();
     $endereco   = new Endereco();
     $pagina     = new Pagina();
-    $juridico   = $j->carregarJuridico($get);
-    $endereco   = $e->carregarEnderecoJuridico($get);
-    $pagina     = $p->carregarPagina($juridico->getPagina());
+    $juridico   = $j->carregarJuridico($p);
+    $endereco   = $e->carregarEndereco($juridico->getEndereco());
+    $pagina     = $pg->carregarPagina($juridico->getPagina());
 
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
@@ -21,33 +22,6 @@
 
     }
 ?>
-    <script type="text/javascript">
-        function alterarImagem() {
-            
-            var input = document.getElementById("logo");
-            var fReader = new FileReader();
-            fReader.readAsDataURL(input.files[0]);
-            fReader.onloadend = function(event){
-                var img = document.getElementById("img");
-                img.src = event.target.result;
-            //document.form.img.src = document.form.foto.files[0].name;   
-            }
-
-        }
-
-    </script>
-
-    <!-- script mask -->
-    <script type="text/javascript">
-        
-        $(document).ready(function(){
-            $("#cnpj").mask('00.000.000/0000-00')
-            $("#cpf").mask('000.000.000-00')
-            $("#cep").mask('00000-000')
-            $("#fone").mask('(00) 00000-0000')
-        })
-
-    </script>
 
     <section id="portfolio" class="padding-top">
         <div class="container">
@@ -58,7 +32,7 @@
                     </div>
                 </div>
             
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="contact-form">
                         <h4 class="titulo">Profissional Pessoa Jurídica</h4>
 
@@ -66,7 +40,7 @@
                             <div class="portfolio-wrapper">
                                 <div class="portfolio-single">
                                 
-                                    <img src="../../assets/images/juridico/<?=$juridico->getLogo();?>" class="img-perfil" alt="" name="img" id="img" />
+                                    <img src="../../assets/images/juridico/<?=$juridico->getFoto();?>" class="img-perfil" alt="" name="img" id="img" />
                                 
                                 </div>
                             </div>
@@ -76,7 +50,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-9">                        
+                        <div class="col-md-8"  style="margin-left: 40px;">
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -106,18 +80,22 @@
                                 </div>
 
                                 <form name="form" method="post" action="">
-                                    <input type="hidden" name="v" value="<?=$v;?>" >
+
                                     <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>" >
 
-                                    <div class="form-group">
-                                        <input type="submit" name="submit" class="btn btn-submit" value="VALIDAR PERFIL">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                             <div class="buttons-action float-left">
+                                                <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="buttons-action float-right">
+                                                <a href="editar-juridico.php?p=<?=$p?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button></a>
+                                             </div>
+                                        </div>     
                                     </div>
 
-                                    <div class="col-md-6">
-                                         <div class="buttons-action">
-                                            <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
-                                        </div>
-                                    </div>
                                 </form>
                    
                             </div>

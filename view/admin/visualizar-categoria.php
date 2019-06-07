@@ -2,10 +2,11 @@
 <?php include 'header.php'; ?>
 
 <?php
-
-  $c          = new ControllerCategoria();
-  $categoria  = new Categoria();
-  $categoria  = $c->carregarCategoria($get);
+    
+    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $c          = new ControllerCategoria();
+    $categoria  = new Categoria();
+    $categoria  = $c->carregarCategoria($_GET['p']);
 
 ?>
 
@@ -36,13 +37,13 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                 <div class="buttons-action">
-                                    <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                 <div class="buttons-action float-left">
+                                    <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
                                 </div>
                             </div>
                             <div class="col-md-6">
-                                <div class="buttons-action">
-                                    <a href="editar-categoria.php?v=<?=$v;?>&get=<?=$get?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                                <div class="buttons-action float-right">
+                                    <a href="editar-categoria.php?p=<?=$p?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
                                  </div>
                             </div>   
                         </div>

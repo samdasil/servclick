@@ -9,7 +9,7 @@
     // caso receba dados via POST
     if( isset($_POST) && !empty($_POST) ){
 
-        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0)) {
 
             $aFile = $_FILES;
             

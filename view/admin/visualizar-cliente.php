@@ -1,27 +1,16 @@
+    <?php 
     
-<?php include 'header.php'; ?>
-
-<?php
-
-  $c        = new ControllerCliente();
-  $e        = new ControllerEndereco();
-  $cliente  = new Cliente();
-  $endereco = new Endereco();
-  $cliente  = $c->carregarCliente($get);
-  $endereco = $e->carregarEnderecoCliente($get);
+    require_once 'header.php'; 
+  
+    $p        = isset($_GET['p']) ? $_GET['p'] : 0;
+    $c        = new ControllerCliente();
+    $e        = new ControllerEndereco();
+    $cliente  = new Cliente();
+    $endereco = new Endereco();
+    $cliente  = $c->carregarCliente($p);
+    $endereco = $e->carregarEndereco($cliente->getEndereco());
 
 ?>
-
-    <!-- script mask -->
-    <script type="text/javascript">
-        
-        $(document).ready(function(){
-            $("#cpf").mask('000.000.000-00')
-            $("#cep").mask('00000-000')
-            $("#fone").mask('(00) 00000-0000')
-        })
-
-    </script>
 
     <section id="portfolio" class="padding-top">
         <div class="container">
@@ -72,16 +61,16 @@
 
                                 <div class="row">
                                     <div class="col-md-6">
-                                         <div class="buttons-action">
-                                            <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                         <div class="buttons-action float-left">
+                                            <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="buttons-action">
-                                            <a href="editar-cliente.php?v=<?=$v;?>&get=<?=$get?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
-                                         </div>
+                                        <div class="buttons-action float-right">
+                                            <a href="editar-cliente.php?p=<?=$p?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                                        </div>
                                     </div>   
-                                </div>
+                                </div>                                
                    
                             </div>
                         </div>

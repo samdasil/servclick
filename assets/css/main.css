@@ -22,7 +22,7 @@
     background-repeat: repeat-y;
     background-size: cover;
     z-index: 2;
-    background-image: url(../../assets/images/background/back.jpg);
+    background-image: url(../../assets/images/background/back.png);
   }
 
   .co-body{
@@ -3335,4 +3335,13 @@ div#preloader {
 .float-right{
   float: right;
   margin-right: 0;
+}
+
+.cad-pro{
+  text-align: center;
+  margin-left: 2vw;
+}
+
+.fot-pro{
+  margin-left: 2vw;
 }

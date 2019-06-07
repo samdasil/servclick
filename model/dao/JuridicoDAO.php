@@ -110,7 +110,7 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listarAtivos($idarea)
+		public function listarPorArea($idarea)
 		{
 			
 			$sql = 'SELECT * FROM juridico
@@ -125,10 +125,20 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listarNovo()
+		public function listarPendentes()
 		{
 			
 			$sql = 'SELECT * FROM juridico WHERE status_ = 3';
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->execute();
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+		
+		//Lista todos os elementos da tabela
+		public function listarTodos()
+		{
+			
+			$sql = 'SELECT * FROM juridico ORDER BY razaosocial asc,status_ asc';
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
@@ -164,10 +174,10 @@
 			}
 		}
 		
-		public function validar($dados = null)
+		public function validar($idjuridico = null)
 		{
 
-			if ( is_null($dados) ) {
+			if ( is_null($idjuridico) ) {
 				
 				return false;
 
@@ -176,7 +186,7 @@
 				$sql = "UPDATE juridico SET status_ = 1 WHERE idjuridico = :idjuridico";
 
 				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
+				$consulta->bindValue(":idjuridico",$idjuridico);
 				
 				if($consulta->execute())
 					return true;

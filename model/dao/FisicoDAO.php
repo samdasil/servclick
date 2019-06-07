@@ -104,7 +104,7 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listarAtivos($idarea)
+		public function listarPorArea($idarea)
 		{
 			
 			$sql = 'SELECT * FROM fisico 
@@ -119,7 +119,7 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listarNovo()
+		public function listarPendentes()
 		{
 			
 			$sql = 'SELECT * FROM fisico WHERE status_ = 3';
@@ -129,10 +129,10 @@
 		}
 
 		//Lista todos os elementos da tabela
-		public function listar()
+		public function listarTodos()
 		{
 			
-			$sql = 'SELECT * FROM fisico ORDER BY status_ asc';
+			$sql = 'SELECT * FROM fisico ORDER BY nome asc,status_ asc';
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->execute();
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));

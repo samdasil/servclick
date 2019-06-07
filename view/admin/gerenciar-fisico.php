@@ -1,11 +1,12 @@
 
-<?php include 'header.php'; ?>
+<?php 
+  
+    require_once 'header.php'; 
 
-<?php
-
-  $f       = new ControllerFisico();  
-  $fisico  = new Fisico();
-  $fisicos = $f->listarFisico();  
+    $p       = isset($_GET['p']) ? $_GET['p'] : 0;
+    $f       = new ControllerFisico();  
+    $fisico  = new Fisico();
+    $fisicos = $f->listarTodos();  
 
 ?>
 
@@ -28,7 +29,7 @@
                             </div>
                             <div class="col-md-7 col-sm-8">
                                 <div class="topo" style="text-align: right; padding-right: 15px;">
-                                    <a href="cadastrar-fisico.php?v=<?=$v;?>" title="Cadastrar" ><i class="fa fa-plus fa-2x"></i></a>
+                                    <a href="cadastrar-fisico.php" title="Cadastrar" class="cad"><i class="fa fa-plus fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -56,11 +57,11 @@
                                                   <td><?=$fisico['cpf'];?></td>
                                                   <td><?=$fisico['nome'];?></td>
                                                   <td><?=$fisico['email'];?></td>
-                                                  <?php if($fisico['status_'] == 1) echo "<th>ativo</th>"; else echo "<th>inativo</th>"; ?>
+                                                  <?php if($fisico['status_'] == 1) echo "<th><i class='fa fa-check'></i></th>"; else echo "<th><i class='fa fa-ban'></th>"; ?>
                                                   <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-fisico.php?v=<?=$v;?>&get=<?=$fisico['idfisico'];?>"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-fisico.php?v=<?=$v;?>&get=<?=$fisico['idfisico'];?>"><i class="fa fa-pencil"></i></a>
-                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="desativar-fisico.php?v=<?=$v;?>&get=<?=$fisico['idfisico'];?>"><i class="fa fa-trash"></i></a>
+                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-fisico.php?p=<?=$fisico['idfisico'];?>"><i class="fa fa-eye"></i></a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-fisico.php?p=<?=$fisico['idfisico'];?>"><i class="fa fa-pencil"></i></a>
+                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="desativar-fisico.php?p=<?=$fisico['idfisico'];?>"><i class="fa fa-trash"></i></a>
                                                   </td>
                                                 </tr>
                                             <?php } ?>

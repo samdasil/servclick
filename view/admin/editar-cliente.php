@@ -1,19 +1,19 @@
-    
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
-
+    require_once 'header.php'; 
+  
+    $p        = isset($_GET['p']) ? $_GET['p'] : 0;
     $c        = new ControllerCliente();
     $e        = new ControllerEndereco();
     $cliente  = new Cliente();
     $endereco = new Endereco();
-    $cliente  = $c->carregarCliente($get);
-    $endereco = $e->carregarEnderecoCliente($get);
+    $cliente  = $c->carregarCliente($p);
+    $endereco = $e->carregarEndereco($cliente->getEndereco());
 
     // caso receba dados via POST 
     if( isset($_POST) && !empty($_POST) ){
 
-        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0)) {
 
             $aFile = $_FILES;
             
@@ -29,33 +29,7 @@
     }
 
 ?>
-    <script type="text/javascript">
-        function alterarImagem() {
-            
-            var input = document.getElementById("foto");
-            var fReader = new FileReader();
-            fReader.readAsDataURL(input.files[0]);
-            fReader.onloadend = function(event){
-                var img = document.getElementById("img");
-                img.src = event.target.result;
-            //document.form.img.src = document.form.foto.files[0].name;   
-            }
-
-        }
-
-    </script>
-
-    <!-- script mask -->
-    <script type="text/javascript">
-        
-        $(document).ready(function(){
-            $("#cpf").mask('000.000.000-00')
-            $("#cep").mask('00000-000')
-            $("#fone").mask('(00) 00000-0000')
-        })
-
-    </script>
-
+   
     <section id="portfolio" class="padding-top">
         <div class="container">
             <div class="row">
@@ -71,9 +45,8 @@
 
                     <form name="form" method="post" action="" enctype="multipart/form-data">
 
-                        <input type="hidden" name="v" value="<?=$v;?>" >
                         <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
-                        <input type="hidden" name="status" value="<?=$cliente->getStatus();?>">
+                        <input type="hidden" name="status_" value="<?=$cliente->getStatus_();?>">
                         <input type="hidden" name="perfil" value="<?=$cliente->getPerfil();?>">
                         <input type="hidden" name="login" value="<?=$cliente->getLogin();?>">
                         <input type="hidden" name="senha" value="<?=$cliente->getSenha();?>">
@@ -97,11 +70,11 @@
                             </div>
                             
                             <div class="form-group text-center">
-                                <label >Foto do perfil</label>
+                                <label class="cad-pro fot-pro">Foto do perfil</label>
                             </div>
                         </div>
 
-                        <div class="col-md-9">
+                        <div class="col-md-8" style="margin-left: 40px;">
                                 <label class="form-group">Dados</label>
                             
                                 <div class="form-group">
@@ -131,7 +104,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-3">
-                                            <input type="text" class="form-control" name="cep" id="cep" maxlength="9" placeholder="CEP" autocomplete="off" minlength="9" value="<?=$endereco->getCep();?>">
+                                            <input type="text" class="form-control" name="cep" id="cep" maxlength="9" placeholder="CEP" autocomplete="off" minlength="9" value="<?=$endereco->getCep();?>"  onkeyup="tamanhoCampo()">
                                         </div>
                                     </div>
                                 </div>
@@ -170,12 +143,22 @@
                                      </div>
                                  </div>
 
-                                <div class="form-group">
-                                    <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                                 <div class="row">
+                                    <div class="col-md-6">
+                                         <div class="buttons-action float-left">
+                                            <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="buttons-action float-right">
+                                            <input type="submit" name="submit" class="btn btn-success" value="Enviar Atualização">
+                                        </div>
+                                    </div>   
                                 </div>
+                                
                                 <br>
                                 <div class="form-group">
-                                    <a type="submit" href="desativar-cliente.php?v=<?=$v;?>&get=<?=$get;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
+                                    <a type="submit" href="desativar-cliente.php?p=<?=$p;?>" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
                                     <small>Desativar perfil</small>
                                 </div>
                             </div>

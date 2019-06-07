@@ -1,22 +1,23 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
 
+    $p        = isset($_GET['p']) ? $_GET['p'] : 0;
     $f        = new ControllerFisico();
     $e        = new ControllerEndereco();
-    $p        = new ControllerPagina();
+    $pg       = new ControllerPagina();
     $fisico   = new Fisico();
     $endereco = new Endereco();
     $pagina   = new Pagina();
-    $fisico   = $f->carregarFisico($get);
-    $endereco = $e->carregarEnderecoFisico($get);
-    $pagina   = $p->carregarPagina($fisico->getPagina());
+    $fisico   = $f->carregarFisico($p);
+    $endereco = $e->carregarEndereco($fisico->getEndereco());
+    $pagina   = $pg->carregarPagina($fisico->getPagina());
 
     // caso receba dados via POST 
     if( isset($_POST) && !empty($_POST) ){
 
-        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0)) {
 
             $aFile = $_FILES;
             
@@ -32,33 +33,6 @@
     }
 
 ?>
-    <script type="text/javascript">
-        function alterarImagem() {
-            
-            var input = document.getElementById("foto");
-            var fReader = new FileReader();
-            fReader.readAsDataURL(input.files[0]);
-            fReader.onloadend = function(event){
-                var img = document.getElementById("img");
-                img.src = event.target.result;
-            //document.form.img.src = document.form.foto.files[0].name;   
-            }
-
-        }
-
-    </script>
-
-    <!-- script mask -->
-    <script type="text/javascript">
-        
-        $(document).ready(function(){
-            $("#cnpj").mask('00.000.000/0000-00')
-            $("#cpf").mask('000.000.000-00')
-            $("#cep").mask('00000-000')
-            $("#fone").mask('(00) 00000-0000')
-        })
-
-    </script>
     
     <section id="portfolio" class="padding-top">
         <div class="container">
@@ -75,10 +49,9 @@
 
                         <form name="form" method="post" action="" enctype="multipart/form-data">
 
-                            <input type="hidden" name="v" value="<?=$v;?>" >
                             <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>">
                             <input type="hidden" name="pagina" value="<?=$fisico->getPagina();?>">
-                            <input type="hidden" name="status" value="<?=$fisico->getStatus();?>">
+                            <input type="hidden" name="status_" value="<?=$fisico->getStatus_();?>">
                             <input type="hidden" name="perfil" value="<?=$fisico->getPerfil();?>">
                             <input type="hidden" name="login" value="<?=$fisico->getLogin();?>">
                             <input type="hidden" name="senha" value="<?=$fisico->getSenha();?>">
@@ -106,7 +79,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-9">
+                            <div class="col-md-8" style="margin-left: 40px;">
                                 <label class="form-group">Dados</label>
                             
                                 <div class="form-group">
@@ -130,13 +103,13 @@
 
                                 <div class="form-group">
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-4">
                                             <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$fisico->getEmail();?>" >
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$fisico->getFone();?>" >
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$fisico->getFixo();?>" >
                                         </div>
                                     </div>
@@ -212,13 +185,19 @@
                                     <input type="url" name="site" class="form-control"  placeholder="Site" value="<?=$pagina->getSite();?>">
                                 </div>
 
-                                <div class= "form-group">
-                                    <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                         <div class="buttons-action float-left">
+                                            <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="buttons-action float-right">
+                                            <input type="submit" name="submit" class="btn btn-success" value="Enviar Atualização">
+                                        </div>
+                                    </div>   
                                 </div>
-                                <br>
-                                <div class="topo">
-                                    <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
-                                </div>
+
                             </div>
                         </form>
                     </div>

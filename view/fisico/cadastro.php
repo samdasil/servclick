@@ -12,7 +12,7 @@
     // caso receba dados via POST 
     if( isset($_POST) && !empty($_POST) ){
 
-        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0)) {
             
             $aFile = $_FILES;
             
@@ -193,27 +193,27 @@
                             <label class="form-group"><i class="fa fa-globe">&nbsp&nbsp</i>Páginas e websites <small>(url)</small></label>
 
                             <div class="form-group">
-                                <input type="url" name="facebook" class="form-control" placeholder="Facebook">
+                                <input type="url" name="facebook" id="facebook" class="form-control" placeholder="Facebook">
                             </div>
                             
                             <div class="form-group">
-                                <input type="url" name="instagram" class="form-control"  placeholder="Instagram">
+                                <input type="url" name="instagram" id="instagram" class="form-control"  placeholder="Instagram">
                             </div>
 
                             <div class="form-group">
-                                <input type="url" name="pinterest" class="form-control"  placeholder="Pinterest">
+                                <input type="url" name="pinterest" id="pinterest" class="form-control"  placeholder="Pinterest">
                             </div>
 
                             <div class="form-group">
-                                <input type="url" name="twitter" class="form-control"  placeholder="Twitter">
+                                <input type="url" name="twitter" id="twitter" class="form-control"  placeholder="Twitter">
                             </div>
 
                             <div class="form-group">
-                                <input type="url" name="google" class="form-control"  placeholder="Google">
+                                <input type="url" name="google" id="google" class="form-control"  placeholder="Google">
                             </div>
 
                             <div class="form-group">
-                                <input type="url" name="site" class="form-control"  placeholder="Site">
+                                <input type="url" name="site" id="site" class="form-control"  placeholder="Site">
                             </div>
                             <a href="#" id="pagina-left" onclick="fisico_next(this)" class="left"><i class="fa fa-arrow-left fa-3x"></i></a>
                             <a href="#" id="pagina-right" onclick="fisico_next(this)" class="right"><i class="fa fa-arrow-right fa-3x"></i></a>

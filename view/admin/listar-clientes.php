@@ -1,13 +1,13 @@
-
-<?php include 'header.php'; ?>
-
-<?php
-
-  $c          = new ControllerCliente();
-  $e          = new ControllerEndereco();
-  $cliente    = new Cliente;
-  $endereco   = new Endereco;
-  $clientes   = $c->listarCliente();
+<?php 
+    
+    require_once 'header.php'; 
+  
+    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $c          = new ControllerCliente();
+    $e          = new ControllerEndereco();
+    $cliente    = new Cliente();
+    $endereco   = new Endereco();
+    $clientes   = $c->listarCliente();
 
 ?>
 
@@ -57,9 +57,10 @@
                                                   <td><?=$cliente['nome'];?></td>
                                                   <td><?=$cliente['email'];?></td>
                                                   <td><?=$cliente['fone'];?></td>
-                                                  <?php if($cliente['status_'] == 1) echo "<th>ativo</th>"; else echo "<th>inativo</th>"; ?>
+                                                  <?php if($cliente['status_'] == 1) echo "<th><i class='fa fa-check'></i></th>"; else echo "<th><i class='fa fa-ban'></th>"; ?>
                                                   <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-cliente.php?v=<?=$v;?>&get=<?=$cliente['idcliente'];?>"><i class="fa fa-eye"></i></a>
+                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-cliente.php?p=<?=$cliente['idcliente'];?>"><i class="fa fa-eye"></i>
+                                                    </a>
                                                     <!--<a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editarAdmin.php?acao=editar&id="><i class="fa fa-pencil"></i></a>
                                                     -->
                                                   </td>

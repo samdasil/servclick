@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-9 col-sm-8">
                                 <div class="topo" style="text-align: right; padding-right: 15px;">
-                                    <a href="cadastrar-categoria.php?v=<?=$v;?>"  title="Cadastrar"><i class="fa fa-plus fa-2x"></i></a>
+                                    <a href="cadastrar-categoria.php"  title="Cadastrar" class="cad"><i class="fa fa-plus fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -52,9 +52,9 @@
                                                   <td><?=$categoria['idcategoria'];?></td>
                                                   <td><?=$categoria['descricao'];?></td>
                                                   <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-categoria.php?v=<?=$v;?>&get=<?=$categoria['idcategoria'];?>"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-categoria.php?v=<?=$v;?>&get=<?=$categoria['idcategoria'];?>"><i class="fa fa-pencil"></i></a>
-                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="deletar-categoria.php?v=<?=$v;?>&get=<?=$categoria['idcategoria'];?>"><i class="fa fa-trash"></i></a>
+                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-eye"></i></a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-pencil"></i></a>
+                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="deletar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-trash"></i></a>
                                                   </td>
                                                 </tr>
                                             <?php } ?>

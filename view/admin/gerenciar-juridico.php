@@ -1,11 +1,11 @@
+<?php 
 
-<?php include 'header.php'; ?>
-
-<?php
-
-  $j        = new ControllerJuridico();  
-  $juridico = new Juridico();
-  $juridicos = $j->listarJuridico();  
+    require_once 'header.php'; 
+  
+    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $j        = new ControllerJuridico();  
+    $juridico = new Juridico();
+    $juridicos = $j->listarTodos();  
 
 ?>
 
@@ -28,7 +28,7 @@
                             </div>
                             <div class="col-md-7 col-sm-8">
                                 <div class="topo" style="text-align: right; padding-right: 15px;">
-                                    <a href="cadastrar-juridico.php?v=<?=$v;?>" title="Cadastrar" ><i class="fa fa-plus fa-2x"></i></a>
+                                    <a href="cadastrar-juridico.php" title="Cadastrar" class="cad"><i class="fa fa-plus fa-2x"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -56,11 +56,11 @@
                                                   <td><?=$juridico['cnpj'];?></td>
                                                   <td><?=$juridico['razaosocial'];?></td>
                                                   <td><?=$juridico['responsavel'];?></td>
-                                                  <?php if($juridico['status_'] == 1) echo "<th>ativo</th>"; else echo "<th>inativo</th>"; ?>
+                                                  <?php if($juridico['status_'] == 1) echo "<th><i class='fa fa-check'></i></th>"; else echo "<th><i class='fa fa-ban'></th>"; ?>
                                                   <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-juridico.php?v=<?=$v;?>&get=<?=$juridico['idjuridico'];?>"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-juridico.php?v=<?=$v;?>&get=<?=$juridico['idjuridico'];?>"><i class="fa fa-pencil"></i></a>
-                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="desativar-juridico.php?v=<?=$v;?>&get=<?=$juridico['idjuridico'];?>"><i class="fa fa-trash"></i></a>
+                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-juridico.php?p=<?=$juridico['idjuridico'];?>"><i class="fa fa-eye"></i></a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-juridico.php?p=<?=$juridico['idjuridico'];?>"><i class="fa fa-pencil"></i></a>
+                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="desativar-juridico.php?p=<?=$juridico['idjuridico'];?>"><i class="fa fa-trash"></i></a>
                                                   </td>
                                                 </tr>
                                             <?php } ?>

@@ -1,20 +1,21 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
 
-  $a             = new ControllerAdministrador();
-  $administrador = new Administrador();
-  $administrador = $a->carregarAdministrador($_GET['p']);
+    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $a             = new ControllerAdministrador();
+    $administrador = new Administrador();
+    $administrador = $a->carregarAdministrador($p);
 
-  // caso receba dados via POST ou GET
-  if( isset($_POST) && !empty($_POST)){
+    // caso receba dados via POST ou GET
+    if( isset($_POST) && !empty($_POST)){
 
       $dados  = $_POST;
 
       $a->desativarAdministrador($dados);
       
-  }
+    }
 
 ?>
 

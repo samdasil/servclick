@@ -8,7 +8,6 @@ class ControllerCategoria
 
         if ( !isset($dados) ) return false;
 
-        $v             = $dados['v'];
         $categoria     = new Categoria();
         $categoriaDAO  = new CategoriaDAO();
 
@@ -16,14 +15,14 @@ class ControllerCategoria
         
         $result = $categoriaDAO->cadastrar($categoria);
 
-        if ( $result > 0 ) {            
-            echo "<script>alert('Cadastro foi efetuado com sucesso!');</script>";
-            echo "<script>window.location = 'gerenciar-categorias.php?v=$v';</script>";
+        if ( $result ) {            
+            $_SESSION['cad-categoria'] = 'success';
+            echo "<script>window.location = 'gerenciar-categorias.php';</script>";
 
-        } elseif (!$result) {
+        } else {
 
-            echo "<script>alert('Houve um erro ao cadastrar categoria.');</script>";
-            echo "<script>window.location = 'cadastrar-categoria.php?v=$v';</script>";
+            $_SESSION['cad-categoria'] = 'erro';
+            echo "<script>window.location = 'cadastrar-categoria.php';</script>";
 
         }
 
@@ -62,19 +61,18 @@ class ControllerCategoria
         
         if ( is_null($dados) ) return false;
 
-        $v             = $dados['v'];
         $categoriaDAO  = new CategoriaDAO;
         $result = $categoriaDAO->deletar($dados['idcategoria']);
 
         if ( $result ) {
 
             echo "<script>alert('Categoria deletada com sucesso.');</script>";
-            echo "<script>window.location = 'gerenciar-categorias.php?v=$v';</script>";
+            echo "<script>window.location = 'gerenciar-categorias.php';</script>";
 
         } else {
 
             echo "<script>alert('Nao foi possivel deletar categoria, pois está sendo referenciada em um relacionamento.');</script>";
-            echo "<script>window.location = 'visualizar-categoria.php?v=$v';</script>";
+            echo "<script>window.location = 'visualizar-categoria.php';</script>";
 
         }
 

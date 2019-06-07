@@ -52,7 +52,7 @@
                                                 <tr>
                                                   <td><?=$administrador['idadmin'];?></td>
                                                   <td><?=$administrador['nome'];?></td>
-                                                  <?php if($administrador['status_'] == 1) echo "<th>ativo</th>"; else echo "<th>inativo</th>"; ?>
+                                                  <?php if($administrador['status_'] == 1) echo "<th><i class='fa fa-check'></i></th>"; else echo "<th><i class='fa fa-ban'></th>"; ?>
                                                   <td class="text-primary">
                                                     <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-administrador.php?p=<?=$administrador['idadmin'];?>"><i class="fa fa-eye"></i></a>
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-administrador.php?p=<?=$administrador['idadmin'];?>"><i class="fa fa-pencil"></i></a>

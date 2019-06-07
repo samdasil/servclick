@@ -5,8 +5,8 @@
     $juri       = new Juridico();
     $pfisicos   = new ControllerFisico();
     $fisi       = new Fisico(); 
-    $pjuridico  = $pjuridicos->listarNovoJuridico();
-    $pfisico    = $pfisicos->listarNovoFisico();  
+    $pjuridico  = $pjuridicos->listarPendentes();
+    $pfisico    = $pfisicos->listarPendentes();  
 
 ?>
             <script type="text/javascript">
@@ -28,7 +28,7 @@
                             <div class="media">
                                 <div class="pull-left">
                                     <a href="validar-juridico.php?p=<?=$j['idjuridico'];?>">
-                                        <img src="../../assets/images/juridico/<?=$j['logo'];?>" alt="" class="novos-profissionais" >
+                                        <img src="../../assets/images/juridico/<?=$j['foto'];?>" alt="" class="novos-profissionais" >
                                     </a>
                                 </div>
                                 <div class="media-body">

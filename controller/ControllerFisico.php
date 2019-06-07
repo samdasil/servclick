@@ -286,18 +286,26 @@ class ControllerFisico
 
     }
 
-    public function listarFisico($idarea)
+    public function listarPorArea($idarea)
     {
         $fdao    = new FisicoDAO();
-        $list    = $fdao->listarAtivos($idarea['id']);
+        $list    = $fdao->listarPorArea($idarea['id']);
  
         return $list;
     }
 
-    public function listarNovoFisico()
+    public function listarPendentes()
     {
         $fdao    = new FisicoDAO();
-        $list    = $fdao->listarNovo();
+        $list    = $fdao->listarPendentes();
+
+        return $list;
+    }
+
+    public function listarTodos()
+    {
+        $fdao    = new FisicoDAO();
+        $list    = $fdao->listarTodos();
 
         return $list;
     }

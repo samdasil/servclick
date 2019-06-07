@@ -186,14 +186,6 @@ class ControllerJuridico
 
     }
 
-    public function listarJuridico($idarea)
-    {
-        $jdao    = new JuridicoDAO();
-        $list    = $jdao->listarAtivos($idarea['id']);
-
-        return $list;
-    }
-
     public function editarJuridico($dados = null, $aFile = null)
     {
 
@@ -295,23 +287,38 @@ class ControllerJuridico
 
     }
 
-    public function listarNovoJuridico()
+    public function listarPorArea($idarea)
     {
         $jdao    = new JuridicoDAO();
-        $list    = $jdao->listarNovo();
+        $list    = $jdao->listarPorArea($idarea);
+ 
+        return $list;
+    }
+
+    public function listarPendentes()
+    {
+        $jdao    = new JuridicoDAO();
+        $list    = $jdao->listarPendentes();
 
         return $list;
     }
 
-    public function validarJuridico($dados = null)
+    public function listarTodos()
     {
-        $v             = $dados['v'];
+        $jdao    = new JuridicoDAO();
+        $list    = $jdao->listarTodos();
 
-        if ( is_null($dados) ) return false;
+        return $list;
+    }
 
-        $juridicoDAO     = new JuridicoDAO;
+    public function validarJuridico($idjuridico = null)
+    {
 
-        $result = $juridicoDAO->validar($dados);
+        if ( is_null($idjuridico) ) return false;
+
+        $juridicoDAO     = new JuridicoDAO();
+
+        $result = $juridicoDAO->validar($idjuridico);
 
         $array = explode('/', $_SERVER['REQUEST_URI']);
 
@@ -319,14 +326,14 @@ class ControllerJuridico
 
             if( in_array("admin", $array) ) {
 
-                echo "<script>alert('Profissional ativado com sucesso! ');</script>";
-                echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+                $_SESSION['ativar'] = 'success';
+                echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
             }
 
         } else {
 
-            echo "<script>alert('Nao foi possivel ativar o perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-            echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+            $_SESSION['ativar'] = 'erro';
+            echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
 
         }
     }

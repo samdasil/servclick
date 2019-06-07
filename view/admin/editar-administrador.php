@@ -1,12 +1,12 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
 
     $p             = isset($_GET['p']) ? $_GET['p'] : 0;
     $a             = new ControllerAdministrador();
     $administrador = new Administrador();
-    $administrador = $a->carregarAdministrador($_GET['p']);
+    $administrador = $a->carregarAdministrador($p);
     
     //chama controller
     if ( isset($_POST) && !empty($_POST) ) {

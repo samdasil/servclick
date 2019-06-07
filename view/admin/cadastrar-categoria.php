@@ -1,15 +1,16 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
 
-  $c          = new ControllerCategoria();
-  $categoria  = new Categoria();
+    $p          = isset($_GET['p']) ? $_GET['p'] : 0;
+    $c          = new ControllerCategoria();
+    $categoria  = new Categoria();
 
-  if( isset($_POST) && !empty($_POST)){
-    $dados    = $_POST;
-    $categoria  = $c->cadastrarCategoria($dados);
-  }
+    if( isset($_POST) && !empty($_POST)){
+        $dados      = $_POST;
+        $categoria  = $c->cadastrarCategoria($dados);
+    }
 
 ?>
 
@@ -27,7 +28,6 @@
                         <h4 class="titulo">Cadastrar Categoria</h4>
 
                                 <form id="form" name="form" method="post" action="">
-                                    <input type="hidden" name="v" value="<?=$v;?>" >
 
                                     <div class="col-md-12">
                                         <label class="form-group">Dados</label>
