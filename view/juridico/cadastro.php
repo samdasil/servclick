@@ -36,7 +36,7 @@
         
             $(document).ready(function(){
               $( "#categoria" ).change(function() {
-                    $.post("carregarAreas.php",{id:this.value},function(data){
+                    $.post("list-area.php",{id:this.value},function(data){
                         //console.log(data);
                         $("#areas").html(data);
                 ﻿        $("#areas").css("display", "block");
@@ -91,7 +91,7 @@
                             <div class="form-group">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
                                 <input type="file" name="foto" id="foto" class="form-control upload-foto" accept="image/png, image/jpeg" onchange="alterarFoto()" required /> 
-                                <span class="valid vfoto">Selecione uma foto *</span>
+                                <span class="valid vfoto text-center">Selecione uma foto *</span>
                             </div>
 
                             <label class="form-group"><i class="fa fa-database">&nbsp&nbsp</i>Dados</label>

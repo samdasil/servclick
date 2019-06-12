@@ -43,7 +43,7 @@
 			$consulta->bindValue(':nome',$administrador->getNome()); 
 			$consulta->bindValue(':login',$administrador->getLogin()); 
 			$consulta->bindValue(':senha',$administrador->getSenha()); 
-			$consulta->bindValue(':status_',$administrador->getStatus()); 
+			$consulta->bindValue(':status_',$administrador->getStatus_()); 
 			$consulta->bindValue(':perfil',$administrador->getPerfil()); 
 
 			if($consulta->execute())

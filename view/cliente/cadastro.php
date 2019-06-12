@@ -80,18 +80,19 @@
                             <div class="portfolio-view">
                                 <ul class="nav nav-pills">
                                     <li><a href=""><i class="fa fa-link"></i></a></li>
-                                    <li><a href="../../assets/images/portfolio/photo.png" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
+                                    <li>
+                                        <a href="../../assets/images/portfolio/photo.png" data-lightbox="example-set"><i class="fa fa-eye"></i></a>
+                                    </li>
                                 </ul>
                             </div>
 
                             <div class="form-group">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
                                 <input type="file" name="foto" id="foto" class="form-control photo-new" onchange="alterarFoto()" onblur="validoff()" required accept="image/png, image/jpeg"/> 
-                                <!--<div class="photo"><span><li class="fa fa-upload fa-4x"></li></span></div>-->
                                 <span class="valid vfoto">Selecione uma foto *</span>
                             </div>
 
-                            <label class="form-group">Dados</label>
+                            <label class="form-group"><i class="fa fa-database"></i> &nbsp&nbsp Dados</label>
 
                             <div class="form-group">
                                 <input type="text" name="cpf" id="cpf" class="form-control" required="required" placeholder="CPF" autocomplete="off" maxlength="14" minlength="14"  onkeypress="validoff()" >
@@ -115,7 +116,7 @@
                         </div>
 
                             <div id="div_endereco" style="display:none;">
-                                <label class="form-group">Endereço</label>
+                                <label class="form-group"><i class="fa fa-map-marker"></i> &nbsp&nbsp Endereço</label>
 
                                 <div class="form-group">
                                     <input type="text" name="cep" id="cep" class="form-control" required="required" placeholder="CEP" value="" minlength="9" maxlength="9" onkeyup="tamanhoCampo()">
@@ -156,7 +157,7 @@
                             </div>
 
                         <div id="div_acesso" style="display:none;">
-                            <label class="form-group">Configuração de acesso</label>
+                            <label class="form-group"><i class="fa fa-key"></i> &nbsp&nbsp Configuração de acesso</label>
 
                             <div class="form-group">
                                 <input type="text" name="login" class="form-control" required="required" placeholder="Login" autocomplete="off" minlength="3" maxlength="15">

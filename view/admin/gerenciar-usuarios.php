@@ -1,11 +1,11 @@
 
-<?php require_once 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php'; 
 
-  $u          = new ControllerUsuario();
-  $usuario    = new Usuario();
-  $usuarios   = $u->listarUsuario();
+    $u          = new ControllerUsuario();
+    $usuario    = new Usuario();
+    $usuarios   = $u->listarUsuario();
   
 ?>
 
@@ -18,6 +18,8 @@
                     <?php include 'novos-profissionais.php'; ?>
                   </div>
                 </div>
+
+                <?php require_once 'alert.php'; ?>
 
                 <div class="col-md-9 col-sm-8">
                     <div class="row">
@@ -49,6 +51,7 @@
                                             <?php foreach ($usuarios as $usuario) { ?>
                                                 <tr>
                                                     <td><?=$usuario['id'];?></td>
+
                                                     <?php if($usuario['perfil'] == 1){ 
                                                             echo "<td>Administrador</td>";
                                                           }else if($usuario['perfil'] == 2){
@@ -56,14 +59,16 @@
                                                           }else if($usuario['perfil'] == 3){
                                                             echo "<td>Profissional</td>";
                                                           }
-
                                                     ?>
                                                     
                                                     <td><?=$usuario['login'];?></td>
-                                                    <td></td>
+                                                    <?php if($usuario['status_'] == 1) 
+                                                             echo "<th><i class='fa fa-check'></i></th>"; 
+                                                          else echo "<th><i class='fa fa-ban'></th>"; 
+                                                     ?>
                                                     <td class="text-primary">
-                                                        <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizarUsuario.php"><i class="fa fa-eye"></i></a>
-                                                        <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editarUsuario.php"><i class="fa fa-pencil"></i></a>
+                                                        <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-usuario.php?login=<?=$usuario['login'];?>&p=<?=$usuario['perfil'];?>&i=<?=$usuario['id'];?>"><i class="fa fa-eye"></i></a>
+                                                        <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-usuario.php?login=<?=$usuario['login'];?>&i=<?=$usuario['id'];?>"><i class="fa fa-pencil"></i></a>
                                                     </td>
                                                 </tr>
                                             <?php } ?>

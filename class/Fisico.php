@@ -5,7 +5,6 @@ class Fisico extends Profissional{
     private $idfisico;
     private $cpf;
     private $nome;
-    private $foto;
     
     public function getIdfisico() {
         return $this->idfisico;
@@ -19,10 +18,6 @@ class Fisico extends Profissional{
         return $this->nome;
     }
 
-    public function getFoto() {
-        return $this->foto;
-    }
-
     public function setIdfisico($idfisico) {
         $this->idfisico = $idfisico;
     }
@@ -33,10 +28,6 @@ class Fisico extends Profissional{
 
     public function setNome($nome) {
         $this->nome = $nome;
-    }
-
-    public function setFoto($foto) {
-        $this->foto = $foto;
     }
 
 }

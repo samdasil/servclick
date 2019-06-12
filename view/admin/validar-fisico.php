@@ -81,6 +81,7 @@
                                  <form name="form" method="post" action="">
                                     
                                     <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>" >
+                                    <input type="hidden" name="idadmin"  value="<?=$_SESSION['session'];?>" >
                                 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -90,7 +91,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="buttons-action float-right">
-                                                <a href="editar-fisico.php?p=<?=$p?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button></a>
+                                                <button type="submit" class="btn btn-btn btn-info"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button>
                                              </div>
                                         </div>     
                                     </div>

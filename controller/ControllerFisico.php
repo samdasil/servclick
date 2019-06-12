@@ -6,7 +6,7 @@ class ControllerFisico
 	public function cadastrarFisico($dados = null, $aFile = null)
     {
 
-        if ( !isset($dados) || UsuarioDAO::verificaLogin($dados['login']) ) return 0;
+        if ( !isset($dados) || UsuarioDAO::verificarLogin($dados['login']) ) return 0;
 
         $fisico      = new Fisico();
         $endereco    = new Endereco(); 
@@ -22,7 +22,7 @@ class ControllerFisico
         $cpf  = str_replace(".", "", str_replace("-", "", $dados['cpf']));
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
-        if (!FisicoDAO::verificaCpf($cpf)) {
+        if (!FisicoDAO::verificarCpf($cpf)) {
 
             $foto =  $dados['login'] . time('ss') . ".jpg";
 
@@ -115,7 +115,7 @@ class ControllerFisico
 
     public function editarFisico($dados = null, $aFile = null)
     {
-
+        
         $fisico      = new Fisico();
         $endereco    = new Endereco(); 
         $area        = new AreaAtuacao();
@@ -130,86 +130,73 @@ class ControllerFisico
         $cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
-        if(FisicoDAO::validaCpf($cpf)) {
-
-            if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
-                $foto =  $dados['login'] . time('ss') . ".jpg";
-                
-            } else {
-                $foto = $dados['img'];
-            }
-
-            $fisico->setIdfisico($dados['idfisico']);
-            $fisico->setCpf($cpf);
-            $fisico->setNome(ucwords($dados['nome']));
-            $fisico->setDescricao($dados['descricao']);
-            $fisico->setEmail(strtolower($dados['email']));
-            $fisico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
-            $fisico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
-            $fisico->setFoto($foto);
-            $fisico->setStatus_($dados['status_']); //1=ativo 2=inativo 3 pendente
-            $fisico->setPagina($dados['pagina']);
-            $fisico->setArea($dados['area']);
-
-            $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
-            $endereco->setLogradouro(ucwords($dados['logradouro']));
-            $endereco->setCidade(ucwords($dados['cidade']));
-            $endereco->setBairro(ucwords($dados['bairro']));
-            $endereco->setEstado(strtoupper($dados['estado']));
-            $endereco->setNumero($dados['numero']);
-            $endereco->setComplemento($dados['complemento']);
-
-            $pagina->setFacebook($dados['facebook']);
-            $pagina->setInstagram($dados['instagram']);
-            $pagina->setPinterest($dados['pinterest']);
-            $pagina->setTwitter($dados['twitter']);
-            $pagina->setGoogle($dados['google']);
-            $pagina->setSite($dados['site']);
+        if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
+            $foto =  $dados['login'] . time('ss') . ".jpg";
             
-            $result = $fisicoDAO->editar($fisico, $endereco, $pagina);
-            
-            if( $result > 0 ){
-                
-                if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
-
-                    $target  = BASE_DIR."assets/images/fisico/" . $foto;
-                    $tamanho = $aFile['foto']['size'];
-                    $imagem  = $aFile['foto']['name'];
-                    $path    = $aFile['foto']['tmp_name'];
-                    
-                    move_uploaded_file($path, $target);
-                }
-
-                if( in_array("admin", $array) ) {
-
-                    $_SESSION['profissional-edit'] = 'success';
-                    echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
-                } else {
-                    $_SESSION['edit'] = 'success';
-                    echo "<script>window.location = 'perfil.php';</script>";
-                }
-
-            } elseif (!$result) {
-
-                if( in_array("admin", $array) ) {
-                    $_SESSION['fisico-edit'] = 'erro';
-                    $_SESSION['fisico']      = $dados['idfisico'];
-                    echo "<script>window.location = 'validar-fisico.php';</script>";
-                } else {
-                    $_SESSION['edit'] = 'erro';
-                    echo "<script>window.location = 'perfil.php?v=$v';</script>";
-                }
-            }
-
         } else {
+            $foto = $dados['img'];
+        }
+
+        $fisico->setIdfisico($dados['idfisico']);
+        $fisico->setCpf($cpf);
+        $fisico->setNome(ucwords($dados['nome']));
+        $fisico->setDescricao($dados['descricao']);
+        $fisico->setEmail(strtolower($dados['email']));
+        $fisico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
+        $fisico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
+        $fisico->setFoto($foto);
+        $fisico->setStatus_($dados['status_']); //1=ativo 2=inativo 3 pendente
+        $fisico->setPagina($dados['pagina']);
+        $fisico->setArea($dados['area']);
+        $fisico->setEndereco($dados['endereco']);
+
+        $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
+        $endereco->setLogradouro(ucwords($dados['logradouro']));
+        $endereco->setCidade(ucwords($dados['cidade']));
+        $endereco->setBairro(ucwords($dados['bairro']));
+        $endereco->setEstado(strtoupper($dados['estado']));
+        $endereco->setNumero($dados['numero']);
+        $endereco->setComplemento($dados['complemento']);
+
+        $pagina->setFacebook($dados['facebook']);
+        $pagina->setInstagram($dados['instagram']);
+        $pagina->setPinterest($dados['pinterest']);
+        $pagina->setTwitter($dados['twitter']);
+        $pagina->setGoogle($dados['google']);
+        $pagina->setSite($dados['site']);
+        
+        $result = $fisicoDAO->editar($fisico, $endereco, $pagina);
+        
+        if( $result > 0 ){
             
+            if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
+
+                $target  = BASE_DIR."assets/images/fisico/" . $foto;
+                $tamanho = $aFile['foto']['size'];
+                $imagem  = $aFile['foto']['name'];
+                $path    = $aFile['foto']['tmp_name'];
+                
+                move_uploaded_file($path, $target);
+            }
+
             if( in_array("admin", $array) ) {
-                $_SESSION['cpf'] = 'erro';
-                $_SESSION['fisico']      = $dados['idfisico'];
-                echo "<script>window.location = 'editar-fisico.php';</script>";
+
+                $_SESSION['profissional-edit'] = 'success';
+                echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
             } else {
-                $_SESSION['cpf'] = 'erro';
-                echo "<script>window.location = 'perfil.php';</script>";            
+                $_SESSION['edit'] = 'success';
+                echo "<script>window.location = 'perfil.php';</script>";
+            }
+
+        } elseif (!$result) {
+
+            if( in_array("admin", $array) ) {
+                $_SESSION['fisico-edit'] = 'erro';
+                $_SESSION['fisico']      = $dados['idfisico'];
+                echo "<script>window.location = 'validar-fisico.php';</script>";
+            } else {
+                $_SESSION['edit'] = 'erro';
+                echo "<script>window.location = 'perfil.php';</script>";
             }
         }
 
@@ -289,7 +276,7 @@ class ControllerFisico
     public function listarPorArea($idarea)
     {
         $fdao    = new FisicoDAO();
-        $list    = $fdao->listarPorArea($idarea['id']);
+        $list    = $fdao->listarPorArea($idarea);
  
         return $list;
     }
@@ -314,7 +301,7 @@ class ControllerFisico
     {
 
         if ( is_null($dados) ) return false;
-
+        //print_r($dados);exit;
         $fisicoDAO     = new fisicoDAO;
 
         $result = $fisicoDAO->validar($dados);

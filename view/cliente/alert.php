@@ -1,4 +1,32 @@
+<!-- ERRO SOLICITAR SERVICO -->
+<?php 
+    if((isset($_SESSION['solicitacao']) && !empty($_SESSION['solicitacao']) && $_SESSION['solicitacao'] == 'erro')) { ?>
+       <script type="text/javascript">
+            setTimeout(function() {
+            $('#message').fadeOut(8000, function(){
+                $(this).remove();
+            });
+        });
+        </script>
+        <div class="alert alert-warning alert-dismissible" role="alert" id="message">
+            <strong>Erro!</strong><br> Não foi possível criar a solicitação. Tente novemente.
+        </div> 
+<?php unset($_SESSION['solicitacao']); } ?>
 
+<!-- SOLICITACAO REALIZADA COM SUCESSO -->
+<?php 
+    if((isset($_SESSION['solicitacao']) && !empty($_SESSION['solicitacao']) && $_SESSION['solicitacao'] == 'success')) { ?>
+       <script type="text/javascript">
+            setTimeout(function() {
+            $('#message').fadeOut(8000, function(){
+                $(this).remove();
+            });
+        });
+        </script>
+        <div class="alert alert-success alert-dismissible" role="alert" id="message">
+            <strong>Sucesso!</strong><br> Sua solicitação foi encaminhada com sucesso, aguarde o contato do profissional.
+        </div> 
+<?php unset($_SESSION['solicitacao']); } ?>
 
 <!-- ERRO DESATIVAR PERFIL -->
 <?php 

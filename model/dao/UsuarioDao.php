@@ -3,6 +3,17 @@
 	class UsuarioDAO
 	{
 		
+		public function carregar($login = null)
+		{
+
+			$sql = "CALL SP_CARREGAR_USUARIO(:login)";
+			$consulta = Conexao::getCon()->prepare($sql);
+			$consulta->bindValue(":login", $login);
+			$consulta->execute();
+			
+			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+		}
+
 		public function buscarUsuario(Usuario $usuario)
 		{
 			
@@ -73,11 +84,12 @@
 					break;
 			}
 
-			$sql = "UPDATE $table SET login = :login, senha = :senha WHERE $user = :id";
+			$sql = "UPDATE $table SET login = :login, senha = :senha, status_ = :status_ WHERE $user = :id";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":login", $usuario->getLogin());
 			$consulta->bindValue(":senha", $usuario->getSenha());
+			$consulta->bindValue(":status_", $usuario->getStatus_());
 			$consulta->bindValue(":id"   , $id);
 
 			if($consulta->execute())

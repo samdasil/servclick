@@ -42,7 +42,7 @@
 
         <header style="margin-top: 60px;"></header>
      
-    	<section id="portfolio">
+    	<section id="portfolio" style="margin-bottom: 0px;">
     	    <div class="container">
 
                 <?php require_once 'alert.php'; ?>

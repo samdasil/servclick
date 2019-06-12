@@ -420,6 +420,7 @@ ul.sub-menu {
   bottom: 0;
   width: 100%;  
   background-color: whitesmoke;
+  z-index: 9999999;
 }
 
 #footer h1{
@@ -1147,7 +1148,7 @@ ul.elements li > i{
 }
 
 .portfolio-filter {
-  margin: 80px 0;
+  margin: 10px 0;
   padding: 0;
 }
 
@@ -1389,7 +1390,7 @@ Portfolio with right sidebar
 
 .sidebar-item .media .media-body p {
   color: #b4b4b4;
-  font-size: 12px;
+  font-size: 12pt;
 }
 
 .tag-cloud .nav-pills{
@@ -1503,7 +1504,7 @@ Portfolio Details
 
 #portfolio-information.padding-top{
   padding-top: 20px;
-  margin-bottom: 0vh;
+  margin-bottom: 30px;
 }
 
 .project-name h2{
@@ -3131,7 +3132,7 @@ font-size: 10pt;
 
 .lupa{
   opacity: 0.4;
-  margin-top: 15vh
+  margin-top: 10vh
 }
 
 .radio-end{
@@ -3139,7 +3140,18 @@ font-size: 10pt;
     color: #9f9696;
 }
 
+.radio-area{
+    font-weight: 100;
+    color: #9f9696;
+}
+
+
 #op-endereco{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+#op-area{
     margin-left: 10px;
     margin-right: 10px;
 }
@@ -3344,4 +3356,44 @@ div#preloader {
 
 .fot-pro{
   margin-left: 2vw;
+}
+
+#abertos,#andamentos,#cancelados,#finalizados{
+  display: none;
+}
+
+.navbar-header{
+  margin-top: -50px;
+}
+
+#span_servicos{
+  background-color: red;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  color: white;
+  position: absolute;
+  top: -5px;
+  right: 75px;
+  text-align: center;
+  vertical-align: middle;
+  display: none;
+}
+
+.img-left{
+    margin: 0px auto 0 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    /* width: 100%; */
+    width: 15vh;
+    height: 15vh;
+}
+
+.desc-servico{
+   font-size: 10pt;
+}
+
+.middle{
+  margin-top: 15px;
+  margin-bottom: 15px;
 }

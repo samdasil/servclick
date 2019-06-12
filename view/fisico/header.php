@@ -7,17 +7,23 @@
     $f          = new ControllerFisico();
     $e          = new ControllerEndereco();
     $p          = new ControllerPagina();
+    $a          = new ControllerAreaAtuacao();
     $fisico     = new Fisico();
     $endereco   = new Endereco();
     $pagina     = new Pagina();
     $area       = new AreaAtuacao();
     $id         = base64_decode($_SESSION['session']);
-    $v          = base64_encode($id);
     $fisico     = $f->carregarFisico($id);
-    $endereco   = $e->carregarEnderecoFisico($id);
+    $endereco   = $e->carregarEndereco($fisico->getEndereco());
     $pagina     = $p->carregarPagina($fisico->getPagina());
-    $area       = $a->carregarPagina($fisico->getArea());
+    $area       = $a->carregarArea($fisico->getArea());
 
-    $_SESSION['nome'] = $cliente->getNome();
+    $_SESSION['nome'] = $fisico->getNome();
+    $_SESSION['area'] = $fisico->getArea();
+    $_SESSION['cont'] =  0;
 
 ?>
+
+<script type="text/javascript">
+    var intervalo = setInterval(function() {$('#span_servicos').load('span-servicos.php');}, 5000);
+</script>

@@ -12,7 +12,8 @@
         $categoria  = $c->cadastrarCategoria($dados);
     }
 
-?>
+?>  
+    <?php require_once 'alert.php'; ?>
 
     <section id="portfolio" class="padding-top">
         <div class="container">
@@ -38,7 +39,7 @@
                                                     <input type="text" name="idcategoria" class="form-control" placeholder="ID" value="<?=$categoria->getIdcategoria();?>" readonly>
                                                 </div> 
                                                 <div class="col-md-10">
-                                                    <input type="text" name="descricao" class="form-control" placeholder="Descrição" value="<?=$categoria->getDescricao();?>" >
+                                                    <input type="text" name="descricao" class="form-control" placeholder="Descrição" value="<?=$categoria->getDescricao();?>" required >
                                                 </div>
                                             </div>
                                         </div>

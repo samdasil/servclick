@@ -5,6 +5,8 @@ class Usuario {
     private $login;
     private $senha;
     private $perfil;
+    private $status_;
+    private $dtcadastro;
     
     public function getLogin() {
         return $this->login;
@@ -16,6 +18,14 @@ class Usuario {
 
     public function getPerfil() {
         return $this->perfil;
+    }
+
+    public function getStatus_() {
+        return $this->status_;
+    }
+
+    public function getDtcadastro() {
+        return $this->dtcadastro;
     }
     
     public function setLogin($login) {
@@ -29,5 +39,13 @@ class Usuario {
     public function setPerfil($perfil) {
         $this->perfil = $perfil;
     }
+
+    public function setStatus_($status_) {
+        $this->status_ = $status_;
+    }
     
+    public function setDtcadastro($dtcadastro) {
+        $this->dtcadastro = $dtcadastro;
+    }
+
 }

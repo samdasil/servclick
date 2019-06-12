@@ -131,7 +131,7 @@
 		}
 
 		//verificar se existe Cliente com o CPF informado
-		public static function verificaCpf($cpf)
+		public static function verificarCpf($cpf)
 		{
 					
 			$sql = "SELECT * FROM cliente WHERE cpf = :cpf ";

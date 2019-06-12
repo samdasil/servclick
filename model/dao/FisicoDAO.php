@@ -48,8 +48,8 @@
 		//Atualiza um elemento na tabela
 		public function editar(Fisico $fisico, Endereco $endereco, Pagina $pagina)
 		{
-			
-			$sql = "CALL SP_EDITAR_FISICO(:idfisico, :descricao, :fixo, :fone,  :email, :nome, :cpf, :foto, :login, :senha, :perfil, :status_, :area, :cep, :logradouro, :numero, :bairro, :cidade, :estado, :complemento, :site, :google, :twitter, :pinterest, :facebook, :instagram)";
+			//print_r($pagina);exit;
+			$sql = "CALL SP_EDITAR_FISICO(:idfisico, :descricao, :fixo, :fone,  :email, :nome, :cpf, :foto, :status_, :area, :endereco, :cep, :logradouro, :numero, :bairro, :cidade, :estado, :complemento, :pagina, :site, :google, :twitter, :pinterest, :facebook, :instagram)";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			
@@ -62,12 +62,10 @@
 			$consulta->bindValue(':fixo',$fisico->getFixo()); 
 			$consulta->bindValue(':status_',$fisico->getStatus_()); 
 			$consulta->bindValue(':foto',$fisico->getFoto()); 
-			$consulta->bindValue(':login',$fisico->getLogin()); 
-			$consulta->bindValue(':senha',$fisico->getSenha()); 
-			$consulta->bindValue(':perfil',$fisico->getPerfil()); 
 			$consulta->bindValue(':pagina',$fisico->getPagina()); 
 			$consulta->bindValue(':area',$fisico->getArea()); 
 
+			$consulta->bindValue(':endereco',$fisico->getEndereco());
 			$consulta->bindValue(':cep',$endereco->getCep()); 
 			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
 			$consulta->bindValue(':cidade',$endereco->getCidade()); 
@@ -170,7 +168,7 @@
 		}		
 
 		//verificar se existe Fisico com o CPF informado
-		public static function verificaCpf($cpf)
+		public static function verificarCpf($cpf)
 		{
 					
 			$sql = "SELECT * FROM fisico WHERE cpf = :cpf ";

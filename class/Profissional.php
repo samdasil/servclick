@@ -4,11 +4,10 @@
 class Profissional extends Usuario{
     
     private $descricao;
-    private $fone;
     private $fixo;
+    private $fone;
     private $email;
-    private $status_;
-    private $dtcadastro;
+    private $foto;
     private $endereco;
     private $area;
     private $pagina;
@@ -26,11 +25,8 @@ class Profissional extends Usuario{
     public function getEmail(){
         return $this->email;
     }
-    public function getStatus_(){
-        return $this->status_;
-    }
-    public function getDtcadastro(){
-        return $this->dtcadastro;
+    public function getFoto(){
+        return $this->foto;
     }
     public function getEndereco(){
         return $this->endereco;
@@ -57,11 +53,8 @@ class Profissional extends Usuario{
     public function setEmail($email){
         $this->email=$email;
     }
-    public function setStatus_($status_){
-        $this->status_=$status_;
-    }
-    public function setDtcadastro($dtcadastro){
-        $this->dtcadastro=$dtcadastro;
+    public function setFoto($foto){
+        $this->foto=$foto;
     }
     public function setEndereco($endereco){
         $this->endereco=$endereco;

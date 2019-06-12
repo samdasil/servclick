@@ -1,11 +1,11 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
 
-  $a               = new ControllerAdministrador();  
-  $administradores = new Administrador();
-  $administradores = $a->listarAdministrador();  
+    $a               = new ControllerAdministrador();  
+    $administradores = new Administrador();
+    $administradores = $a->listarAdministrador();  
 
 ?>
 

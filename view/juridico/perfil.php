@@ -40,6 +40,9 @@
 
    <section id="portfolio-information" class="padding-top">
         <div class="container">
+
+            <?php require_once 'alert.php'; ?>
+            
             <div class="row">
                 <div class="col-sm-6">
                     <?php if (!is_null($juridico->getLogo())) { ?>

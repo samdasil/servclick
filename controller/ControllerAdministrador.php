@@ -8,15 +8,14 @@ class ControllerAdministrador
 
         if ( !isset($dados) ) return false;
 
-        $v             = $dados['v'];
         $administrador     = new Administrador();
         $administradorDAO  = new AdministradorDAO();
 
         $administrador->setNome(ucwords($dados['nome']));
         $administrador->setLogin(strtolower(($dados['login'])));
-        $administrador->setSenha(ucwords(base64_encode($dados['senha'])));
+        $administrador->setSenha(ucwords(md($dados['senha'])));
         $administrador->setPerfil(1);
-        $administrador->setStatus(1);
+        $administrador->setStatus_(1);
         
         $result = $administradorDAO->cadastrar($administrador);
 
@@ -96,7 +95,7 @@ class ControllerAdministrador
         $administrador->setIdadmin($result[0]['idadmin']); 
         $administrador->setNome($result[0]['nome']); 
         $administrador->setLogin($result[0]['login']); 
-        $administrador->setStatus($result[0]['status_']); 
+        $administrador->setStatus_($result[0]['status_']); 
 
         return $administrador;
 

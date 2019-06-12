@@ -3,15 +3,25 @@
 class Servico {
     
     private $idservico;
+    private $descricao;
     private $dtinicio;
     private $dtfim;
     private $valor;
-    private $endereco;
+    private $nota;
+    private $comentario;
+    private $status_;
     private $cliente;
-    private $profissional;
+    private $fisico;
+    private $juridico;
+    private $area;
+    private $endereco;
        
     public function getIdservico() {
         return $this->idservico;
+    }
+
+    public function getDescricao() {
+        return $this->descricao;
     }
 
     public function getDtinicio() {
@@ -26,20 +36,44 @@ class Servico {
         return $this->valor;
     }
 
-    public function getEndereco() {
-        return $this->endereco;
+    public function getNota() {
+        return $this->nota;
     }
-    
-     public function getCliente() {
+
+    public function getComentario() {
+        return $this->comentario;
+    }
+
+    public function getStatus_() {
+        return $this->status_;
+    }
+
+    public function getCliente() {
         return $this->cliente;
     }
 
-    public function getProfissional() {
-        return $this->profissional;
+    public function getFisico() {
+        return $this->fisico;
+    }
+
+    public function getJuridico() {
+        return $this->juridico;
+    }
+
+    public function getArea() {
+        return $this->area;
+    }
+
+    public function getEndereco() {
+        return $this->endereco;
     }
 
     public function setIdservico($idservico) {
         $this->idservico = $idservico;
+    }
+
+    public function setDescricao($descricao) {
+        $this->descricao = $descricao;
     }
 
     public function setDtinicio($dtinicio) {
@@ -54,18 +88,36 @@ class Servico {
         $this->valor = $valor;
     }
 
-    public function setEndereco($endereco) {
-        $this->endereco = $endereco;
+    public function setNota($nota) {
+        $this->nota = $nota;
+    }
+
+    public function setComentario($comentario) {
+        $this->comentario = $comentario;
+    }
+
+    public function setStatus_($status_) {
+        $this->status_ = $status_;
     }
 
     public function setCliente($cliente) {
         $this->cliente = $cliente;
     }
 
-    public function setProfissional($profissional) {
-        $this->profissional = $profissional;
+    public function setFisico($fisico) {
+        $this->fisico = $fisico;
     }
 
+    public function setJuridico($juridico) {
+        $this->juridico = $juridico;
+    }
 
+    public function setArea($area) {
+        $this->area = $area;
+    }
+
+    public function setEndereco($endereco) {
+        $this->endereco = $endereco;
+    }
     
 }

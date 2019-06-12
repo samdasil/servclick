@@ -10,9 +10,9 @@
 
         $dados  = $_POST;
 
-        $area 	= $c->listarAreas($dados);
+        $area 	= $c->listarAreasPorCategoria($dados['id']);
 
-        echo "<div class='col-sm-6'>";
+        echo "<div  class='col-sm-6'>";
         echo "<div class='form-group'>";
         echo "    <label><i class='fa fa-delicious'>&nbsp&nbsp</i>Área de Atuação</label>";
         echo "    <select id='area' name='area' class='form-control'>";

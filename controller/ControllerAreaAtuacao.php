@@ -3,7 +3,7 @@
 class ControllerAreaAtuacao
 {
 
-    public function cadastrarAreaAtuacao($dados = null)
+    public function cadastrarArea($dados = null)
     {
 
         if ( !isset($dados) ) return false;
@@ -18,19 +18,19 @@ class ControllerAreaAtuacao
 
         if ( $result > 0 ) { 
 
-            //echo "<script>alert('Cadastro foi efetuado com sucesso!');</script>";
+            $_SESSION['cad-area'] = 'success';
             echo "<script>window.location = 'gerenciar-areas.php?new=success';</script>";
 
         } elseif (!$result) {
 
-            //echo "<script>alert('Houve um erro ao cadastrar categoria.');</script>";
+            $_SESSION['cad-area'] = 'erro';
             echo "<script>window.location = 'cadastrar-area.php?new=erro';</script>";
 
         }
 
     }
 
-    public function editarAreaAtuacao($dados = null)
+    public function editarArea($dados = null)
     {
 
         if ( !isset($dados) ) return false;
@@ -46,36 +46,35 @@ class ControllerAreaAtuacao
 
         if ( $result > 0 ) {            
 
-            //echo "<script>alert('Categoria atualizada com sucesso!');</script>";
+            $_SESSION['edit-area'] = 'success';
             echo "<script>window.location = 'gerenciar-areas.php';</script>";
 
         } elseif (!$result) {
 
-            //echo "<script>alert('Houve um erro ao atualizar categoria.');</script>";
-            echo "<script>window.location = 'editar-area.php?v=$v&get=$categoria->getIdcategoria()';</script>";
+            $_SESSION['edit-area'] = 'success';
+            echo "<script>window.location = 'editar-area.php?p=$area->getIdarea()';</script>";
 
         }
 
     }
 
-    public function deletarArea($dados = null)
+    public function deletarArea($idarea = null)
     {
         
-        if ( is_null($dados) ) return false;
+        if ( is_null($idarea) ) return false;
 
-        $v             = $dados['v'];
-        $aDAO  = new aDAO;
-        $result = $aDAO->deletar($dados['idarea']);
+        $aDAO   = new AreaAtuacaoDAO();
+        $result = $aDAO->deletar($idarea);
 
         if ( $result ) {
 
-            echo "<script>alert('Area de Atuação deletada com sucesso.');</script>";
-            echo "<script>window.location = 'gerenciar-areas.php?v=$v';</script>";
+            $_SESSION['del-area'] = 'success';
+            echo "<script>window.location = 'gerenciar-areas.php';</script>";
 
         } else {
 
-            echo "<script>alert('Nao foi possivel deletar area de atuação, pois está sendo referenciada em um relacionamento.');</script>";
-            echo "<script>window.location = 'visualizar-area.php?v=$v';</script>";
+            $_SESSION['del-area'] = 'erro';
+            echo "<script>window.location = 'deletar-area.php?p=$idarea';</script>";
 
         }
 
@@ -96,12 +95,22 @@ class ControllerAreaAtuacao
 
     }
 
-    public function listarAreas($idcategoria)
+    public function listarAreasPorCategoria($idcategoria)
     {
         
         $a      = new AreaAtuacao();
         $adao   = new AreaAtuacaoDAO();
-        $a    = $adao->listar($idcategoria['id']);
+        $a      = $adao->listarAreasPorCategoria($idcategoria);
+        
+        return $a;
+    }
+
+    public function listarAreas()
+    {
+        
+        $a      = new AreaAtuacao();
+        $adao   = new AreaAtuacaoDAO();
+        $a      = $adao->listarAreas();
         
         return $a;
     }

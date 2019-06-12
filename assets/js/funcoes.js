@@ -141,7 +141,7 @@ function validoff(obj){
     $('span').css('display','none');
 }
 
-function solicitarServico(obj) {
+function proximo_vw_serv(obj) {
 
       document.getElementById('div_endereco').style.display="none";
 
@@ -664,6 +664,24 @@ function validFormCliente() {
 
 }
 
+
+function validFormServico() {
+
+    if($('#area').val() ==  ''){
+        $('.varea').css('display','block');
+        $('#area').focus();
+        return false;
+    }else if($('#descricao').val() ==  ''){
+        $('.vdescricao').css('display','block');
+        $('#descricao').focus();
+        return false;
+    }else if($('#prodrio').prop('checked') ==  false && $('#outro').prop('checked') == false){
+        $('.vendereco').css('display','block');
+        return false;
+    }
+
+}
+
 $(window).on('load', function() {
     var pre_loader = $('#preloader');
     pre_loader.fadeOut('slow', function() {
@@ -678,4 +696,15 @@ function preloader() {
       $(this).remove();
     });
     
+}
+
+function acesso() {
+    if ($('#status_').val('1')) {
+        $(".nome").readonly('true');
+        $(".senha").readonly('true');
+    } else {
+        $(".nome").readonly('false');
+        $(".senha").readonly('false');
+    }
+        
 }

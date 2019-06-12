@@ -21,7 +21,7 @@
     
 ?>
 
-<header id="header"> <?php require_once 'topo.php'; ?> </header>
+<header id="header"> <?php require_once 'menu.php'; ?> </header>
 
 <section id="portfolio-information" class="padding-top">
     <div class="container">
@@ -36,6 +36,8 @@
                 <div class="project-info overflow">
                      <div class="col-md-3 col-sm-6">
                         <h2 class="titulo">Dados</h2>
+                        <strong>Nome</strong>
+                            <p><?=$cliente->getNome();?></p>
                         <strong>CPF</strong>
                         <p id="cpf"><?=$cliente->getCpf();?></p>
                         <strong>E-mail</strong>

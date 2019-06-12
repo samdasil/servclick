@@ -12,8 +12,11 @@
     <!--/#footer-->
 
     <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/jquery.isotope.min.js"></script>
+    <script type="text/javascript" src="../../assets/js/lightbox.min.js"></script>
     <script type="text/javascript" src="../../assets/js/wow.min.js"></script>
-    <script type="text/javascript" src="../../assets/js/main.js"></script>   
+    <script type="text/javascript" src="../../assets/js/main.js"></script>
+
 </body>
 </html>
 

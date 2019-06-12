@@ -36,7 +36,7 @@
         
             $(document).ready(function(){
               $( "#categoria" ).change(function() {
-                    $.post("carregarAreas.php",{id:this.value},function(data){
+                    $.post("list-area.php",{id:this.value},function(data){
                         //console.log(data);
                         $("#areas").html(data);
                 ﻿        $("#areas").css("display", "block");
@@ -122,7 +122,7 @@
                         <div id="div_area" style="display:none;">
                             
                             <div class="form-group">
-                                <label><i class="fa fa-list">&nbsp&nbsp</i>Selecione uma Categoria</label>
+                                <label><i class="fa fa-list">&nbsp&nbsp</i>Categoria</label>
                                 <select class="form-control" id='categoria'>
                                     <option selected disabled></option>
                                     <?php foreach ($categoria as $item) {

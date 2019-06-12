@@ -1,9 +1,9 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php';
     
-    $p             = isset($_GET['p']) ? $_GET['p'] : 0;
+    $p          = isset($_GET['p']) ? $_GET['p'] : 0;
     $c          = new ControllerCategoria();
     $categoria  = new Categoria();
     $categoria  = $c->carregarCategoria($_GET['p']);

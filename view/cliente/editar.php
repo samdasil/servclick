@@ -7,7 +7,6 @@
     $cliente    = new Cliente();
     $endereco   = new Endereco();
     $id         = base64_decode($_SESSION['session']);
-    $v          = base64_encode($id);
     $cliente    = $c->carregarCliente($id);
     $endereco   = $e->carregarEndereco($cliente->getEndereco());
 
@@ -32,7 +31,7 @@
 
 ?>
 
-    <header id="header"> <?php require_once 'topo.php'; ?> </header>
+    <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
     <section id="portfolio">
         <div class="container">
@@ -41,12 +40,10 @@
 
             <div class="col-md-4 col-sm-12">
                 <div class="contact-form bottom">
-                    <!--<h3>Alguns campos não podem ser alterados</h3>
-                    <h5>Caso queira, contacte o administrador</h5>-->
+
                     <br>
                     <form name="form" method="post" action="" onsubmit="return validFormCliente()" enctype="multipart/form-data">
 
-                        <!--<input type="hidden" name="v" value="<?=$_SESSION['session'];?>" >-->
                         <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
                         <input type="hidden" name="endereco" value="<?=$cliente->getEndereco();?>">
                         <input type="hidden" name="status_" value="<?=$cliente->getStatus_();?>">
@@ -54,11 +51,12 @@
                         <!--<label class="form-group">Foto para perfil</label>-->
 
                         <div class="col-sm-6">
-                            <input type="hidden" name="img" id="img" value="<?=$cliente->getFoto();?>">
+                            <input type="hidden" name="img"  value="<?=$cliente->getFoto();?>">
                             <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="Clique para selecionar nova foto" name="img" id="img" >
                         </div>
                         
                         <div class="form-group">
+                            <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
                             <input type="file" name="foto" id="foto" class="form-control upload-foto" onchange="alterarImagem()" accept="image/png, image/jpeg">
                             <span class="valid vfoto text-center">Selecione uma foto *</span>
                         </div>

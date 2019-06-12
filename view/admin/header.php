@@ -9,6 +9,7 @@
     $admin  = new Administrador();
 
     $admin  = $a->carregarAdministrador($id) ;
+    $_SESSION['cont'] =  0;
 
 ?>
 
@@ -43,6 +44,7 @@
                         </li>                    
                         <li><a href="listar-clientes.php">Clientes</a></li>
                         <li><a href="gerenciar-categorias.php">Categorias</a></li>
+                        <li><a href="gerenciar-areas.php">Áreas de Atuação</a></li>
                         <li><a href="gerenciar-usuarios.php">Usuários</a></li>
                         <li><a href="gerenciar-administradores.php">Administradores</a></li>
                         <li><a href="../../index.php">Sair</a></li>

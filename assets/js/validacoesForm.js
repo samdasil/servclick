@@ -6,10 +6,5 @@ $(document).ready(function(){
     $("#cep").mask('00000-000')
     $("#fone").mask('(00) 00000-0000')
     $("#fixo").mask('(00) 0000-0000')
-    $("#site").mask('(00) 0000-0000')
-    $("#facebook").mask('http://')
-    $("#google").mask('http://')
-    $("#instagram").mask('http://')
-    $("#pinterest").mask('http://')
-    $("#tweeter").mask('http://')
+    $("#valor").mask('0000,00')
 });

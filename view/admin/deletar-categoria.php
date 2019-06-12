@@ -1,7 +1,7 @@
 
-<?php include 'header.php'; ?>
+<?php 
 
-<?php
+    require_once 'header.php'; 
     
     $p             = isset($_GET['p']) ? $_GET['p'] : 0;
     $c          = new ControllerCategoria();
@@ -13,7 +13,7 @@
 
       $dados  = $_POST;
 
-      $c->deletarCategoria($dados);
+      $c->deletarCategoria($dados['idcategoria']);
       
     }
 
@@ -46,7 +46,7 @@
                         </div>
 
                         <form name="form" method="post" action="">
-                            <input type="hidden" name="v" value="<?=$v;?>" >
+                            
                             <input type="hidden" name="idcategoria" value="<?=$categoria->getIdcategoria();?>" >
                         
                             <div class="row">

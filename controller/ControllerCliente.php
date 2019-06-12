@@ -6,7 +6,7 @@ class ControllerCliente
     public function cadastrarCliente($dados = null, $aFile = null)
     {
 
-        if ( !isset($dados) || UsuarioDAO::verificaLogin($dados['login']) ) return 0;
+        if ( !isset($dados) || UsuarioDAO::verificarLogin($dados['login']) ) return 0;
 
         $cliente     = new Cliente();
         $endereco    = new Endereco(); 
@@ -17,7 +17,7 @@ class ControllerCliente
         $cpf  = str_replace(".", "", str_replace("-", "", $dados['cpf']));
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
         
-        if (!ClienteDAO::verificaCpf($cpf)) {
+        if (!ClienteDAO::verificarCpf($cpf)) {
 
             $foto =  $dados['login'] . time('ss') . ".jpg";
 
@@ -250,10 +250,10 @@ class ControllerCliente
 
     }
 
-    public function verificaCpf($cpf)
+    public function verificarCpf($cpf)
     {
 
-        if ( ClienteDAO::verificaCpf($cpf) ) {
+        if ( ClienteDAO::verificarCpf($cpf) ) {
             return true;
         }else{
             return false;

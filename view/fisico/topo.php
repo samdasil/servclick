@@ -10,7 +10,10 @@
                         <?php 
                             $titulo=explode('/', ucfirst($_SERVER['REQUEST_URI']) ) ; 
                             $titulo=explode('.php',end($titulo));
-                            echo ucfirst($titulo[0]); 
+                            $titulo = explode('-', $titulo[0]); 
+                            $titulo = implode(" ",$titulo);
+                            $titulo = ucwords($titulo);
+                            echo $titulo;
                         ?>
                             
                     </label>

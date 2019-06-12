@@ -22,6 +22,7 @@ class ControllerCategoria
         } else {
 
             $_SESSION['cad-categoria'] = 'erro';
+            echo $_SESSION['cad-categoria'];exit;
             echo "<script>window.location = 'cadastrar-categoria.php';</script>";
 
         }
@@ -33,7 +34,6 @@ class ControllerCategoria
 
         if ( !isset($dados) ) return false;
 
-        $v             = $dados['v'];
         $categoria     = new Categoria();
         $categoriaDAO  = new CategoriaDAO();
 
@@ -45,24 +45,24 @@ class ControllerCategoria
         if ( $result > 0 ) {            
 
             echo "<script>alert('Categoria atualizada com sucesso!');</script>";
-            echo "<script>window.location = 'gerenciar-categorias.php?v=$v';</script>";
+            echo "<script>window.location = 'gerenciar-categorias.php';</script>";
 
         } elseif (!$result) {
 
             echo "<script>alert('Houve um erro ao atualizar categoria.');</script>";
-            echo "<script>window.location = 'editar-categoria.php?v=$v&get=$categoria->getIdcategoria()';</script>";
+            echo "<script>window.location = 'editar-categoria.php?p=".$categoria->getIdcategoria()."';</script>";
 
         }
 
     }
 
-    public function deletarCategoria($dados = null)
+    public function deletarCategoria($idcategoria = null)
     {
         
-        if ( is_null($dados) ) return false;
+        if ( is_null($idcategoria) ) return false;
 
         $categoriaDAO  = new CategoriaDAO;
-        $result = $categoriaDAO->deletar($dados['idcategoria']);
+        $result = $categoriaDAO->deletar($idcategoria);
 
         if ( $result ) {
 
