@@ -9,7 +9,6 @@
     $endereco   = new Endereco();
     $usuario    = new Usuario();
     $id         = base64_decode($_SESSION['session']);
-    $v          = base64_encode($id);
     $cliente    = $c->carregarCliente($id);
     $endereco   = $e->carregarEnderecoCliente($id);
 
@@ -45,8 +44,7 @@
         <div class="contact-form bottom">
             <form name="form" method="post" action="" enctype="multipart/form-data">
 
-                <input type="hidden" name="v" value="<?=$v;?>" >
-                <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
+                <input type="hidden" name="id" value="<?=$cliente->getIdcliente();?>">
                 <input type="hidden" name="perfil" value="<?=$cliente->getPerfil();?>">
 
                 <div class="col-sm-6">

@@ -17,7 +17,7 @@
 
 	} else {
 		
-		define('BASE_DIR', $_SERVER['DOCUMENT_ROOT']);
+		define('BASE_DIR', $_SERVER['DOCUMENT_ROOT'].'/');
 
 	}
 	
@@ -42,7 +42,7 @@
 
 		} else {
 
-			require_once (BASE_DIR . '404.php');
+			require_once (BASE_DIR . '404.html');
 
 		}
 

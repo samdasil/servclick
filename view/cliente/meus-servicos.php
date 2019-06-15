@@ -49,6 +49,35 @@
             } 
 
         }
+
+</script>
+
+<script>
+    function btnDown(obj) {
+        $(this).slideDown();
+        $(this).removeAttr('onclick','btnDown');
+        $(this).add('onclick','btnUp');
+    }
+
+    function btnUp(obj) {
+        $(this).slideUp();
+        $(this).removeAttr('onclick','btnUp');
+        $(this).add('onclick','btnDown');
+    }
+    
+
+    $('.op-item-servico-show').click(function() {
+        $('.botoes-item-servico').css('display', 'block');
+        $('.botoes-item-servico').slideDown();
+        $('.op-item-servico-hide').css('display', 'block');
+        $('.op-item-servico-show').css('display', 'none');
+    });
+
+    $('.op-item-servico-hide').click(function() {
+        $('.botoes-item-servico').css('display', 'none');
+        $('.op-item-servico-hide').css('display', 'none');
+        $('.op-item-servico-show').css('display', 'block');
+    });
 </script>
 
 <header id="header"> <?php require_once 'menu.php'; ?> </header>
@@ -64,7 +93,7 @@
             </ul>
         </div>
 
-        <div class="content" id="abertos" style="display: block;">
+        <div class="content" id="abertos" style="display: none;">
             <div class="table-responsive">
                 <table class="table table-hover">
                     <thead class="table-list">
@@ -230,6 +259,30 @@
             </div>
         </div>
 
+        <!--    div servicos abertos -->
+        <?php foreach ($servicos as $item) { if ($item['status_'] == 1) {  ?>
+
+            <div class="content" id="abertos" style="display: block;">
+
+                <div class="row">
+                    <div class="item-servico">
+                        
+                        <div class="op-item-servico-show"  onclick="btnDown(this)">
+                            <i class="fa fa-chevron-down arrow-op-servico"></i>
+                        </div>
+                        <div class="op-item-servico-hide">
+                            <i class="fa fa-chevron-up arrow-down"></i>
+                        </div>
+
+                    </div>
+                    
+                    <div class="botoes-item-servico">
+                        
+                    </div>
+                </div>
+            </div>
+
+        <?php } } ?>
 
     </div>
 </section>

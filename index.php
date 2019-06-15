@@ -25,7 +25,7 @@
         <link href="assets/css/animate.min.css" rel="stylesheet"> 
         <link href="assets/css/main.css" rel="stylesheet">
         <link href="assets/css/responsive.css" rel="stylesheet">
-        <link rel="shortcut icon" href="assets/images/logo/servclick-50x42.png">
+        <link rel="shortcut icon" href="assets/images/ico/favicon.png">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/images/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/images/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/images/ico/apple-touch-icon-72-precomposed.png">
@@ -67,13 +67,15 @@
                 
                 </form>
             </div>
+
+            <div class="container text-center">
+                <div class="buttons-action">
+                    <a href="opcao-perfil.php"><button type="button" class="btn btn-btn btn-success"><i class="fa fa-plus"></i>&nbsp Cadastrar-se</button></a>
+                </div>
+            </div>
     	</section>
 
-        <div class="container text-center" style="margin-top: -10vh;">
-            <div class="buttons-action">
-                <a href="opcao-perfil.php"><button type="button" class="btn btn-btn btn-success"><i class="fa fa-plus"></i>&nbsp Cadastrar-se</button></a>
-            </div>
-        </div>
+        
 
         <footer id="footer">
             <div class="container">

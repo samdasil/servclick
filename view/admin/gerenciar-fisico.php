@@ -76,17 +76,9 @@
                         </div>
                         <div class="portfolio-pagination">
                             <ul class="pagination">
-                                <li><a href="../../assets/#">left</a></li>
-                                <li><a href="../../assets/#">1</a></li>
-                                <li><a href="../../assets/#">2</a></li>
-                                <li class="active"><a href="../../assets/#">3</a></li>
-                                <li><a href="../../assets/#">4</a></li>
-                                <li><a href="../../assets/#">5</a></li>
-                                <li><a href="../../assets/#">6</a></li>
-                                <li><a href="../../assets/#">7</a></li>
-                                <li><a href="../../assets/#">8</a></li>
-                                <li><a href="../../assets/#">9</a></li>
-                                <li><a href="../../assets/#">right</a></li>
+                              <li><a href="#">left</a></li>
+                              <li class="active"><a href="../../assets/#">1</a></li>
+                              <li><a href="#">right</a></li>
                             </ul>
                         </div>
                     </div>

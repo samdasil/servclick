@@ -86,30 +86,21 @@
 
                 </div>
 
-                <div class="row padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
-
-                    <div class="form-group right">
-                        <a type="button" name="aceitar" class="btn btn-success">Aceitar</a>
-                    </div>
-
-                </div>
-
-
-
                 <form method="post" action="">
 
                     <input type="hidden" name="idservico" value="<?=$servico->getIdservico()?>">
+                    <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico()?>">
 
                     <div class="row">
                         <div class="form-group">
-                            <label><i class="fa fa-hand-holding-usd">R$</i> Valor</label>
-                            <input type="text" name="valor" id="valor" class="form-control" placeholder="Valor (R$)" maxlength="10"  required>
+                            <label> Valor <strong>(R$)</strong></label>
+                            <input type="text" name="valor" id="valor" class="form-control" placeholder="ex.: 50,00" maxlength="10"  required />
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-submit" value="Aceitar Solicitação">
+                            <input type="submit" name="submit" class="btn btn-submit" value="Aceitar Serviço">
                         </div>
                     </div>
 

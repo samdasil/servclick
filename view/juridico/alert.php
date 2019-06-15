@@ -85,7 +85,7 @@ if((isset($_SESSION['acesso']) && !empty($_SESSION['acesso']) && $_SESSION['aces
     });
     </script>
     <div class="alert alert-warning alert-dismissible" role="alert" id="message">
-        <strong>Sucesso!</strong><br> Acesso atualizado.
+        <strong>Erro!</strong><br> Acesso não atualizado.
     </div> 
 <?php unset($_SESSION['acesso']); } ?>
 

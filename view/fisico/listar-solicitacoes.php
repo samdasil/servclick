@@ -49,9 +49,8 @@
                               <td><?=$item['nome'];?></td>
                             
                               <td class="text-primary">
-                                <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-servico.php?p=<?=$item['idservico'];?>"><i class="fa fa-eye"></i></a>
-                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-servico.php?p=<?=$item['idservico'];?>"><i class="fa fa-pencil"></i></a>
-                                <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="cancelar-servico.php?p=<?=$item['idservico'];?>"><i class="fa fa-trash"></i></a>
+                                <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-servico.php?p=<?=$item['idservico'];?>"><i class="fa fa-eye"></i>
+                                </a>
                               </td>
                             </tr>
                         <?php } ?>

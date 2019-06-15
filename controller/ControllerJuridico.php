@@ -74,7 +74,7 @@ class ControllerJuridico
                         $_SESSION['juridico-cad'] =  'success';
                         echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
                     } else {
-                        $_SESSION['cadastro'] =  'success';
+                        $_SESSION['profissional-cad'] =  'success';
                         echo "<script>window.location = '../../index.php';</script>";
                     }
 

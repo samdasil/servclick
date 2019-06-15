@@ -107,11 +107,11 @@
                         </div>
                         <div class="form-group">
                             <input type="email" name="email" class="form-control" required="required" placeholder="E-mail" autocomplete="off" value="<?=$fisico->getEmail();?>" onkeypress="validoff()" >
-                            <span class="valid vnome">Campo obrigatório *</span>
+                            <span class="valid vemail">Campo obrigatório *</span>
                         </div>
                         <div class="form-group">
                             <input type="text" name="fone" id="fone" class="form-control" required="required" placeholder="Fone" autocomplete="off" maxlength="15" minlength="15" value="<?=$fisico->getFone();?>" onkeypress="validoff()">
-                            <span class="valid vnome">Campo obrigatório *</span>
+                            <span class="valid vfone">Campo obrigatório *</span>
                         </div>
                         <div class="form-group">
                             <input type="text" name="fixo" id="fixo" class="form-control" placeholder="Fixo"  autocomplete="off" maxlength="14" minlength="14" value="<?=$fisico->getFixo();?>" onkeypress="validoff()">
@@ -197,18 +197,15 @@
                             <input type="url" name="site" class="form-control"  placeholder="Site" value="<?=$pagina->getSite();?>">
                         </div>
 
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                        <div class="buttons-action">
+                            <div class="col-md-12 button-fixed-right">
+                                <button type="submit" class="btn btn-success button-radius"><i class="fa fa-check icon-btn "></i></button>
+                            </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="buttons-action">
-                                        <a type="submit" href="desativar.php" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
-                                        <small>Desativar meu perfil</small>
-                                    </div>
-                                </div>
+                        <div class="buttons-action">
+                            <div class="col-md-12 button-fixed-left">
+                                <a href="desativar.php"><button type="button" class="btn btn-warning button-radius"><i class="fa fa-trash icon-btn "></i></button></a>
                             </div>
                         </div>
                         

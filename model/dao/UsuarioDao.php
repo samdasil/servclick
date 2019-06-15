@@ -68,23 +68,23 @@
 					$id     = $usuario->getIdcliente();
 					break;
 				case 3:
-					$table  = 'profissional';
-					if($usuario->getIdfisico()  > 0) {
+					if($usuario->getIdfisico() > 0) {
 						$table  = 'fisico';
 						$user 	= 'idfisico';
-						$id    = $usuario->getIdfisico();
+						$id     = $usuario->getIdfisico();
 					}else if($usuario->getIdjuridico() > 0){
 						$table  = 'juridico';
 						$user 	= 'idjuridico';
-						$id    = $usuario->getIdjuridico();
+						$id     = $usuario->getIdjuridico();
 					}
 					break;
 				default:
 					
 					break;
 			}
-
+			
 			$sql = "UPDATE $table SET login = :login, senha = :senha, status_ = :status_ WHERE $user = :id";
+			echo $sql;exit;
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":login", $usuario->getLogin());

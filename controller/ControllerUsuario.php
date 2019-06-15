@@ -79,26 +79,30 @@ class ControllerUsuario
                 $cliente->setStatus_($status_);
                 $result = $usuarioDao->editarAcesso($cliente);
                 break;
-            case 3:
+            case 3: {
+                
                 if(isset($dados['idfisico'])){
                     $fisico  = new Fisico();
-                    $fisico->setIdfisico($dados['id']);
+                    $fisico->setIdfisico($dados['idfisico']);
                     $fisico->setLogin(strtolower($dados['login']));
                     $fisico->setSenha(md5($dados['senha']));
                     $fisico->setPerfil($dados['perfil']);    
                     $fisico->setStatus_($status_);
                     $result = $usuarioDao->editarAcesso($fisico);
-                }else if(isset($dados['idjuridco'])){               
+                    
+                }
+                if(isset($dados['idjuridico'])){    
                     $juridico = new Juridico();
-                    $juridico->setIdjuridico($dados['id']);
+                    $juridico->setIdjuridico($dados['idjuridico']);
                     $juridico->setLogin(strtolower($dados['login']));
                     $juridico->setSenha(md5($dados['senha']));
                     $juridico->setPerfil($dados['perfil']);
                     $juridico->setStatus_($status_);
                     $result = $usuarioDao->editarAcesso($juridico);
+                    
                 }
-
-                break;
+            break;
+            }
             
         }
             

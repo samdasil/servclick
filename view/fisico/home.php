@@ -8,7 +8,21 @@
         </div>
     </header>
 
-	<section id="portfolio"  style="margin-top: 10vh;">
+    <section id="page-breadcrumb">
+        <div class="vertical-center sun">
+             <div class="container">
+                <div class="row">
+                    <div class="action">
+                        <div class="col-sm-12">
+                            <h1 class="title"><?=$fisico->getNome();?></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </section>
+
+	<section id="portfolio"  style="margin-top: 15vh;">
 	    <div class="container">
 	        <div class="row">
 
@@ -44,7 +58,7 @@
 			            <div class="portfolio-wrapper text-center" >
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
-			                        <a href="servicos.php"><i class="fa fa-info-circle fa-5x"></i></a>
+			                        <a href="meus-servicos.php"><i class="fa fa-info-circle fa-5x"></i></a>
 			                    </div>
 			                </div>
 			                <div class="portfolio-info ">

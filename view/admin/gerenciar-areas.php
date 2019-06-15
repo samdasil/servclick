@@ -72,9 +72,9 @@
                         </div>
                         <div class="portfolio-pagination">
                             <ul class="pagination">
-                              <li><a href="">left</a></li>
-                              <li class="active"><a href="">1</a></li>
-                              <li><a href="">right</a></li>
+                              <li><a href="#">left</a></li>
+                              <li class="active"><a href="../../assets/#">1</a></li>
+                              <li><a href="#">right</a></li>
                             </ul>
                         </div>
                     </div>

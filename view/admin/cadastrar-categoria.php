@@ -49,7 +49,7 @@
                                           <input type="submit" name="submit" class="btn btn-submit" value="Enviar">
                                       </div>
                                       <div class="navbar-header">
-                                      <div class="topo">
+                                      <div class="topo2">
                                           <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
                                       </div>
                                   </div>

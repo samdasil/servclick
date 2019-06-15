@@ -27,7 +27,6 @@
                         <h4 class="titulo">Cadastrar Administrador</h4>
 
                                 <form id="form" name="contact-form" method="post" action="">
-                                    <input type="hidden" name="v" value="<?=$v;?>" >
                                     
                                     <div class="row">
                                         <div class="col-md-12">

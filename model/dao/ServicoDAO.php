@@ -22,6 +22,19 @@ class ServicoDAO{
 		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
 	}
 
+	//Lista todos os servicos do profissional
+	public function listarServicosProfissional($profissional, $perfil){
+
+		$sql = "SELECT *, s.status_ stat, c.status_ statc FROM servico s 
+				INNER JOIN 	cliente c ON c.idcliente = s.cliente 
+				WHERE s.".$perfil." = :profissional";
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(":profissional", $profissional);
+		$consulta->execute();
+		return ($consulta->fetchAll(PDO::FETCH_ASSOC));
+	}
+
 	//Lista todos os servicos por area e status_
 	public function listarServicosPorStatus($idarea, $status_){
 		
@@ -78,6 +91,7 @@ class ServicoDAO{
 	public function editar(Servico $servico){
 		
 		$sql = 'UPDATE servico SET idservico = :idservico, descricao = :descricao, data = :data, datafim = :datafim, valor = :valor, status_ = :status_, cliente = :cliente, fisico = :fisico, categoria = :categoria, juridico = :juridico WHERE idservico = :idservico';
+
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->bindValue(':idservico',$servico->getIdservico()); 
 		$consulta->bindValue(':descricao',$servico->getDescricao()); 
@@ -89,6 +103,62 @@ class ServicoDAO{
 		$consulta->bindValue(':fisico',$servico->getFisico()); 
 		$consulta->bindValue(':categoria',$servico->getCategoria()); 
 		$consulta->bindValue(':juridico',$servico->getJuridico()); 
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	//aceitar servico pelo profissional
+	public function aceitar(Servico $servico){
+
+		if ( $servico->getFisico()   != null ) { $fisico   = $servico->getFisico();   } else { $fisico   = null; };
+		if ( $servico->getJuridico() != null ) { $juridico = $servico->getJuridico(); } else { $juridico = null; };
+		
+		$sql = 'UPDATE servico SET valor = :valor, status_ = :status_, fisico = :fisico, juridico = :juridico 
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':valor',		$servico->getValor()); 
+		$consulta->bindValue(':status_',	$servico->getStatus_()); 
+		$consulta->bindValue(':fisico',		$servico->getFisico()); 
+		$consulta->bindValue(':juridico',	$servico->getJuridico()); 
+
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	//finalizar servico 
+	public function finalizar(Servico $servico){
+
+		$sql = 'UPDATE servico SET dtfim = :dtfim, status_ = :status_
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':dtfim',		$servico->getDtfim()); 
+		$consulta->bindValue(':status_',	$servico->getStatus_()); 
+
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	//cancelar servico 
+	public function cancelar(Servico $servico){
+
+		$sql = 'UPDATE servico SET dtfim = :dtfim, status_ = :status_
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':dtfim',		$servico->getDtfim()); 
+		$consulta->bindValue(':status_',	$servico->getStatus_()); 
+
 		if($consulta->execute())
 			return true;
 		else

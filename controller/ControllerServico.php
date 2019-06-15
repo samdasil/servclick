@@ -16,7 +16,7 @@ class ControllerServico
 		$servico->setArea($dados['area']);
 		$servico->setDescricao($dados['descricao']);
 		$servico->setCliente($dados['cliente']);
-		$servico->setStatus_(1); //1=pendente
+		$servico->setStatus_(1); //1=aberto
 
 		if ($dados['endereco'] == 2 ) {
 			$endereco->setCep($dados['cep']);
@@ -101,6 +101,20 @@ class ControllerServico
 
 	}
 
+	//listar servicos do profissional
+	public function listarServicosProfissional($profissional, $perfil) 
+	{	
+		if ( !isset($profissional) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$list = $servDao->listarServicosProfissional($profissional, $perfil);
+		
+		return $list;
+
+	}
+
 	//listar servicos abersos por area
 	public function listarServicosPorStatus($idarea, $status_) 
 	{	
@@ -116,7 +130,101 @@ class ControllerServico
 
 	}
 
-	
+	//aceitar servico
+	public function aceitarServico($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setValor(str_replace(',','.',$dados['valor']));
+		$servico->setStatus_(2); //2=andamento
+		
+		if ( isset($dados['idfisico']) ) {
+			$servico->setFisico($dados['idfisico']); //2=andamento	
+		} else if (isset($dados['idjuridico']) ) {
+			$servico->setJuridico($dados['idjuridico']); //2=andamento	
+		}
+
+		$result = $servDao->aceitar($servico);
+
+		if ( $result ) {
+
+			$_SESSION['aceitar-servico'] = 'success';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['aceitar-servico'] = 'erro';
+			echo "<script>window.location = 'listar-solicitacoes.php';</script>";
+			return false;
+
+		}
+
+	}
+
+	//finalizar servico
+	public function finalizarServico($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setDtfim(date('Y-m-d'));
+		$servico->setStatus_(3); //3=finalizado
+
+		$result = $servDao->finalizar($servico);
+
+		if ( $result ) {
+
+			$_SESSION['finalizar-servico'] = 'success';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['finalizar-servico'] = 'erro';
+			echo "<script>window.location = 'listar-solicitacoes.php';</script>";
+			return false;
+
+		}
+
+	}
+
+	//cancelar servico
+	public function cancelarServico($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setDtfim(date('Y-m-d'));
+		$servico->setStatus_(4); //4=cancelado
+
+		$result = $servDao->cancelar($servico);
+
+		if ( $result ) {
+
+			$_SESSION['cancelar-servico'] = 'success';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['cancelar-servico'] = 'erro';
+			echo "<script>window.location = 'meus-servico.php';</script>";
+			return false;
+
+		}
+
+	}
 }	
 
 ?>

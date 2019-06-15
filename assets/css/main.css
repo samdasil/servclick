@@ -2840,7 +2840,7 @@ span.stButton_gradient,
   top: 0;
   margin-top: -1em;
   margin-bottom: -1em;
-  font-size: 1.1rem;
+  font-size: 1.7rem;
   vertical-align: middle;
 }
 
@@ -2985,7 +2985,7 @@ span.stButton_gradient,
   /*margin-top: 10vh;*/
   position: relative;
   min-height: 465px;
-  margin-bottom: 7vh;
+  margin-bottom: 15vh;
 }
 
 .container-form-login{
@@ -3108,6 +3108,10 @@ font-size: 10pt;
 
 .topo{
   margin-top: 3px;
+}
+
+.topo2{
+  margin-top: 10vh;
 }
 
 .header-title{
@@ -3358,7 +3362,7 @@ div#preloader {
   margin-left: 2vw;
 }
 
-#abertos,#andamentos,#cancelados,#finalizados{
+#abertos,#andamento,#cancelados,#finalizados{
   display: none;
 }
 
@@ -3396,4 +3400,111 @@ div#preloader {
 .middle{
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+.lg-price{
+  font-size:15pt;
+  color: #000;
+}
+
+.valor-servico{
+    font-size: 30pt;
+    color: coral;
+}
+
+.success{
+    background-color: #099011;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 300;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    border-radius: 3px;
+    margin-top: 5px;
+    border-bottom: 3px solid #46e6e8;
+    box-shadow: none;
+    padding: 10px;
+}
+
+.navbar-logo{
+  margin-top: 50px;
+  margin-left: -30px;
+}
+
+.button-fixed-right{
+    position: fixed;
+    right: 10px;
+    bottom: 55px;
+}
+
+.button-fixed-left{
+    position: fixed;
+    left: 10px;
+    bottom: 55px;
+}
+
+.button-radius{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.icon-btn{
+  font-size: 1.4rem;
+}
+
+.item-servico{
+    height: 15vh;
+    border-top-color: #dcdcdc5c;
+    border-bottom-color: white;
+    border-right-color: white;
+    border-left-color: white;
+    border-style: solid;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.botoes-item-servico{
+    height: 7vh;
+    background-color: #cecece;
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+}
+
+.op-item-servico-show{
+    background-color: #bd2e2e;
+    height: 4vh;
+    position: relative;
+    bottom: -85px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.op-item-servico-hide{
+    background-color: #cecece;
+    height: 4vh;
+    position: relative;
+    bottom: -85px;
+    margin-left: auto;
+    margin-right: auto;
+    display: none;
+}
+
+
+.arrow-op-servico{
+    text-align: center;
+    color: white;
+    width: 100%;
+    vertical-align: middle;
+}
+
+.show{
+  display: block;
+}
+
+.hide{
+  display: none;
 }

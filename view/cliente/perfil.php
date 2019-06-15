@@ -55,8 +55,8 @@
                     </div>
                     
                     <div class="buttons-action">
-                        <div class="col-md-3 col-sm-6">
-                            <a href="editar.php"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-pencil"></i>&nbsp Editar</button></a>
+                        <div class="col-md-3 col-sm-6 button-fixed-right">
+                            <a href="editar.php"><button type="button" class="btn btn-info button-radius"><i class="fa fa-pencil icon-btn "></i></button></a>
                         </div>
                     </div>
                 </div>

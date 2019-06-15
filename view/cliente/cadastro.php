@@ -89,7 +89,7 @@
                             <div class="form-group">
                                 <input type="hidden" name="MAX_FILE_SIZE" value="99999999"/>
                                 <input type="file" name="foto" id="foto" class="form-control photo-new" onchange="alterarFoto()" onblur="validoff()" required accept="image/png, image/jpeg"/> 
-                                <span class="valid vfoto">Selecione uma foto *</span>
+                                <span class="valid vfoto text-center">Selecione uma foto *</span>
                             </div>
 
                             <label class="form-group"><i class="fa fa-database"></i> &nbsp&nbsp Dados</label>

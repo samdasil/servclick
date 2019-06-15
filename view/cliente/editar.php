@@ -111,20 +111,17 @@
                             <input type="text" name="complemento" id="complemento" class="form-control" placeholder="Quadra, apto ..." value="<?=$endereco->getComplemento();?>">
                         </div>
 
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-submit" value="Enviar Atualização">
+                        <div class="buttons-action">
+                            <div class="col-md-12 button-fixed-right">
+                                <button type="submit" class="btn btn-success button-radius"><i class="fa fa-check icon-btn "></i></button>
+                            </div>
                         </div>
 
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <div class="buttons-action">
-                                        <a type="submit" href="desativar.php" class="btn btn-btn btn-warning"><i class="fa fa-trash"></i>&nbsp</a>
-                                        <small>Desativar meu perfil</small>
-                                    </div>
-                                </div>
+                        <div class="buttons-action">
+                            <div class="col-md-12 button-fixed-left">
+                                <a href="desativar.php"><button type="button" class="btn btn-warning button-radius"><i class="fa fa-trash icon-btn "></i></button></a>
                             </div>
-                        </div>                
+                        </div>
 
                     </form>            
 

@@ -71,7 +71,7 @@ class ControllerFisico
                         $_SESSION['fisico-cad'] =  'success';
                         echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
                     } else {
-                        $_SESSION['cadastro'] =  'success';
+                        $_SESSION['fisico-cad'] =  'success';
                         echo "<script>window.location = '../../index.php';</script>";
                     }
 
@@ -81,7 +81,7 @@ class ControllerFisico
                         $_SESSION['fisico-cad'] =  'erro';
                         echo "<script>window.location = 'gerenciar-fisico.php';</script>"; 
                     } else {
-                        $_SESSION['cadastro'] =  'erro';
+                        $_SESSION['profissional-cad'] =  'erro';
                         echo "<script>window.location = '../../index.php';</script>";
                     }
 
@@ -93,7 +93,7 @@ class ControllerFisico
                     $_SESSION['fisico-cad'] =  'erro';
                     echo "<script>window.location = 'gerenciar-fisico.php';</script>";
                 } else {
-                    $_SESSION['fisico-cad'] =  'erro';
+                    $_SESSION['cadastro'] =  'erro';
                     echo "<script>window.location = 'cadastro.php';</script>";
                 }
             }

@@ -35,7 +35,7 @@
                 <li><a href="home.php">Home</a></li>
                 <li><a href="perfil.php">Perfil</a></li>
                 <li><a href="listar-solicitacoes.php">Solicitações</a></li>
-                <li><a href="servicos.php">Meus Serviços</a></li>
+                <li><a href="meus-servicos.php">Meus Serviços</a></li>
                 <li><a href="notas.php">Notas</a></li>
                 <li><a href="relatorios.php">Relatórios</a></li>
                 <li><a href="config.php">Config</a></li>
