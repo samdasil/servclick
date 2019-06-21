@@ -8,7 +8,7 @@
         </div>
     </header>
 
-    <section id="page-breadcrumb">
+    <section id="page-breadcrumb" class="pt8 pb1">
         <div class="vertical-center sun">
              <div class="container">
                 <div class="row">
@@ -22,27 +22,28 @@
         </div>
    </section>
 
-	<section id="portfolio"  style="margin-top: 15vh;">
+	<section id="portfolio" class="pt10">
 	    <div class="container">
-	        <div class="row">
+
+	        <?php require_once 'alert.php'; ?>
+
+	        <div class="row padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
 
 				<div class="portfolio-items" style="color: #567793">
-			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded logos" style="color: ">
-			            <div class="portfolio-wrapper text-center" >
+			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
+			            <div class="portfolio-wrapper text-center">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
 			                        <a href="perfil.php"><i class="fa fa-user fa-5x"></i></a>
 			                    </div>
-			        
 			                </div>
 			                <div class="portfolio-info ">
 			                    <h2>PERFIL</h2>
 			                </div>
 			            </div>
 			        </div>
-			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded folio">
-			            <div class="portfolio-wrapper text-center" >
-			            	
+			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
+			            <div class="portfolio-wrapper text-center">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
 			                        <a href="listar-solicitacoes.php"><i class="fa fa-globe fa-5x"></i></a>
@@ -54,7 +55,7 @@
 			                </div>
 			            </div>
 			        </div>
-			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item design logos">
+			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
 			            <div class="portfolio-wrapper text-center" >
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
@@ -66,7 +67,7 @@
 			                </div>
 			            </div>
 			        </div>
-			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded mobile">
+			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
 			            <div class="portfolio-wrapper text-center" >
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
@@ -78,7 +79,7 @@
 			                </div>
 			            </div>
 			        </div>
-			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item design logos">
+			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
 			            <div class="portfolio-wrapper text-center" >
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
@@ -91,7 +92,7 @@
 			            </div>
 			        </div>
 			        
-			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item branded mockup">
+			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
 			            <div class="portfolio-wrapper text-center" >
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
@@ -121,10 +122,6 @@
     <!--/#footer-->
 
     <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
-    <!--
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="../../assets/js/gmaps.js"></script>
-	-->
     <script type="text/javascript" src="../../assets/js/wow.min.js"></script>
     <script type="text/javascript" src="../../assets/js/main.js"></script>   
 </body>

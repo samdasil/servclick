@@ -2,7 +2,7 @@
             
     <div class="container">
         
-        <div class="navbar-header">
+        <div class="navbar-header mt0">
             <div class="topo">
                 <a class="arrow" href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
                 <div class="topo-arrow">

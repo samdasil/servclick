@@ -190,6 +190,9 @@
 #header{
   margin-bottom: 0;
   padding: 0px 0 0px 0;
+  position: fixed;
+  width: 100%;
+  z-index: 9999;
 }
 
 #header .navbar-inverse .container{
@@ -814,6 +817,7 @@ ul.sub-menu {
   display: table;
   position: static;
   width: 100%;
+  /*padding-top: 55px;*/
 }
 
 #team {
@@ -1503,7 +1507,7 @@ Portfolio Details
 *****************************/
 
 #portfolio-information.padding-top{
-  padding-top: 20px;
+  /*padding-top: 60px;*/
   margin-bottom: 30px;
 }
 
@@ -3206,7 +3210,7 @@ font-size: 10pt;
 }
 
 .services{
-  margin-top: 5vh
+  margin-top: 0vh;
 }
 
 .resenha {
@@ -3362,7 +3366,7 @@ div#preloader {
   margin-left: 2vw;
 }
 
-#abertos,#andamento,#cancelados,#finalizados{
+#abertos,#aceitos,#andamentos,#finalizados,#propostas,#cancelados{
   display: none;
 }
 
@@ -3507,4 +3511,62 @@ div#preloader {
 
 .hide{
   display: none;
+}
+
+.center-icon{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  padding: 8px 10px;
+}
+
+.yellow{
+  color: #141829;
+  background-color: #efe31a;
+}
+
+.mt0{
+  margin-top: 0vh;
+}
+
+.mt10{
+  margin-top: 10vh;
+}
+
+.pt3{
+  padding-top: 3vh;
+}
+
+.pt5{
+  padding-top: 5vh;
+}
+
+.pt8{
+  padding-top: 8vh;
+}
+
+.pt10{
+  padding-top: 10vh;
+}
+
+.pt15{
+  padding-top: 15vh;
+}
+
+.pb1{
+  padding-bottom: 1vh;
+}
+
+.mb0{
+  margin-bottom: 0vh;
+}
+
+.line{
+  padding: 4px 8px;
+}
+
+.button-large{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
 }

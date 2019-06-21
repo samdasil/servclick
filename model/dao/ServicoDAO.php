@@ -70,7 +70,7 @@ class ServicoDAO{
 	}
 	
 	//Insere um elemento na tabela
-	public function cadastrar(Servico $servico){
+	public function solicitar(Servico $servico){
 		
 		$sql = 'INSERT INTO servico ( area, descricao, dtinicio, status_, cliente, endereco ) VALUES ( :area, :descricao, :dtinicio, :status_, :cliente, :endereco )';
 		$consulta = Conexao::getCon()->prepare($sql);
@@ -90,19 +90,12 @@ class ServicoDAO{
 	//Atualiza um elemento na tabela
 	public function editar(Servico $servico){
 		
-		$sql = 'UPDATE servico SET idservico = :idservico, descricao = :descricao, data = :data, datafim = :datafim, valor = :valor, status_ = :status_, cliente = :cliente, fisico = :fisico, categoria = :categoria, juridico = :juridico WHERE idservico = :idservico';
+		$sql = 'UPDATE servico SET descricao = :descricao, area = :area WHERE idservico = :idservico';
 
 		$consulta = Conexao::getCon()->prepare($sql);
 		$consulta->bindValue(':idservico',$servico->getIdservico()); 
 		$consulta->bindValue(':descricao',$servico->getDescricao()); 
-		$consulta->bindValue(':data',$servico->getData()); 
-		$consulta->bindValue(':datafim',$servico->getDatafim()); 
-		$consulta->bindValue(':valor',$servico->getValor()); 
-		$consulta->bindValue(':status_',$servico->getStatus_()); 
-		$consulta->bindValue(':cliente',$servico->getCliente()); 
-		$consulta->bindValue(':fisico',$servico->getFisico()); 
-		$consulta->bindValue(':categoria',$servico->getCategoria()); 
-		$consulta->bindValue(':juridico',$servico->getJuridico()); 
+		$consulta->bindValue(':area',$servico->getArea()); 
 		if($consulta->execute())
 			return true;
 		else
@@ -152,6 +145,86 @@ class ServicoDAO{
 	public function cancelar(Servico $servico){
 
 		$sql = 'UPDATE servico SET dtfim = :dtfim, status_ = :status_
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':dtfim',		$servico->getDtfim()); 
+		$consulta->bindValue(':status_',	$servico->getStatus_()); 
+
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	//aceitar proposta
+	public function aceitarProposta(Servico $servico){
+
+		$sql = 'UPDATE servico SET status_ = :status_
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':status_',	$servico->getStatus_()); 
+
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	//recusar proposta
+	public function recusarProposta(Servico $servico){
+
+		$sql = 'UPDATE servico SET status_ = :status_
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':status_',	$servico->getStatus_()); 
+
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	//avaliar servico 
+	public function avaliar(Servico $servico){
+
+		$sql = 'UPDATE servico SET nota = :nota, comentario = :comentario
+				WHERE idservico = :idservico';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':idservico', 	$servico->getIdservico()); 
+		$consulta->bindValue(':nota',		$servico->getNota()); 
+		$consulta->bindValue(':comentario',	$servico->getComentario()); 
+
+		if($consulta->execute())
+			return true;
+		else
+			return false;
+	}
+
+	public static function mediaNotasProfissional($profissional,$perfil)
+	{
+		$sql = 'SELECT avg(nota) as nota FROM servico 
+				WHERE '.$perfil.' = :profissional';
+
+		$consulta = Conexao::getCon()->prepare($sql);
+		$consulta->bindValue(':profissional', $profissional); 
+		$consulta->execute();
+		$result = $consulta->fetchAll(PDO::FETCH_ASSOC);
+		
+		return ((int)$result[0]['nota']);		
+
+	}
+
+	//cancelar atendimento 
+	public function cancelarAtendimento(Servico $servico){
+
+		$sql = 'UPDATE servico SET dtfim = :dtfim, status_ = :status_, valor = 0
 				WHERE idservico = :idservico';
 
 		$consulta = Conexao::getCon()->prepare($sql);

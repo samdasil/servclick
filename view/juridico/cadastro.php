@@ -58,7 +58,7 @@
         ﻿
     </script>﻿﻿
 
-     <div class="container text-center ">
+     <div class="container text-center pt5">
         <h5>Aumente seu leque de clientes criando seu perfil</h5>
         <h5>Ajude-nos a divulgar seu trabalho!</h5>
     </div>

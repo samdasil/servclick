@@ -9,6 +9,7 @@ class ControllerServico
 		date_default_timezone_set('America/Sao_Paulo');
 		$servico 	= new Servico();
 		$endereco 	= new Endereco();
+		$e 			= new ControllerEndereco();
 		$servDao 	= new ServicoDAO();
 		$endDao 	= new EnderecoDAO();
 
@@ -22,7 +23,7 @@ class ControllerServico
 			$endereco->setCep($dados['cep']);
 			$endereco->setLogradouro($dados['logradouro']);
 			$endereco->setBairro($dados['bairro']);
-			$endereco->setCidade($dados['Cidade']);
+			$endereco->setCidade($dados['cidade']);
 			$endereco->setEstado($dados['estado']);
 			$endereco->setNumero($dados['numero']);
 			$endereco->setComplemento($dados['complemento']);
@@ -37,12 +38,21 @@ class ControllerServico
 			} 
 
 		} else {
-			$servico->setEndereco($dados['endereco1']);
+
+			$endereco = $e->carregarEndereco($dados['endereco1']);
+			
+			$result = $endDao->cadastrar($endereco);
+
+			if ($result) {
+				$servico->setEndereco($dados['endereco1']);
+			} else {
+				$_SESSION['erro-endereco'] = 'erro';
+				return false;
+			}
 		}
 
-		//print_r($servico);exit;
-		$result = $servDao->cadastrar($servico);
-		//echo $result;exit;
+		$result = $servDao->solicitar($servico);
+		
 		if ( $result ) {
 			$_SESSION['solicitacao'] = 'success';
 			echo "<script>window.location = 'meus-servicos.php';</script>";
@@ -52,6 +62,53 @@ class ControllerServico
 		}
 
 	}	
+
+	public function editarServico($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		date_default_timezone_set('America/Sao_Paulo');
+		$servico 	= new Servico();
+		$endereco 	= new Endereco();
+		$servDao 	= new ServicoDAO();
+		$endDao 	= new EnderecoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setArea($dados['area']);
+		$servico->setDescricao($dados['descricao']);
+		$servico->setCliente($dados['idcliente']);
+		$servico->setEndereco($dados['endereco']);
+		
+		$endereco->setIdendereco($dados['endereco']);
+		$endereco->setCep($dados['cep']);
+		$endereco->setLogradouro($dados['logradouro']);
+		$endereco->setBairro($dados['bairro']);
+		$endereco->setCidade($dados['cidade']);
+		$endereco->setEstado($dados['estado']);
+		$endereco->setNumero($dados['numero']);
+		$endereco->setComplemento($dados['complemento']);
+
+		$result = $endDao->editar($endereco);
+
+		if ($result) {
+
+			//print_r($servico);exit;
+			$result = $servDao->editar($servico);
+
+			if ( $result ) {
+				$_SESSION['edit-solicitacao'] = 'success';
+				echo "<script>window.location = 'meus-servicos.php';</script>";
+			} else {
+				$_SESSION['edit-solicitacao'] = 'erro';
+				echo "<script>window.location = 'editar-servico.php?p=".$servico->getIdservico()."';</script>";
+			}
+
+		} else {
+			$_SESSION['erro-endereco'] = 'erro';
+			return false;
+		} 
+
+	}
 
 	//carregar servico por ID
 	public function carregarServico($idservico)
@@ -166,6 +223,64 @@ class ControllerServico
 
 	}
 
+	//aceitar proposta
+	public function aceitarProposta($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setStatus_(3); //3=andamento
+		
+		$result = $servDao->aceitarProposta($servico);
+
+		if ( $result ) {
+
+			$_SESSION['aceitar-proposta'] = 'success';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['aceitar-proposta'] = 'erro';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return false;
+
+		}
+
+	}
+
+	//recusar proposta
+	public function recusarProposta($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setStatus_(1); //1=aberto
+		
+		$result = $servDao->recusarProposta($servico);
+
+		if ( $result ) {
+
+			$_SESSION['recusar-proposta'] = 'success';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['recusar-proposta'] = 'erro';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return false;
+
+		}
+
+	}
+
 	//finalizar servico
 	public function finalizarServico($dados)
 	{
@@ -176,7 +291,7 @@ class ControllerServico
 
 		$servico->setIdservico($dados['idservico']);
 		$servico->setDtfim(date('Y-m-d'));
-		$servico->setStatus_(3); //3=finalizado
+		$servico->setStatus_(4); //4=finalizado
 
 		$result = $servDao->finalizar($servico);
 
@@ -206,7 +321,7 @@ class ControllerServico
 
 		$servico->setIdservico($dados['idservico']);
 		$servico->setDtfim(date('Y-m-d'));
-		$servico->setStatus_(4); //4=cancelado
+		$servico->setStatus_(5); //5=cancelado
 
 		$result = $servDao->cancelar($servico);
 
@@ -225,6 +340,67 @@ class ControllerServico
 		}
 
 	}
+
+	//avaliar servico
+	public function avaliarServico($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setNota($dados['nota']);
+		$servico->setComentario($dados['comentario']);
+
+		$result = $servDao->avaliar($servico);
+
+		if ( $result ) {
+
+			$_SESSION['avaliar-servico'] = 'success';
+			echo "<script>window.location = 'visualizar-servico.php?p='".$servico->getIdservico()."';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['avaliar-servico'] = 'erro';
+			echo "<script>window.location = 'visualizar-servico.php?p='".$servico->getIdservico()."';</script>";
+			return false;
+
+		}
+
+	}
+
+	//cancelar atendimento
+	public function cancelarAtendimento($dados)
+	{
+		if ( !isset($dados) ) return false;
+
+		$servico = new Servico();
+		$servDao = new ServicoDAO();
+
+		$servico->setIdservico($dados['idservico']);
+		$servico->setDtfim(date('Y-m-d'));
+		$servico->setStatus_(1);
+
+		$result = $servDao->cancelarAtendimento($servico);
+
+		if ( $result ) {
+
+			$_SESSION['cancelar-atendimento'] = 'success';
+			echo "<script>window.location = 'meus-servicos.php';</script>";
+			return true;
+
+		} else {
+
+			$_SESSION['cancelar-atendimento'] = 'erro';
+			echo "<script>window.location = 'meus-servico.php';</script>";
+			return false;
+
+		}
+
+	}
+
 }	
 
 ?>

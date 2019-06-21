@@ -18,7 +18,8 @@
     if( isset($_POST) && !empty($_POST) ){
 
         $dados  = $_POST;
-        $j->validarJuridico($dados);
+        
+        $j->validarJuridico($dados['idjuridico']);
 
     }
 ?>
@@ -91,7 +92,7 @@
                                         </div>
                                         <div class="col-md-6">
                                             <div class="buttons-action float-right">
-                                                <a href="editar-juridico.php?p=<?=$p?>"><button type="button" class="btn btn-btn btn-info"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button></a>
+                                                <button type="submit" class="btn btn-btn btn-info"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button>
                                              </div>
                                         </div>     
                                     </div>

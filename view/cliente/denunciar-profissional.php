@@ -83,29 +83,30 @@
                     <div class="op-denuncia">    
                         <div class="op-item">
                             <input type="hidden" name="assunto" value="denuncia">
-                            <input type="hidden" name="email" value="sammy.xs4@gmail.com">
+                            <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
+                            <input type="hidden" name="email" value="<?=$cliente->getEmail();?>">
                             <input type="hidden" name="nome" value="<?=$cliente->getNome();?>">
                             <input type="hidden" name="perfil" value="<?=$perfil;?>">
                             <input type="hidden" name="profissional" value="<?=$nome;?>">
 
-                            <input type="checkbox" class="form" name="preco" id="motivo">
-                            <span for="motivo">Preços abusivos</span>
+                            <input type="checkbox" class="form" name="preco" id="preco">
+                            <span for="motivo"><label for="preco">Preços abusivos</label></span>
                         </div>
                         <div class="op-item">
-                            <input type="checkbox" class="form" name="pessimo" id="motivo">
-                            <span for="motivo">Péssimo serviço</span>
+                            <input type="checkbox" class="form" name="pessimo" id="pessimo">
+                            <span for="motivo"><label for="pessimo">Péssimo serviço</label></span>
                         </div>
                         <div class="op-item">
-                            <input type="checkbox" class="form" name="conduta" id="motivo">
-                            <span for="motivo">Conduta imprópria</span>
+                            <input type="checkbox" class="form" name="conduta" id="conduta">
+                            <span for="motivo"><label for="conduta">Conduta imprópria</label></span>
                         </div>
                         <div class="op-item">
-                            <input type="checkbox" class="form" name="desqualificado" id="motivo">
-                            <span for="motivo">Profissional desqualificado</span>
+                            <input type="checkbox" class="form" name="desqualificado" id="desqualificado">
+                            <span for="motivo"><label for="desqualificado">Profissional desqualificado</label></span>
                         </div>
                         <div class="op-item">
-                            <input type="checkbox" class="form" name="outros" id="motivo">
-                            <span for="motivo">Outros motivos</span>
+                            <input type="checkbox" class="form" name="outros" id="outros">
+                            <span for="motivo"><label for="outros">Outros motivos</label></span>
                         </div>
                     </div>
                 </div>
@@ -113,8 +114,7 @@
     			<label>Comentários</label>
 				
                 <div class="form-group">
-                    <textarea name="descricao" id="descricao" required="required" class="form-control" rows="4" placeholder="" onkeypress="validoff()"></textarea>
-                    <span class="valid vdescricao">Campo obrigatório *</span>
+                    <textarea name="descricao" id="descricao" required="required" class="form-control" rows="4" placeholder="" required></textarea>
                 </div>
     			
     			<div style="margin-top: 40px;"></div>

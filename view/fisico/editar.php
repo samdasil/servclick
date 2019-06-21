@@ -46,7 +46,7 @@
     <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
     <section id="portfolio">
-        <div class="container">
+        <div class="container pt8">
 
             <?php require_once 'alert.php'; ?>
 
@@ -83,8 +83,6 @@
                         <input type="hidden" name="pagina" value="<?=$fisico->getPagina();?>">
                         <input type="hidden" name="status_" value="<?=$fisico->getStatus_();?>">
                         <input type="hidden" name="endereco" value="<?=$fisico->getEndereco();?>">
-
-                        <!--<label class="form-group">Foto para perfil</label>-->
 
                         <div class="col-sm-6">
                             <input type="hidden" name="img" id="img" value="<?=$fisico->getFoto();?>">

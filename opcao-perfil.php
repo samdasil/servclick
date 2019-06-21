@@ -20,22 +20,38 @@
     <script type="text/javascript">var switchTo5x=true;</script>
 </head>
 <body>
-    <header id="header" style="padding-bottom: 10px;">      
+    <header id="header">      
         <div class="navbar navbar-inverse" role="banner">
-            
+                    
             <div class="container">
                 
-                <div class="navbar-header">
+                <div class="navbar-header mt0">
                     <div class="topo">
-                        <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                        <a class="arrow" href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
+                        <div class="topo-arrow">
+                            <label>
+                                <?php 
+                                    $titulo=explode('/', ucfirst($_SERVER['REQUEST_URI']) ) ; 
+                                    $titulo=explode('.php',end($titulo));
+                                    $titulo = explode('-', $titulo[0]); 
+                                    $titulo = implode(" ",$titulo);
+                                    $titulo = ucwords($titulo);
+                                    echo $titulo;
+                                ?>
+                                    
+                            </label>
+                        </div>
                     </div>
+
                 </div>
+                
             </div>
+
         </div>
     </header>
     
 	<section class="services">
-	    <div class="container">
+	    <div class="container pt15">
 	        <div class="row">
 	            <div class="col-sm-4 text-center padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms" style="padding: 5px;">
 	                <div class="single-service">

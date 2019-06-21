@@ -42,10 +42,11 @@
 
 
 ?>
-<header id="header"> <?php require_once 'menu.php'; ?> </header>
+
+    <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
     <section id="portfolio">
-        <div class="container">
+        <div class="container pt8">
 
             <?php require_once 'alert.php'; ?>
 
@@ -80,10 +81,8 @@
 
                         <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico();?>">
                         <input type="hidden" name="pagina" value="<?=$juridico->getPagina();?>">
-                        <input type="hidden" name="status" value="<?=$juridico->getStatus();?>">
-                        <input type="hidden" name="perfil" value="<?=$juridico->getPerfil();?>">
-                        <input type="hidden" name="login" value="<?=$juridico->getLogin();?>">
-                        <input type="hidden" name="senha" value="<?=$juridico->getSenha();?>">
+                        <input type="hidden" name="status_" value="<?=$juridico->getStatus_();?>">
+                        <input type="hidden" name="endereco" value="<?=$juridico->getEndereco();?>">
 
                          <div class="col-sm-6">
                             <input type="hidden" name="img" id="img" value="<?=$juridico->getFoto();?>">

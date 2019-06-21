@@ -24,11 +24,11 @@
     <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
 
-   <section id="portfolio-information" class="padding-top">
+   <section id="portfolio-information" class="pt15">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
-                    <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive" alt="" id="img">
+                    <img src="../../assets/images/fisico/<?=$fisico->getFoto();?>" class="img-responsive img-perfil" alt="" id="img">
                 </div>
                 <div class="col-sm-6">
                     <div class="project-name overflow">

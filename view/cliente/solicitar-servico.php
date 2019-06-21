@@ -100,7 +100,7 @@
 
     <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-    <section id="portfolio">
+    <section id="portfolio" class="pt10">
     	<div class="container">
     		<div class="col-md-12 col-sm-12">
 

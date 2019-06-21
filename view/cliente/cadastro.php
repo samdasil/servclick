@@ -30,7 +30,7 @@
     <header id="header"> <?php require_once 'topo.php'; ?></header>
 
     <section id="portfolio">
-        <div class="container">
+        <div class="container pt10 padding-top wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms"  >
 
             <!-- ERRO ao realizar cadastro -->
             <?php 

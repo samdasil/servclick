@@ -55,7 +55,7 @@
     	        <form  name="contact-form" method="post" action="" class="contact-form-login">
 
                     <div class="form-group">
-                        <input type="text" name="login" class="form-control text-center" required="required" placeholder="Login" value=''  autofocus />
+                        <input type="text" name="login" class="form-control text-center" required="required" placeholder="Login" value='' autofocus>
                     </div>
                     <div class="form-group">
                         <input type="password" name="senha" class="form-control  text-center" required="required" placeholder="*********" >

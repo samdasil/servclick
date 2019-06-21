@@ -36,7 +36,7 @@
             ﻿});
     </script>﻿﻿
 
-    <section id="portfolio-information" class="padding-top wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
+    <section id="portfolio-information" class="pt10 wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
         <div class="container">
             <div class="col-sm-6">
                 <div class="form-group">

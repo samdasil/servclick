@@ -19,7 +19,7 @@
 
         $dados  = $_POST;
 
-        $s->cancelarServico($dados);
+        $s->cancelarAtendimento($dados);
 
     }
 
@@ -77,8 +77,19 @@
                         <div class="project-info overflow">
                             <div class="col-md-3 col-sm-6">
                                 <p class="desc-servico"><strong>Nº Serviço :  </strong><?=$servico->getIdservico()?></p>
+                                <p class="desc-servico"><strong>Área do Serviço :  </strong><?=$area->getDescricao()?></p>
                                 <p class="desc-servico"><strong>Data da solicitação :  </strong><?=$servico->getDtinicio()?></p>
                                 <p class="desc-servico"><strong>Endereço :  </strong><?=$endereco->getBairro()?>, <?=$endereco->getCidade()?>-<?=$endereco->getEstado()?></p>
+
+                                    <?php if ( $servico->getStatus_() == 1 ) { ?>
+                                        <p class="desc-servico"><strong>Status :  </strong> Aberto  <i class="fa fa-folder-open"></i></p>
+                                    <?php } else if ( $servico->getStatus_() == 2 ) { ?>
+                                        <p class="desc-servico"><strong>Status :  </strong> Proposta enviada  <i class="fa fa-thumbs-up"></i></p>
+                                    <?php } else if ( $servico->getStatus_() == 3 ) { ?>
+                                        <p class="desc-servico"><strong>Status :  </strong> Andamento  <i class="fa fa-history"></i></p>
+                                    <?php } else if ( $servico->getStatus_() == 4 ) { ?>
+                                        <p class="desc-servico"><strong>Status :  </strong> Finalizado  <i class="fa fa-check"></i></p>
+                                    <?php } ?>
                             </div>
                         </div>
                     

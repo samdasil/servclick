@@ -84,7 +84,7 @@
 			}
 			
 			$sql = "UPDATE $table SET login = :login, senha = :senha, status_ = :status_ WHERE $user = :id";
-			echo $sql;exit;
+			//echo $sql;exit;
 
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":login", $usuario->getLogin());

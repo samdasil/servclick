@@ -10,7 +10,7 @@
     $usuario    = new Usuario();
     $id         = base64_decode($_SESSION['session']);
     $cliente    = $c->carregarCliente($id);
-    $endereco   = $e->carregarEnderecoCliente($id);
+    $endereco   = $e->carregarEndereco($id);
 
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
@@ -25,7 +25,7 @@
 
 <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-<div class="col-md-4 col-sm-12">
+<div class="col-md-4 col-sm-12 pt15">
     <!-- ERRO AO ATUALIZAR ACESSO -->
     <?php 
         if((isset($_GET['edit']) && !empty($_GET['edit']) && $_GET['edit'] == 'erro')) { ?>
@@ -46,6 +46,7 @@
 
                 <input type="hidden" name="id" value="<?=$cliente->getIdcliente();?>">
                 <input type="hidden" name="perfil" value="<?=$cliente->getPerfil();?>">
+                <input type="hidden" name="status_" value="<?=$cliente->getStatus_();?>">
 
                 <div class="col-sm-6">
                     <img src="../../assets/images/portfolio/cadeado.png" class="img-responsive" alt="Foto Cliente" name="img" id="img">

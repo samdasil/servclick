@@ -2,7 +2,7 @@
             
     <div class="container">
         
-        <div class="navbar-header">
+        <div class="navbar-header mt0">
             <div class="topo">
                 <a class="arrow" href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
                 <div class="topo-arrow">
@@ -10,7 +10,10 @@
                         <?php 
                             $titulo=explode('/', ucfirst($_SERVER['REQUEST_URI']) ) ; 
                             $titulo=explode('.php',end($titulo));
-                            echo ucfirst($titulo[0]); 
+                            $titulo = explode('-', $titulo[0]); 
+                            $titulo = implode(" ",$titulo);
+                            $titulo = ucwords($titulo);
+                            echo $titulo;
                         ?>
                             
                     </label>

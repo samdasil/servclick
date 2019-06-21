@@ -26,7 +26,7 @@
         $endereco     = $e->carregarEndereco($profissional->getEndereco());    
         $pagina       = $p->carregarPagina($profissional->getPagina());
         $area         = $a->carregarArea($profissional->getArea());
-        $categoria    = $a->carregarCategoria($profissional->getArea());
+        $categoria    = $cat->carregarCategoria($profissional->getArea());
         //print_r($area);exit;
     } else if ($_GET['jur'] != 0 ) {
     	$perfil		  = "juridico";
@@ -62,7 +62,7 @@
 
 	<header id='header'> <?php require_once 'menu.php'; ?> </header>
 
-	<div class="container">
+	<div class="container pt10">
 
 		<div class='col-sm-6'>
             <div class='sidebar portfolio-sidebar wow fadeIn' data-wow-duration='1000ms' data-wow-delay='300ms'>

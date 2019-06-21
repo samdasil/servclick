@@ -41,12 +41,18 @@
                                 <li><a href="gerenciar-juridico.php">Pessoa Juridica</a></li>
                                 <li><a href="gerenciar-fisico.php">Pessoa Fisica</a></li>
                             </ul>
-                        </li>                    
+                        </li>
+                        
                         <li><a href="listar-clientes.php">Clientes</a></li>
-                        <li><a href="gerenciar-categorias.php">Categorias</a></li>
-                        <li><a href="gerenciar-areas.php">Áreas de Atuação</a></li>
-                        <li><a href="gerenciar-usuarios.php">Usuários</a></li>
-                        <li><a href="gerenciar-administradores.php">Administradores</a></li>
+
+                        <li class="dropdown"><a href="#">Gerenciar <i class="fa fa-angle-down"></i></a>
+                            <ul role="menu" class="sub-menu">
+                                <li><a href="gerenciar-categorias.php">Categorias</a></li>
+                                <li><a href="gerenciar-areas.php">Áreas de Atuação</a></li>
+                                <li><a href="gerenciar-usuarios.php">Usuários</a></li>
+                                <li><a href="gerenciar-administradores.php">Administradores</a></li>
+                            </ul>
+                        </li>                                        
                         <li><a href="../../index.php">Sair</a></li>
                     </ul>
                 </div>

@@ -2,9 +2,9 @@
 
 	class Email {
 
-		const USERNAME  = "sammy.suporte@gmail.com";
-		const PASSWORD  = "*gmai1785";
-		const NAME_FROM = "ServClick";
+		const USERNAME  = "contato@servclick.com.br";
+		const PASSWORD  = "gfa7xh2yb";
+		const NAME_FROM = "Informativo ServClick";
 
 		private $mail;
 
@@ -23,13 +23,13 @@
 			$this->mail->SMTPDebug = 0;
 
 			//Set the hostname of the mail server
-			$this->mail->Host = 'smtp.gmail.com';
+			$this->mail->Host = 'a2plcpnl0814.prod.iad2.secureserver.net';
 			// use
 			// $this->mail->Host = gethostbyname('smtp.gmail.com');
 			// if your network does not support SMTP over IPv6
 
 			//Set the SMTP port number - 587 for authenticated TLS, a.k.a. RFC4409 SMTP submission
-			$this->mail->Port = 587;
+			$this->mail->Port = 465;
 
 			//Set the encryption system to use - ssl (deprecated) or tls
 			$this->mail->SMTPSecure = 'tls';
@@ -87,7 +87,7 @@
 			function save_mail($mail)
 			{
 			    //You can change 'Sent Mail' to any other folder or tag
-			    $path = "{imap.gmail.com:993/imap/ssl}[Gmail]/Sent Mail";
+			    $path = "{a2plcpnl0814.prod.iad2.secureserver.net:993/imap/ssl}[ServClick]/Sent Mail";
 
 			    //Tell your server to open an IMAP connection using the same username and password as you used for SMTP
 			    $imapStream = imap_open($path, $mail->Username, $mail->Password);

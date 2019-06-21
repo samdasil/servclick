@@ -8,7 +8,7 @@
         </div>
     </header>
 
-    <section id="page-breadcrumb">
+    <section id="page-breadcrumb" class="pt8 pb1">
         <div class="vertical-center sun">
              <div class="container">
                 <div class="row">
@@ -22,28 +22,20 @@
         </div>
    </section>
 
-	<section id="portfolio" style="margin-top: 10vh;">
+	<section id="portfolio" class="pt10">
 	    <div class="container">
 	    	
 	    	<?php require_once 'alert.php'; ?>
 
 	        <div class="row padding wow fadeIn" data-wow-duration="1000ms" data-wow-delay="300ms">
 
-				<div class="portfolio-items" style="color: #567793" >
+				<div class="portfolio-items" style="color: #567793">
 			        <div class="col-xs-6 col-sm-4 col-md-3 portfolio-item">
 			            <div class="portfolio-wrapper text-center">
 			                <div class="portfolio-single">
 			                    <div class="portfolio-thumb">
 			                        <a href="perfil.php"><i class="fa fa-user fa-5x"></i></a>
 			                    </div>
-			                    <!--
-			                    <div class="portfolio-view">
-			                        <ul class="nav nav-pills">
-			                            <li><a href="portfolio-details.html"><i class="fa fa-link"></i></a></li>
-			                            <li><a href="images/portfolio/1.jpg" data-lightbox="example-set"><i class="fa fa-eye"></i></a></li>
-			                        </ul>
-			                    </div>
-			                	-->
 			                </div>
 			                <div class="portfolio-info ">
 			                    <h2>PERFIL</h2>
@@ -128,10 +120,6 @@
     <!--/#footer-->
 
     <script type="text/javascript" src="../../assets/js/bootstrap.min.js"></script>
-    <!--
-    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
-    <script type="text/javascript" src="../../assets/js/gmaps.js"></script>
-	-->
     <script type="text/javascript" src="../../assets/js/wow.min.js"></script>
     <script type="text/javascript" src="../../assets/js/main.js"></script>   
 </body>

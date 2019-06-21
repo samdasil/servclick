@@ -87,7 +87,7 @@ class ControllerCliente
 
     public function editarCliente($dados = null, $aFile = null)
     {
-
+        
         $cliente     = new Cliente();
         $endereco    = new Endereco(); 
         $clienteDAO  = new ClienteDAO();

@@ -2,7 +2,7 @@
 
     <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-    <section id="page-breadcrumb">
+    <section id="page-breadcrumb" class="pt8 pb1">
         <div class="vertical-center sun">
              <div class="container">
                 <div class="row">
@@ -16,7 +16,7 @@
         </div>
    </section>
 
-   <section id="portfolio-information" class="padding-top">
+   <section id="portfolio-information" class="">
         <div class="container">
 
             <?php require_once 'alert.php'; ?>

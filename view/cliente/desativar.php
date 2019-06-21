@@ -9,7 +9,7 @@
     $id         = base64_decode($_SESSION['session']);
     $v          = base64_encode($id);
     $cliente    = $c->carregarCliente($id);
-    $endereco   = $e->carregarEnderecoCliente($id);
+    $endereco   = $e->carregarEndereco($id);
 
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
@@ -23,8 +23,8 @@
 
 <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-<section id="portfolio-information" class="padding-top">
-    <div class="container">
+<section id="portfolio-information" class="">
+    <div class="container pt10">
         <div class="row">
             <div class="col-sm-6">
                 <img src="../../assets/images/cliente/<?=$cliente->getFoto();?>" class="img-responsive img-perfil" alt="" id="img">

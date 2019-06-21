@@ -8,7 +8,8 @@
 			
 			if (!isset($dados)) return false;
 
-			$de      		= $dados['email']; 
+			$cliente 		= $dados['idcliente'];
+			$email    		= $dados['email']; 
 			$nome    		= $dados['nome'];
 			$assunto 		= $dados['assunto'];
 			
@@ -22,7 +23,9 @@
 				$desqualificado  = isset($dados['desqualificado']) 	?  'Profissional desqualificado' : '';
 				$outros 		 = isset($dados['outros'])			?  'Outros motivos'				 : '';
 
-				$msg	=  "O profissional <strong>".$profissional."</strong> pessoa ".$perfil." recebeu uma denúncia.<br>"; 
+				$msg	 = "Cliente  : ".$cliente." - ".$nome."";
+				$msg	.= "E-mail   : ".$email."<br><br>";
+				$msg    .=  "O profissional <strong>".$profissional."</strong> pessoa ".$perfil." recebeu uma denúncia.<br>"; 
 				$msg	.= "- ".$preco."<br>";
 				$msg	.= "- ".$pessimo."<br>";
 				$msg	.= "- ".$conduta."<br>";
@@ -32,7 +35,7 @@
 				$msg	.= $descricao;
 			}
 
-			$email  = new Email($de, $nome, $assunto, $msg);
+			$email  = new Email($email, $nome, $assunto, $msg);
 			
 			$ret = $email->send();
 

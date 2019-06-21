@@ -15,6 +15,8 @@
     $pagina     = new Pagina();
     $area       = new AreaAtuacao();
     $id         = base64_decode($_SESSION['session']);
+    $servDAO    = new ServicoDAO();
+
     
     if ($_GET['fis'] != 0 ) {
         $profissional = $_GET['fis'];
@@ -23,6 +25,7 @@
         $endereco     = $e->carregarEndereco($fisico->getEndereco());    
         $pagina       = $p->carregarPagina($fisico->getPagina());
         $area         = $a->carregarArea($fisico->getArea());
+        $nota         = ServicoDAO::mediaNotasProfissional($fisico->getIdfisico(), 'fisico');
         //print_r($area);exit;
         include_once 'perfil-fisico.php';
     } else if ($_GET['jur'] != 0 ) {
@@ -33,6 +36,7 @@
         $endereco     = $e->carregarEndereco($juridico->getEndereco());    
         $pagina       = $p->carregarPagina($juridico->getPagina());
         $area         = $a->carregarArea($juridico->getArea());
+        $nota         = ServicoDAO::mediaNotasProfissional($juridico->getIdjuridico(), 'juridico');
         //print_r($area);exit;
         include_once 'perfil-juridico.php';
     } 

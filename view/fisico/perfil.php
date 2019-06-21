@@ -1,8 +1,18 @@
-<?php require_once 'header.php'; ?>
+<?php 
+
+    require_once 'header.php'; 
+
+    $s          = new ControllerServico();
+    $servico    = new Servico();
+    $servDAO    = new ServicoDAO();
+
+    $nota = ServicoDAO::mediaNotasProfissional($fisico->getIdfisico(), 'fisico');
+
+?>
 
     <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-    <div class="container">
+    <div class="container pt8">
         <div class="row">
             <div class="col-sm-12 overflow">
                <div class="social-icons pull-left">
@@ -32,7 +42,7 @@
          </div>
     </div>
 
-    <section id="page-breadcrumb">
+    <section id="page-breadcrumb" class="">
         <div class="vertical-center sun">
              <div class="container">
                 <div class="row">
@@ -81,10 +91,14 @@
                     </div>
 
                     <div class="client overflow">
-                        <h2 class="titulo">Meus Clientes</h2>
-                        <ul class="nav navbar-nav navbar-default">
-                            <li><a href="#"><i class="fa fa-bolt"></i>Okler Themes</a></li>
-                        </ul>
+                        <h2 class="titulo">Média de Avaliações</h2>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="project-info overflow">
+                            <div class="text-center">
+                                <img class="img-nota" src="../../assets/images/notas/n<?=$nota?>.png">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="menu-profissional-footer" style="display: none;">
