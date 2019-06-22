@@ -51,9 +51,7 @@
 		public function editar(Juridico $juridico, Endereco $endereco, Pagina $pagina)
 		{
 			
-			$sql = "CALL SP_EDITAR_JURIDICO(:idjuridico, :cnpj, :descricao, :email, :fone, :fixo, :status_, :razaosocial, :nomefantasia, :responsavel, 									:logo, :login, :senha, :perfil, :pagina,
-											:cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento,
-											:facebook, :instagram, :pinterest, :twitter, :google, :site)";
+			$sql = "CALL SP_EDITAR_JURIDICO(:idjuridico, :descricao, :fixo, :fone,  :email, :responsavel, :foto, :nomefantasia, :cnpj, :razaosocial, :status_, :area, :endereco, :cep, :logradouro, :numero, :bairro, :cidade, :estado, :complemento, :pagina, :site, :google, :twitter, :pinterest, :facebook, :instagram)";
 
 			$consulta = Conexao::getCon()->prepare($sql);
 
@@ -63,17 +61,15 @@
 			$consulta->bindValue(':email',$juridico->getEmail()); 
 			$consulta->bindValue(':fone',$juridico->getFone()); 
 			$consulta->bindValue(':fixo',$juridico->getFixo()); 
-			$consulta->bindValue(':status_',$juridico->getStatus()); 
+			$consulta->bindValue(':status_',$juridico->getStatus_()); 
 			$consulta->bindValue(':razaosocial',$juridico->getRazaosocial()); 
 			$consulta->bindValue(':nomefantasia',$juridico->getNomefantasia()); 
 			$consulta->bindValue(':responsavel',$juridico->getResponsavel()); 
-			$consulta->bindValue(':logo',$juridico->getLogo()); 
-			$consulta->bindValue(':login',$juridico->getLogin()); 
-			$consulta->bindValue(':senha',$juridico->getSenha()); 
-			$consulta->bindValue(':perfil',$juridico->getPerfil()); 
+			$consulta->bindValue(':foto',$juridico->getFoto()); 
 			$consulta->bindValue(':pagina',$juridico->getPagina()); 
-			//$consulta->bindValue(':admin',$juridico->getAdmin()); 
+			$consulta->bindValue(':area',$juridico->getArea()); 
 
+			$consulta->bindValue(':endereco',$juridico->getEndereco());
 			$consulta->bindValue(':cep',$endereco->getCep()); 
 			$consulta->bindValue(':logradouro',$endereco->getLogradouro()); 
 			$consulta->bindValue(':cidade',$endereco->getCidade()); 
@@ -174,10 +170,10 @@
 			}
 		}
 		
-		public function validar($idjuridico = null)
+		public function validar($dados = null)
 		{
 
-			if ( is_null($idjuridico) ) {
+			if ( is_null($dados) ) {
 				
 				return false;
 
@@ -186,7 +182,29 @@
 				$sql = "UPDATE juridico SET status_ = 1 WHERE idjuridico = :idjuridico";
 
 				$consulta = Conexao::getCon()->prepare($sql);
-				$consulta->bindValue(":idjuridico",$idjuridico);
+				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
+				
+				if($consulta->execute())
+					return true;
+				else
+					return false;
+			}
+		}
+
+		public function recusar($dados = null)
+		{
+
+			if ( is_null($dados) ) {
+				
+				return false;
+
+			} else {
+
+				$sql = "UPDATE juridico
+				 SET status_ = 2 WHERE idjuridico = :idjuridico";
+
+				$consulta = Conexao::getCon()->prepare($sql);
+				$consulta->bindValue(":idjuridico",$dados['idjuridico']);
 				
 				if($consulta->execute())
 					return true;

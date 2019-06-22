@@ -6,10 +6,10 @@
     $id      = base64_decode($_SESSION['session']);
     $s       = new ControllerServico();
     $c       = new ControllerCliente();
-    $f       = new ControllerFisico();
+    $j       = new ControllerJuridico();
     $servico = new Servico();
     $cliente = new Cliente();
-    $fisico  = new Fisico();
+    $juridico  = new Juridico();
 
     $cliente = $c->carregarCliente($servico->getCliente());
 
@@ -17,7 +17,7 @@
         $dados = $_POST;
     }
 
-    $servicos = $s->listarServicosProfissional($id, 'fisico');
+    $servicos = $s->listarServicosProfissional($id, 'juridico');
 
 ?>
 
@@ -181,4 +181,4 @@
                 </table>
 
             </div>
-        </div>          
+        </div>        

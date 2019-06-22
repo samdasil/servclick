@@ -4,16 +4,13 @@
 
     $p        = $_GET['p'];
 	$s  	  = new ControllerServico();
-    $a        = new ControllerAreaAtuacao();
 	$c 		  = new ControllerCliente();
     $e        = new ControllerEndereco();
 	$servico  = new Servico();
-    $area     = new AreaAtuacao();
 	$cliente  = new Cliente();
     $endereco = new Endereco();
 
     $servico  = $s->carregarServico($p);
-    $area     = $a->carregarArea($servico->getArea());
     $cliente  = $c->carregarCliente($servico->getCliente());
     $endereco = $e->carregarEndereco($servico->getEndereco());
 
@@ -22,7 +19,7 @@
 
         $dados  = $_POST;
 
-        $s->aceitarServico($dados);
+        $s->finalizarServico($dados);
 
     }
 
@@ -56,7 +53,7 @@
                                 <div class='media'>
                                     <div class='pull-left middle'>
                                         <h4>
-                                            <a href='#'>
+                                            <a href='visualizar-perfil-profissional.php?jur=<?=$cliente->getIdcliente()?>&fis=0'>
                                                 <img src='../../assets/images/cliente/<?=$cliente->getFoto()?>' alt='' class="img-left">
                                             </a>
                                         </h4>
@@ -103,21 +100,7 @@
                 <form method="post" action="">
 
                     <input type="hidden" name="idservico" value="<?=$servico->getIdservico()?>">
-                    <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico()?>">
 
-                    <?php if ( $servico->getStatus_() == 1 ) { ?>
-                    <div class="row">
-                        <div class="form-group">
-                            <label> Valor <strong>(R$)</strong></label>
-                            <input type="text" name="valor" id="valor" class="form-control" placeholder="ex.: 50,00" maxlength="10"  required />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group">
-                            <input type="submit" name="submit" class="btn btn-submit" value="Enviar Proposta">
-                        </div>
-                    </div>
-                    <?php } else if ( $servico->getStatus_() == 2 ) { ?>
                     <div class="row">
                         <div class="form-group">
                             <fieldset>
@@ -126,8 +109,12 @@
                             </fieldset>
                         </div>
                     </div>
-                    <?php } ?>
-                    
+
+                    <div class="row">
+                        <div class="form-group">
+                            <input type="submit" name="submit" class="btn btn-submit success" value="Finalizar Serviço">
+                        </div>
+                    </div>
 
                 </form>
             

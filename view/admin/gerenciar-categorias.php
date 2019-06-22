@@ -9,7 +9,7 @@
 
 ?>
 
-    <section id="projects" class="padding-top">
+    <section id="projects" class="pt10">
         <div class="container">
             <div class="row">
 
@@ -52,9 +52,9 @@
                                                   <td><?=$categoria['idcategoria'];?></td>
                                                   <td><?=$categoria['descricao'];?></td>
                                                   <td class="text-primary">
-                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-eye"></i></a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-pencil"></i></a>
-                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="deletar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-trash"></i></a>
+                                                    <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-eye" id="fas"></i></a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-placement="top"  title="Editar"  href="editar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-pencil" id="fas"></i></a>
+                                                    <a class="btn btn-warning btn-xs" data-toggle="tooltip" data-placement="top"  title="Deletar"  href="deletar-categoria.php?p=<?=$categoria['idcategoria'];?>"><i class="fa fa-trash" id="fas"></i></a>
                                                   </td>
                                                 </tr>
                                             <?php } ?>

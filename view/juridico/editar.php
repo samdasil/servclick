@@ -8,7 +8,7 @@
     $a          = new ControllerAreaAtuacao();
     $c          = new ControllerCategoria();
     $categoria  = new Categoria();
-    $juridico     = new Juridico();
+    $juridico   = new Juridico();
     $endereco   = new Endereco();
     $pagina     = new Pagina();
     $area       = new AreaAtuacao();
@@ -97,7 +97,7 @@
                         <label class="form-group"><i class="fa fa-database">&nbsp&nbsp</i>Dados</label>
                         
                         <div class="form-group">
-                            <input type="text" name="cnpj" id="cnpj" class="form-control" required="required" placeholder="CNPJ" autocomplete="off" maxlength="18" minlength="18" value="<?=$juridico->getCnpj();?>" readonly>
+                            <input type="text" name="cnpj" id="cnpj" class="form-control" required placeholder="CNPJ" autocomplete="off" value="<?=$juridico->getCnpj();?>" readonly>
                         </div>
                         <div class="form-group">
                             <input type="text" name="razaosocial" class="form-control" required="required" placeholder="Razão Social" autocomplete="off"  value="<?=$juridico->getRazaosocial();?>">

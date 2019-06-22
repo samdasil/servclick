@@ -358,14 +358,12 @@ class ControllerServico
 		if ( $result ) {
 
 			$_SESSION['avaliar-servico'] = 'success';
-			echo "<script>window.location = 'visualizar-servico.php?p='".$servico->getIdservico()."';</script>";
-			return true;
+			echo "<script>window.location = 'visualizar-servico.php?p=".$servico->getIdservico()."';</script>";
 
 		} else {
 
 			$_SESSION['avaliar-servico'] = 'erro';
-			echo "<script>window.location = 'visualizar-servico.php?p='".$servico->getIdservico()."';</script>";
-			return false;
+			echo "<script>window.location = 'visualizar-servico.php?p=".$servico->getIdservico()."';</script>";
 
 		}
 

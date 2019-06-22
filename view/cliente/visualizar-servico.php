@@ -18,6 +18,10 @@
         $f      = new ControllerFisico();
         $fisico = new Fisico();
         $fisico = $f->carregarFisico($servico->getFisico());
+    } else if ( $servico->getJuridico() != null ) {
+        $j        = new ControllerJuridico();
+        $juridico = new Juridico();
+        $juridico = $j->carregarJuridico($servico->getJuridico());
     }
 
     // chamada do controller

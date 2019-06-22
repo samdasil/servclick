@@ -1,7 +1,7 @@
 
 <?php require_once 'header.php'; ?>
 
-    <section id="projects" class="padding-top">
+    <section id="projects" class="pt15">
         <div class="container">
             <div class="row">
                 

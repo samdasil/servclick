@@ -17,14 +17,18 @@
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
 
-        $dados  = $_POST;
+        if ( isset($_POST['recusar']) ) {
+            $dados  = $_POST;
+            $j->recusarJuridico($dados);
+        } else if ( isset($_POST['validar']) ) {
+            $dados  = $_POST;
+            $j->validarJuridico($dados);
+        }
         
-        $j->validarJuridico($dados['idjuridico']);
-
     }
 ?>
 
-    <section id="portfolio" class="padding-top">
+    <section id="portfolio" class="pt15">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -33,7 +37,7 @@
                     </div>
                 </div>
             
-                <div class="col-md-8">
+                <div class="col-md-9">
                     <div class="contact-form">
                         <h4 class="titulo">Profissional Pessoa Jurídica</h4>
 
@@ -86,13 +90,13 @@
 
                                     <div class="row">
                                         <div class="col-md-6">
-                                             <div class="buttons-action float-left">
-                                                <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
-                                            </div>
-                                        </div>
+                                            <div class="buttons-action float-right">
+                                                <button type="submit" class="btn btn-btn btn-warning" name="recusar"><i class="fa fa-ban"></i>&nbsp Recusar Cadastro</button>
+                                             </div>
+                                        </div>     
                                         <div class="col-md-6">
                                             <div class="buttons-action float-right">
-                                                <button type="submit" class="btn btn-btn btn-info"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button>
+                                                <button type="submit" class="btn btn-btn btn-info" name="validar"><i class="fa fa-check"></i>&nbsp Validar Cadastro</button>
                                              </div>
                                         </div>     
                                     </div>

@@ -193,7 +193,7 @@ class ControllerFisico
             if( in_array("admin", $array) ) {
                 $_SESSION['fisico-edit'] = 'erro';
                 $_SESSION['fisico']      = $dados['idfisico'];
-                echo "<script>window.location = 'validar-fisico.php';</script>";
+                echo "<script>window.location = 'editar-fisico.php';</script>";
             } else {
                 $_SESSION['edit'] = 'erro';
                 echo "<script>window.location = 'perfil.php';</script>";
@@ -301,7 +301,7 @@ class ControllerFisico
     {
 
         if ( is_null($dados) ) return false;
-        //print_r($dados);exit;
+        
         $fisicoDAO     = new fisicoDAO;
 
         $result = $fisicoDAO->validar($dados);
@@ -316,6 +316,29 @@ class ControllerFisico
         } else {
 
             $_SESSION['ativar'] = 'erro';
+            echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
+
+        }
+
+    }
+
+    public function recusarFisico($dados = null)
+    {
+
+        if ( is_null($dados) ) return false;
+        
+        $fisicoDAO     = new fisicoDAO;
+
+        $result = $fisicoDAO->recusar($dados);
+
+        if ( $result ) {
+
+            $_SESSION['recusar'] = 'success';
+            echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
+
+        } else {
+
+            $_SESSION['recusar'] = 'erro';
             echo "<script>window.location = 'gerenciar-fisico.php';</script>";    
 
         }

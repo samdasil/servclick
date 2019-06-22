@@ -11,7 +11,7 @@
 
 ?>
 
-    <section id="projects" class="padding-top">
+    <section id="projects" class="pt10">
         <div class="container">
             <div class="row">
 

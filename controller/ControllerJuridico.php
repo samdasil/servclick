@@ -117,7 +117,6 @@ class ControllerJuridico
 
     public function desativarJuridico($dados = null)
     {
-        $v             = $dados['v'];
 
         if ( is_null($dados) ) return false;
 
@@ -131,8 +130,8 @@ class ControllerJuridico
 
             if( in_array("admin", $array) ) {
 
-                echo "<script>alert('Profissional desativado com sucesso! ');</script>";
-                echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
+                $_SESSION['juridico-del'] = 'success';
+                echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
             } else {
                 echo "<script>alert('Seu cadastro foi desativado com sucesso! Para resgatar entre em contato com a equipe do ServClick. Agradecemos pelo tempo que passamos juntos.');</script>";
                 echo "<script>window.location = '../../index.php';</script>";
@@ -142,11 +141,12 @@ class ControllerJuridico
         } else {
 
             if( in_array("admin", $array) ) {
-                echo "<script>alert('Nao foi possivel desativar o perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-                echo "<script>window.location = 'desativar-juridico.php?v=$v&get=".$dados['idjuridico']."';</script>";
+                $_SESSION['juridico-del'] = 'erro';
+                $_SESSION['juridico'] = $dados['idjuridico'];
+                echo "<script>window.location = 'desativar-juridico.php';</script>";
             } else {
-                echo "<script>alert('Nao foi possivel desativar seu perfil, ocorreu um erro. Favor entre em contato com o suporte.');</script>";
-                echo "<script>window.location = 'view/juridico/home.php?v=$v';</script>";
+                $_SESSION['del'] = 'erro';
+                echo "<script>window.location = 'view/juridico/home.php';</script>";
             }
         }
 
@@ -189,101 +189,90 @@ class ControllerJuridico
     public function editarJuridico($dados = null, $aFile = null)
     {
 
-        $v           = $dados['v'];
         $juridico    = new Juridico();
         $endereco    = new Endereco(); 
+        $area        = new AreaAtuacao();
         $pagina      = new Pagina();
         $juridicoDAO = new JuridicoDAO();
         $EnderecoDAO = new EnderecoDAO();
         $paginaDAO   = new PaginaDAO();
+        $areaDAO     = new AreaAtuacaoDAO();
+
         $array = explode('/', $_SERVER['REQUEST_URI']);
 
-        //$cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
-        //$cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
-
-        //$valida = $juridicoDAO->validaCpf($cpf);
-
-        //if($valida) {
+        $cnpj  = str_replace("/", "", str_replace(".", "", str_replace("-", "", $dados['cnpj'])));
+        $cnpj  = str_pad($cnpj, 14, '0', STR_PAD_LEFT);
             
+        if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
+            $foto =  $dados['login'] . time('ss') . ".jpg";
+        } else {
+            $foto = $dados['img'];
+        }
 
-            if ( isset($aFile['logo']['name']) && !empty($aFile) ) {
-                $logo =  $dados['login'] . time('ss') . ".jpg";
+        $juridico->setIdjuridico($dados['idjuridico']);
+        $juridico->setCnpj($cnpj);
+        $juridico->setRazaosocial(ucwords($dados['razaosocial']));
+        $juridico->setNomefantasia(ucwords($dados['nomefantasia']));
+        $juridico->setResponsavel(ucwords($dados['responsavel']));
+        $juridico->setDescricao(ucwords($dados['descricao']));
+        $juridico->setEmail(strtolower($dados['email']));
+        $juridico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
+        $juridico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
+        $juridico->setFoto($foto);
+        $juridico->setStatus_($dados['status_']); //1=ativo 2=inativo
+        $juridico->setPagina($dados['pagina']);   
+        $juridico->setArea($dados['area']);
+        $juridico->setEndereco($dados['endereco']);     
+
+        $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
+        $endereco->setLogradouro(ucwords($dados['logradouro']));
+        $endereco->setCidade(ucwords($dados['cidade']));
+        $endereco->setBairro(ucwords($dados['bairro']));
+        $endereco->setEstado(strtoupper($dados['estado']));
+        $endereco->setNumero($dados['numero']);
+        $endereco->setComplemento($dados['complemento']);
+
+        $pagina->setFacebook($dados['facebook']);
+        $pagina->setInstagram($dados['instagram']);
+        $pagina->setPinterest($dados['pinterest']);
+        $pagina->setTwitter($dados['twitter']);
+        $pagina->setGoogle($dados['google']);
+        $pagina->setSite($dados['site']);
+        
+        $result = $juridicoDAO->editar($juridico, $endereco, $pagina);
+
+        if( $result > 0 ){
+            
+            if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
+
+                $target  = BASE_DIR."assets/images/juridico/" . $foto;
+                $tamanho = $aFile['foto']['size'];
+                $imagem  = $aFile['foto']['name'];
+                $path    = $aFile['foto']['tmp_name'];
+
+                move_uploaded_file($path, $target);
+
+            }
+
+            if( in_array("admin", $array) ) {
+                $_SESSION['profissional-edit'] = 'success';
+                echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
             } else {
-                $logo = $dados['img'];
+                $_SESSION['edit'] = 'success';
+                echo "<script>window.location = 'perfil.php';</script>";  
             }
 
-            $juridico->setIdjuridico($dados['idjuridico']);
-            $juridico->setCnpj($dados['cnpj']);
-            $juridico->setRazaosocial(ucwords($dados['razaosocial']));
-            $juridico->setNomefantasia(ucwords($dados['nomefantasia']));
-            $juridico->setResponsavel(ucwords($dados['responsavel']));
-            $juridico->setDescricao(ucwords($dados['descricao']));
-            $juridico->setEmail(strtolower($dados['email']));
-            $juridico->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));
-            $juridico->setFixo(preg_replace("/[^0-9]/", "",$dados['fixo']));
-            $juridico->setLogin(strtolower($dados['login']));
-            $juridico->setSenha(base64_encode($dados['senha']));
-            $juridico->setPerfil($dados['perfil']); // 3=juridico
-            $juridico->setLogo($logo);
-            $juridico->setStatus($dados['status']); //1=ativo 2=inativo
-            $juridico->setPagina($dados['pagina']);        
+        } elseif (!$result) {
 
-            $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
-            $endereco->setLogradouro(ucwords($dados['logradouro']));
-            $endereco->setCidade(ucwords($dados['cidade']));
-            $endereco->setBairro(ucwords($dados['bairro']));
-            $endereco->setEstado(strtoupper($dados['estado']));
-            $endereco->setNumero($dados['numero']);
-            $endereco->setComplemento($dados['complemento']);
-
-            $pagina->setFacebook($dados['facebook']);
-            $pagina->setInstagram($dados['instagram']);
-            $pagina->setPinterest($dados['pinterest']);
-            $pagina->setTwitter($dados['twitter']);
-            $pagina->setGoogle($dados['google']);
-            $pagina->setSite($dados['site']);
-            
-            $result = $juridicoDAO->editar($juridico, $endereco, $pagina);
-
-            if( $result > 0 ){
-                
-                if ( isset($aFile['logo']['name']) && !empty($aFile) ) {
-
-                    $target  = BASE_DIR."assets/images/juridico/" . $logo;
-                    $tamanho = $aFile['logo']['size'];
-                    $imagem  = $aFile['logo']['name'];
-                    $path    = $aFile['logo']['tmp_name'];
-
-                    move_uploaded_file($path, $target);
-
-                }
-
-                if( in_array("admin", $array) ) {
-                    echo "<script>alert('Profissional atualizado com sucesso! ');</script>";
-                    echo "<script>window.location = 'gerenciar-juridico.php?v=$v';</script>";    
-                } else {
-                    echo "<script>alert('Seu cadastro foi atualizado com sucesso!');</script>";
-                    echo "<script>window.location = 'perfil.php?v=$v';</script>";  
-                }
-
-            } elseif (!$result) {
-
-                 if( in_array("admin", $array) ) {
-
-                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
-                    echo "<script>window.location = 'editar-juridico.php?v=$v&get=".$dados['idjuridico']."';</script>";
-                }else{
-                    echo "<script>alert('Houve um erro ao atualizar dados.');</script>";
-                    echo "<script>window.location = 'perfil.php?v=$v';</script>";
-                }
+             if( in_array("admin", $array) ) {
+                $_SESSION['juridico-edit'] = 'erro';
+                $_SESSION['juridico']      = $dados['idfisico'];
+                echo "<script>window.location = 'editar-juridico.php.';</script>";
+            }else{
+                $_SESSION['edit'] = 'erro';
+                echo "<script>window.location = 'perfil.php';</script>";
             }
-
-        /*} else {
-            
-            echo "<script>alert('CPF informado é invalido');</script>";
-            echo "<script>window.location = 'perfil.php?v=$v';</script>";            
-
-        }*/
+        }
 
     }
 
@@ -311,24 +300,21 @@ class ControllerJuridico
         return $list;
     }
 
-    public function validarJuridico($idjuridico = null)
+    public function validarJuridico($dados = null)
     {
 
-        if ( is_null($idjuridico) ) return false;
+        if ( is_null($dados) ) return false;
 
         $juridicoDAO     = new JuridicoDAO();
 
-        $result = $juridicoDAO->validar($idjuridico);
+        $result = $juridicoDAO->validar($dados);
 
         $array = explode('/', $_SERVER['REQUEST_URI']);
 
         if ( $result ) {
 
-            if( in_array("admin", $array) ) {
-
-                $_SESSION['ativar'] = 'success';
-                echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
-            }
+            $_SESSION['ativar'] = 'success';
+            echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
 
         } else {
 
@@ -336,7 +322,32 @@ class ControllerJuridico
             echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
 
         }
+
     }
+
+    public function recusarJuridico($dados = null)
+    {
+
+        if ( is_null($dados) ) return false;
+
+        $juridicoDAO     = new JuridicoDAO();
+
+        $result = $juridicoDAO->recusar($dados);
+
+        if ( $result ) {
+
+            $_SESSION['recusar'] = 'success';
+            echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
+
+        } else {
+
+            $_SESSION['recusar'] = 'erro';
+            echo "<script>window.location = 'gerenciar-juridico.php';</script>";    
+
+        }
+
+    }
+
 
 }
 

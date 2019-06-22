@@ -19,7 +19,7 @@
 <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
 <section id="portfolio">
-    <div class="container pt15">
+    <div class="container pt10">
 
         <?php if (count($servicos) == 0 ) { ?>
         <div class="container text-center" id="lupa">
@@ -49,7 +49,7 @@
                               <td><?=$item['nome'];?></td>
                             
                               <td class="text-primary">
-                                <a class="btn btn-success btn-xs"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-servico.php?p=<?=$item['idservico'];?>"><i class="fa fa-eye"></i>
+                                <a class="btn btn-success btn-xs center-icon"  data-toggle="tooltip" data-placement="top"  title="Visualizar" href="visualizar-servico.php?p=<?=$item['idservico'];?>"><i class="fa fa-arrow-right"></i>
                                 </a>
                               </td>
                             </tr>

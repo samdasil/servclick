@@ -24,7 +24,7 @@
     <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
 
-   <section id="portfolio-information" class="pt15">
+   <section id="portfolio-information" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -36,7 +36,7 @@
                     </div>
                     <div class="project-info overflow">
                          <div class="col-md-3 col-sm-6">
-                            <h2>Dados</h2>
+                            <label class="form-group"><i class="fa fa-database">&nbsp&nbsp</i>Dados</label><br>
                             <strong>CNPJ</strong>
                             <p><?=$juridico->getCnpj();?></p>
                             <strong>Razão Social</strong>
