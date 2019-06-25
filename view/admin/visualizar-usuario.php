@@ -3,28 +3,18 @@
 
     require_once 'header.php';
 
-    $p        = isset($_GET['p'])     ? $_GET['p'] : 0;
-    $l        = isset($_GET['login']) ? $_GET['login'] : 0;
-    $i        = isset($_GET['i'])     ? $_GET['i'] : 0;
+    $p        = isset($_GET['p'])     ? $_GET['p']      : 0;
+    $l        = isset($_GET['login']) ? $_GET['login']  : 0;
+    $i        = isset($_GET['i'])     ? $_GET['i']      : 0;
     
     $u          = new ControllerUsuario();
     $usuario    = new Usuario();
     $usuario    = $u->carregarUsuario($l,$i);
-
-    if ($usuario->getPerfil() == 1) {
-        $idusuario = $usuario->getIdadmin();
-    } else if ($usuario->getPerfil() == 2) {
-        $idusuario = $usuario->getIdcliente();
-    } else if ($usuario->getPerfil() == 3) {
-        $idusuario = $usuario->getIdfisico();
-    } else if ($usuario->getPerfil() == 3 ) {
-        $idusuario = $usuario->getIdjuridico();
-    }
-
+    $idusuario  = $i;
 
 ?>
     
-    <section id="portfolio" class="padding-top">
+    <section id="portfolio" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">

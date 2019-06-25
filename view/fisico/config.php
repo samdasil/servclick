@@ -22,7 +22,7 @@
 
 <header id="header"> <?php require_once 'menu.php'; ?> </header>
 
-<div class="col-md-4 col-sm-12">
+<div class="col-md-4 col-sm-12 pt10">
     <!-- ERRO AO ATUALIZAR ACESSO -->
     <?php 
         if((isset($_SESSION['acesso']) && !empty($_SESSION['acesso']) && $_SESSION['acesso'] == 'erro')) { ?>
@@ -41,8 +41,9 @@
         <div class="contact-form bottom">
             <form name="form" method="post" action="" enctype="multipart/form-data">
 
-                <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico();?>">
+                <input type="hidden" name="id" value="<?=$fisico->getIdfisico();?>">
                 <input type="hidden" name="perfil" value="<?=$fisico->getPerfil();?>">
+                <input type="hidden" name="desc-perfil" value="fisico">
 
                 <div class="col-sm-6">
                     <img src="../../assets/images/portfolio/cadeado.png" class="img-responsive" alt="Foto do Profissional" name="img" id="img">

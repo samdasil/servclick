@@ -3,12 +3,13 @@
 	class UsuarioDAO
 	{
 		
-		public function carregar($login = null)
+		public function carregar($login, $id)
 		{
 
-			$sql = "CALL SP_CARREGAR_USUARIO(:login)";
+			$sql = "CALL SP_CARREGAR_USUARIO(:login, :id)";
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":login", $login);
+			$consulta->bindValue(":id", $id);
 			$consulta->execute();
 			
 			return ($consulta->fetchAll(PDO::FETCH_ASSOC));
@@ -53,7 +54,7 @@
 
 		}
 		
-		public function editarAcesso($usuario)
+		public function editarAcesso($usuario, $perfil = null)
 		{
 			
 			switch ($usuario->getPerfil()) {
@@ -68,11 +69,11 @@
 					$id     = $usuario->getIdcliente();
 					break;
 				case 3:
-					if($usuario->getIdfisico() > 0) {
+					if($perfil == 'fisico') {
 						$table  = 'fisico';
 						$user 	= 'idfisico';
 						$id     = $usuario->getIdfisico();
-					}else if($usuario->getIdjuridico() > 0){
+					}else if($perfil == 'juridico'){
 						$table  = 'juridico';
 						$user 	= 'idjuridico';
 						$id     = $usuario->getIdjuridico();
@@ -85,7 +86,7 @@
 			
 			$sql = "UPDATE $table SET login = :login, senha = :senha, status_ = :status_ WHERE $user = :id";
 			//echo $sql;exit;
-
+			
 			$consulta = Conexao::getCon()->prepare($sql);
 			$consulta->bindValue(":login", $usuario->getLogin());
 			$consulta->bindValue(":senha", $usuario->getSenha());

@@ -15,7 +15,7 @@
 ?>  
     <?php require_once 'alert.php'; ?>
 
-    <section id="portfolio" class="padding-top">
+    <section id="portfolio" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -45,13 +45,19 @@
                                         </div>
                                     </div>                                
                                   
-                                      <div class="form-group">
-                                          <input type="submit" name="submit" class="btn btn-submit" value="Enviar">
-                                      </div>
-                                      <div class="navbar-header">
-                                      <div class="topo2">
-                                          <a href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>
-                                      </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                             <div class="buttons-action float-left">
+                                                <a href="javascript:history.back()" class="return"><i class="fa fa-arrow-left fa-3x"></i></a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="buttons-action float-right">
+                                                <input type="submit" name="submit" class="btn btn-info" value="Enviar">
+                                            </div>
+                                        </div>   
+                                    </div>
+                                      
                                   </div>
                               </form>
 

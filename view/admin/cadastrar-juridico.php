@@ -7,7 +7,7 @@
     // caso receba dados via POST ou GET
     if( isset($_POST) && !empty($_POST) ){
 
-        if((isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) || (isset($_FILES['logo']['size']) && $_FILES['logo']['size'] != 0)) {
+        if(isset($_FILES['foto']['size']) && $_FILES['foto']['size'] != 0) {
 
             $aFile = $_FILES;
             
@@ -24,7 +24,33 @@
 
 ?>
     
-    <section id="portfolio" class="padding-top">
+    <script type="text/javascript">
+        
+            $(document).ready(function(){
+              $( "#categoria" ).change(function() {
+                    $.post("list-area.php",{id:this.value},function(data){
+                        //console.log(data);
+                        $("#areas").html(data);
+                ﻿        $("#areas").css("display", "block");
+                ﻿        $("#div_desc").css("display", "none");
+                ﻿        $("#setas").css("display", "none");
+                        $("#descricao").val("");
+                    });
+                });
+            });
+
+            $(document).ready(function(){
+              $( "#areas" ).change(function() {
+                    //console.log(data);
+                    $("#div_desc").css("display", "block");
+            ﻿        $("#setas").css("display", "block");
+                    $("#descricao").focus();
+                });
+            });          
+        ﻿
+    </script>﻿﻿
+    
+    <section id="portfolio" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">

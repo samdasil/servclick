@@ -15,13 +15,23 @@
     $endereco = $e->carregarEndereco($servico->getEndereco());
 
     if ( $servico->getFisico() != null ) {
-        $f      = new ControllerFisico();
-        $fisico = new Fisico();
-        $fisico = $f->carregarFisico($servico->getFisico());
-    } else if ( $servico->getJuridico() != null ) {
-        $j        = new ControllerJuridico();
-        $juridico = new Juridico();
-        $juridico = $j->carregarJuridico($servico->getJuridico());
+        $f            = new ControllerFisico();
+        $profissional = new Fisico();
+        $profissional = $f->carregarFisico($servico->getFisico());
+        $nome         = $profissional->getNome();
+        $perfil       = 'fisico';
+        $fis          = $profissional->getIdfisico();
+        $jur          = 0;
+    }
+
+    if ( $servico->getJuridico() != null ) {
+        $j            = new ControllerJuridico();
+        $profissional = new Juridico();
+        $profissional = $j->carregarJuridico($servico->getJuridico());
+        $nome         = $profissional->getRazaosocial();
+        $perfil       = 'juridico';
+        $jur          = $profissional->getIdjuridico();
+        $fis          = 0;   
     }
 
     // chamada do controller
@@ -69,7 +79,7 @@
         </div>
    </section>
 
-    <section id="portfolio">
+    <section id="portfolio" class="mb25">
         <div class="container">
             <div class="col-md-12 col-sm-12">
 
@@ -184,20 +194,9 @@
                     <input type="hidden" name="idservico" value="<?=$servico->getIdservico()?>">
                     
                     <?php if ( $servico->getFisico() != null) { ?>
-                    <input type="hidden" name="idfisico" value="<?=$fisico->getIdfisico()?>">
+                    <input type="hidden" name="idfisico" value="<?=$profissional->getIdfisico()?>">
                     <?php } else if ( $servico->getJuridico() != null ) { ?>
-                    <input type="hidden" name="idjuridico" value="<?=$juridico->getIdjuridico()?>">
-                    <?php } ?>
-
-                    <?php if ( $servico->getStatus_() != 1) { ?>
-                    <div class="row">
-                        <div class="form-group">
-                            <fieldset>
-                                <legend class="lg-price"> Valor </legend>
-                                <label class="valor-servico"> <strong> R$ </strong> <?=$servico->getValor()?></label>
-                            </fieldset>
-                        </div>
-                    </div>
+                    <input type="hidden" name="idjuridico" value="<?=$profissional->getIdjuridico()?>">
                     <?php } ?>
 
                     <?php if ( $servico->getStatus_() == 2) { ?>
@@ -236,12 +235,46 @@
                     </div>
                     <?php } ?>
 
+                    <?php if ( $servico->getStatus_() != 1) { ?>
+                    <h2 class="titulo">Profissional</h2>
+                    <div class='col-sm-6'>
+                        <div class='sidebar portfolio-sidebar wow fadeIn' data-wow-duration='1000ms' data-wow-delay='300ms'>
+                            <div class='sidebar-item  recent'>
+                                <div class='media'>
+                                    <div class='pull-left'>
+                                        <h4>
+                                            <a href='visualizar-perfil-profissional.php?jur=<?=$jur?>&fis=<?=$fis?>'><img src="../../assets/images/<?=$perfil?>/<?=$profissional->getFoto()?>" alt='' style='width: 80px; height: 80px; border-radius: 50%;'></a>
+                                        </h4>
+                                    </div>
+                                    <div class='media-body'>
+                                        <h4><a href='visualizar-perfil-profissional.php?jur=<?=$jur?>&fis=<?=$fis?>'><?=$nome?></a></h4>
+                                        <p><?=$endereco->getBairro()?>, <?=$endereco->getCidade()?>-<?=$endereco->getEstado()?></p>
+                                        <p>Fone: <?=$profissional->getFone()?></p>
+                                        <p>E-mail: <?=$profissional->getEmail()?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php } ?>
+
                     <?php if ( $servico->getStatus_() == 3) { ?>
                     <div class="buttons-action">
                         <div class="col-md-12 button-fixed-left">
                             <a href="cancelar-servico.php?p=<?=$servico->getIdservico()?>">
                                 <button type="button" class="btn btn-warning button-radius"><i class="fa fa-trash icon-btn "></i></button>
                             </a>
+                        </div>
+                    </div>
+                    <?php } ?>
+
+                    <?php if ( $servico->getStatus_() != 1) { ?>
+                    <div class="row">
+                        <div class="form-group">
+                            <fieldset>
+                                <legend class="lg-price"> Valor </legend>
+                                <label class="valor-servico"> <strong> R$ </strong> <?=$servico->getValor()?></label>
+                            </fieldset>
                         </div>
                     </div>
                     <?php } ?>

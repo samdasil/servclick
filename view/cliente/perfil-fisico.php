@@ -1,4 +1,4 @@
-    <div class="container pt8">
+    <div class="container pt10">
         <div class="row">
             <div class="col-sm-12 overflow">
                <div class="social-icons pull-left">
@@ -85,7 +85,7 @@
                     </div>
 
                     <div class="menu-profissional-footer" style="display: none;">
-                        <div class="buttons-action">
+                        <div class="buttons-action" style="background-color: honeydew;">
                             <ul class="ul-menu-footer">
                                 <li class="botoes-footer green">
                                     <a  href="indicar-profissional.php?fis=<?=$fisico->getIdfisico();?>&jur=0">

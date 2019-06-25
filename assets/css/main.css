@@ -18,7 +18,7 @@
     font-weight: 300;
     font-size: 14px;
     line-height: 22px;
-    color: #23385e;
+    color: #2'  '85e;
     background-repeat: repeat-y;
     background-size: cover;
     z-index: 2;
@@ -1100,7 +1100,7 @@ ul.elements li > i{
   top: 0;
   height: 80%;
   background:#00aeef7a;
-  width: 85%;
+  width: 100%;
   border-radius: 50%;
   text-align: center;
   cursor: pointer;
@@ -1505,6 +1505,9 @@ Portfolio with right sidebar
 /*****************************
 Portfolio Details
 *****************************/
+#portfolio-information{
+  padding-bottom: 5vh;
+}
 
 #portfolio-information.padding-top{
   /*padding-top: 60px;*/
@@ -3262,7 +3265,7 @@ background-color: green;
 }
 
 .op-right{
-    height: 7vh;
+    /*height: 7vh;*/
     width: 7vh;
     background-color: #6e7c70;
     position: fixed;
@@ -3272,7 +3275,7 @@ background-color: green;
 }
 
 .op-left{
-    height: 7vh;
+    /*height: 7vh;*/
     width: 7vh;
     background-color: #6e7c70;
     position: fixed;
@@ -3431,7 +3434,7 @@ div#preloader {
 }
 
 .navbar-logo{
-  margin-top: 50px;
+  /*margin-top: 50px;*/
   margin-left: -30px;
 }
 
@@ -3439,12 +3442,14 @@ div#preloader {
     position: fixed;
     right: 10px;
     bottom: 55px;
+    z-index: 99999;
 }
 
 .button-fixed-left{
     position: fixed;
     left: 10px;
     bottom: 55px;
+    z-index: 99999;
 }
 
 .button-radius{
@@ -3557,8 +3562,16 @@ div#preloader {
   padding-bottom: 1vh;
 }
 
+.pb25{
+  padding-bottom: 25vh;
+}
+
 .mb0{
   margin-bottom: 0vh;
+}
+
+.mb25{
+  margin-bottom: 25vh;
 }
 
 .line{
@@ -3573,4 +3586,8 @@ div#preloader {
 
 #fas{
   font-size: 1.1rem;
+}
+
+.ml15{
+  margin-left: 15px;
 }

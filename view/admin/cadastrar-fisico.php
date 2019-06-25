@@ -26,7 +26,7 @@
 
 ?>
 
-    <section id="portfolio" class="padding-top">
+    <section id="portfolio" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">

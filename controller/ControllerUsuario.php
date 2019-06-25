@@ -57,7 +57,7 @@ class ControllerUsuario
         if ( !isset($dados) ) return false;
         
         $usuario    = new Usuario();
-        $usuarioDao = new UsuarioDao();
+        $usuarioDao = new UsuarioDAO();
         $status_    = isset($dados['status_']) && $dados['status_'] == 1 ? 2 : 1;
         
         switch ($dados['perfil']) {
@@ -81,24 +81,26 @@ class ControllerUsuario
                 break;
             case 3: {
                 
-                if(isset($dados['idfisico'])){
+                if((isset($dados['id']) && $dados['desc-perfil'] == 'fisico') || $dados['desc-perfil'] == 'Profissional Físico'){
                     $fisico  = new Fisico();
-                    $fisico->setIdfisico($dados['idfisico']);
+                    $fisico->setIdfisico($dados['id']);
                     $fisico->setLogin(strtolower($dados['login']));
                     $fisico->setSenha(md5($dados['senha']));
                     $fisico->setPerfil($dados['perfil']);    
                     $fisico->setStatus_($status_);
-                    $result = $usuarioDao->editarAcesso($fisico);
+                    
+                    $result = $usuarioDao->editarAcesso($fisico, 'fisico');
                     
                 }
-                if(isset($dados['idjuridico'])){    
+                if((isset($dados['id']) && $dados['desc-perfil'] == 'juridico') || $dados['desc-perfil'] == 'Profissional Jurídico'){    
                     $juridico = new Juridico();
-                    $juridico->setIdjuridico($dados['idjuridico']);
+                    $juridico->setIdjuridico($dados['id']);
                     $juridico->setLogin(strtolower($dados['login']));
                     $juridico->setSenha(md5($dados['senha']));
                     $juridico->setPerfil($dados['perfil']);
                     $juridico->setStatus_($status_);
-                    $result = $usuarioDao->editarAcesso($juridico);
+                    
+                    $result = $usuarioDao->editarAcesso($juridico, 'juridico');
                     
                 }
             break;
@@ -132,15 +134,15 @@ class ControllerUsuario
 
     }
 
-    public function carregarUsuario($login, $id)
+    public function carregarUsuario($login, $id, $perfil = null)
     {
         
         if ( !isset($login) || !isset($id) ) return false;
 
         $usuario    = new Usuario();
-        $uDao       = new UsuarioDao();
+        $uDao       = new UsuarioDAO();
         
-        $result     = $uDao->carregar($login);
+        $result     = $uDao->carregar($login, $id);
         
         switch($result[0]['perfil']){
             case 1:
@@ -172,7 +174,7 @@ class ControllerUsuario
                 return $cliente;
                 break;
             case 3:
-                if(isset($id)){
+                if($result[0]['cliente'] == 'fisico'){
                     $fisico  = new Fisico();
                     $fdao    = new FisicoDAO();
                     $result  = $fdao->carregar($id);
@@ -185,10 +187,10 @@ class ControllerUsuario
                     $fisico->setStatus_($result[0]['status_']);
                     $fisico->setDtcadastro($result[0]['dtcadastro']);
                     return $fisico;
-                }else if(isset($id)){               
+                }else if($result[0]['cliente'] == 'juridico'){               
                     $juridico = new Juridico();
                     $jdao     = new JuridicoDAO();
-                    $result   = $jdao->carregar($result[0]['idjuridico']);
+                    $result   = $jdao->carregar($id);
 
                     $juridico->setIdjuridico($result[0]['idjuridico']);
                     $juridico->setRazaoSocial($result[0]['razaosocial']);

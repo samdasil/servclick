@@ -50,7 +50,7 @@
         $nomeProfis = str_replace(' ',"%20",$nomeProfis);
         $areaProfis = str_replace(' ',"%20",$area->getDescricao());
         $foneProfis = str_replace(' ',"%20",$profissional->getFone());
-        $link = 'https://api.whatsapp.com/send?phone='.$fone.'&text=Olá%20'.$contato.',%20estou%20enviando%20o%20contato%20desse%20profissional%20-%20'.$nomeProfis.'%20-%20'.$foneProfis.'%20como%20indicação%20para%20serviços%20de%20'.$categoria.'%20como%20'.$areaProfis.'.%20Instale%20o%20app%20do%20ServClick%20para%20encontrar%20mais%20informações.%20http://www.servclick.com.br/app';
+        $link = 'https://api.whatsapp.com/send?phone='.$fone.'&text=Olá%20'.$contato.',%20estou%20enviando%20o%20contato%20desse%20profissional%20-%20'.$nomeProfis.'%20-%20'.$foneProfis.'%20como%20indicação%20para%20serviços%20de%20'.$categoria.'%20como%20'.$areaProfis.'.%20Instale%20o%20app%20do%20ServClick%20para%20encontrar%20mais%20informações.%20http://www.servclick.com.br/app.html';
 
         //echo $link;exit;   
         //echo "<a href='".$link."'>Enviar</a>";exit;

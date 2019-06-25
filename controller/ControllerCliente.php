@@ -98,89 +98,70 @@ class ControllerCliente
         $cpf  = preg_replace("/[^0-9]/", "", $dados['cpf']);
         $cpf  = str_pad($cpf, 11, '0', STR_PAD_LEFT);
 
-        //if(!ClienteDAO::verificaCpf($cpf)) {
-
-            if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
-                $foto =  $dados['login'] . time('ss') . ".jpg";
-                
-            } else {
-                $foto = $dados['img'];
-            }
-
-            $cliente->setIdcliente($dados['idcliente']);
-            $cliente->setCpf($cpf);
-            $cliente->setNome(ucwords($dados['nome']));
-            $cliente->setEmail(strtolower($dados['email']));
-            $cliente->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));  
-            $cliente->setFoto($foto);
-            $cliente->setStatus_($dados['status_']); //1=ativo 2=inativo
-            $cliente->setEndereco($dados['endereco']); 
-
-            $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
-            $endereco->setLogradouro(ucwords($dados['logradouro']));
-            $endereco->setCidade(ucwords($dados['cidade']));
-            $endereco->setBairro(ucwords($dados['bairro']));
-            $endereco->setEstado(strtoupper($dados['estado']));
-            $endereco->setNumero($dados['numero']);
-            $endereco->setComplemento($dados['complemento']);
+        if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
+            $foto =  $dados['login'] . time('ss') . ".jpg";
             
-            $result = $clienteDAO->editar($cliente, $endereco);
-            
-            if ( $result > 0 ) {
-                
-                if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
-
-                    $target  = BASE_DIR."assets/images/cliente/" . $foto;
-                    $tamanho = $aFile['foto']['size'];
-                    $imagem  = $aFile['foto']['name'];
-                    $path    = $aFile['foto']['tmp_name'];
-
-                    move_uploaded_file($path, $target);
-                }
-
-                if ( in_array("admin", $array) ) {
-
-                    $_SESSION['cliente-edit'] = 'success';
-                    echo "<script>window.location = 'listar-clientes.php';</script>";    
-                } else {
-                    $_SESSION['edit'] = 'success';
-                    echo "<script>window.location = 'perfil.php';</script>";
-
-                }
-
-            } else if (!$result) {
-
-                 if( in_array("admin", $array) ) {
-
-                    $_SESSION['cliente-edit'] = 'erro';
-                    $_SESSION['cliente']      = $dados['idcliente'];
-                    echo "<script>window.location = 'editar-cliente.php';</script>";
-
-                 } else {
-
-                    $_SESSION['edit'] = 'erro';
-                    echo "<script>window.location = 'editar.php';</script>";
-
-                 }
-                
-            }
-        /*
         } else {
-            
-            if( in_array("admin", $array) ) {
+            $foto = $dados['img'];
+        }
+
+        $cliente->setIdcliente($dados['idcliente']);
+        $cliente->setCpf($cpf);
+        $cliente->setNome(ucwords($dados['nome']));
+        $cliente->setEmail(strtolower($dados['email']));
+        $cliente->setFone(preg_replace("/[^0-9]/", "",$dados['fone']));  
+        $cliente->setFoto($foto);
+        $cliente->setStatus_($dados['status_']); //1=ativo 2=inativo
         
-                $_SESSION['cliente'] = $dados['idcliente'];
-                $_SESSION['cpf']     = 'erro';
+        $cliente->setEndereco($dados['endereco']); 
+        $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
+        $endereco->setLogradouro(ucwords($dados['logradouro']));
+        $endereco->setCidade(ucwords($dados['cidade']));
+        $endereco->setBairro(ucwords($dados['bairro']));
+        $endereco->setEstado(strtoupper($dados['estado']));
+        $endereco->setNumero($dados['numero']);
+        $endereco->setComplemento($dados['complemento']);
+        
+        $result = $clienteDAO->editar($cliente, $endereco);
+        
+        if ( $result > 0 ) {
+            
+            if ( isset($aFile['foto']['name']) && !empty($aFile) ) {
+
+                $target  = BASE_DIR."assets/images/cliente/" . $foto;
+                $tamanho = $aFile['foto']['size'];
+                $imagem  = $aFile['foto']['name'];
+                $path    = $aFile['foto']['tmp_name'];
+
+                move_uploaded_file($path, $target);
+            }
+
+            if ( in_array("admin", $array) ) {
+
+                $_SESSION['cliente-edit'] = 'success';
+                echo "<script>window.location = 'listar-clientes.php';</script>";    
+            } else {
+                $_SESSION['edit'] = 'success';
+                echo "<script>window.location = 'perfil.php';</script>";
+
+            }
+
+        } else if (!$result) {
+
+             if( in_array("admin", $array) ) {
+
+                $_SESSION['cliente-edit'] = 'erro';
+                $_SESSION['cliente']      = $dados['idcliente'];
                 echo "<script>window.location = 'editar-cliente.php';</script>";
 
-            } else {
+             } else {
 
-                $_SESSION['cpf'] = 'erro';
-                echo "<script>window.location = 'perfil.php';</script>";   
+                $_SESSION['edit'] = 'erro';
+                echo "<script>window.location = 'editar.php';</script>";
 
-            }
-
-        }*/
+             }
+            
+        }
 
     }
 

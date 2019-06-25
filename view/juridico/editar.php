@@ -14,7 +14,7 @@
     $area       = new AreaAtuacao();
     $id         = base64_decode($_SESSION['session']);
     $juridico     = $f->carregarJuridico($id);
-    $endereco   = $e->carregarEndereco($id);
+    $endereco   = $e->carregarEndereco($fisico->getEndereco());
     $pagina     = $p->carregarPagina($juridico->getPagina());
     $area       = $a->carregarArea($juridico->getArea());
     $list_categ = $c->listarCategoria();

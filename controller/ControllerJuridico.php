@@ -56,7 +56,7 @@ class ControllerJuridico
             $pagina->setTwitter(strtolower($dados['twitter']));
             $pagina->setGoogle(strtolower($dados['google']));
             $pagina->setSite(strtolower($dados['site']));
-            
+            print_r($juridico);exit;
             $result = $juridicoDAO->cadastrar($juridico, $endereco, $pagina);
 
             if ( $result > 0 ) { 

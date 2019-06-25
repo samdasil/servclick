@@ -25,7 +25,7 @@
                     <div class="row">
 
                         <div class="row">
-                            <div class="col-md-5 col-sm-8">
+                            <div class="col-md-5 col-sm-8 ml15">
                                 <h4>Usuários</h4>
                             </div>
                             <div class="col-md-7 col-sm-8"></div>
@@ -44,6 +44,7 @@
                                             <th>ID</th>
                                             <th>Perfil</th>
                                             <th>Login</th>
+                                            <th>Senha</th>
                                             <th>Status</th>
                                             <th class="actions"></th>   
                                           </thead>
@@ -62,6 +63,7 @@
                                                     ?>
                                                     
                                                     <td><?=$usuario['login'];?></td>
+                                                    <td><?=$usuario['senha'];?></td>
                                                     <?php if($usuario['status_'] == 1) 
                                                              echo "<th><i class='fa fa-check'></i></th>"; 
                                                           else echo "<th><i class='fa fa-ban'></th>"; 

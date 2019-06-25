@@ -8,7 +8,7 @@
         </div>
     </header>
 
-    <section id="page-breadcrumb" class="pt8 pb1">
+    <section id="page-breadcrumb" class="pt10 pb1">
         <div class="vertical-center sun">
              <div class="container">
                 <div class="row">
@@ -22,7 +22,7 @@
         </div>
    </section>
 
-	<section id="portfolio" class="pt10">
+	<section id="portfolio" class="">
 	    <div class="container">
 
 	        <?php require_once 'alert.php'; ?>

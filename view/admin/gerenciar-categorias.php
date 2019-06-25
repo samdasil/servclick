@@ -23,13 +23,11 @@
                     <div class="row">
 
                         <div class="row">
-                            <div class="col-md-3 col-sm-8">
+                            <div class="col-md-3 col-sm-8 ml15">
                                 <h4>Categorias</h4>
                             </div>
-                            <div class="col-md-9 col-sm-8">
-                                <div class="topo" style="text-align: right; padding-right: 15px;">
-                                    <a href="cadastrar-categoria.php"  title="Cadastrar" class="cad"><i class="fa fa-plus fa-2x"></i></a>
-                                </div>
+                            <div class="topo" style="text-align: right; padding-right: 30px;">
+                                <a href="cadastrar-categoria.php"  title="Cadastrar" class="cad"><i class="fa fa-plus fa-2x"></i></a>
                             </div>
                         </div>
 

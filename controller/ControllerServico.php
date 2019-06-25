@@ -28,10 +28,10 @@ class ControllerServico
 			$endereco->setNumero($dados['numero']);
 			$endereco->setComplemento($dados['complemento']);
 
-			$result = $endDao->cadastrar($endereco);
+			$result = $e->cadastrar($endereco);
 
 			if ($result) {
-				$servico->setEndereco($result['endereco']);
+				$servico->setEndereco($result['idendereco']);
 			} else {
 				$_SESSION['erro-endereco'] = 'erro';
 				return false;
@@ -42,9 +42,9 @@ class ControllerServico
 			$endereco = $e->carregarEndereco($dados['endereco1']);
 			
 			$result = $endDao->cadastrar($endereco);
-
+			print_r($result);exit;
 			if ($result) {
-				$servico->setEndereco($dados['endereco1']);
+				$servico->setEndereco($result['idendereco']);
 			} else {
 				$_SESSION['erro-endereco'] = 'erro';
 				return false;

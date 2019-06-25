@@ -7,9 +7,8 @@ class ControllerEndereco{
 
         $endereco    = new Endereco(); 
         $EnderecoDao = new EnderecoDao();
-        $cliente     = new Cliente();
 
-        $endereco->setCep($dados['cep']);
+        $endereco->setCep(preg_replace("/[^0-9]/", "", $dados['cep']));
         $endereco->setLogradouro($dados['logradouro']);
         $endereco->setCidade($dados['cidade']);
         $endereco->setBairro($dados['bairro']);
@@ -18,7 +17,6 @@ class ControllerEndereco{
         $endereco->setComplemento($dados['complemento']);
 
         $result = $enderecoDao->cadastrar($endereco);
-
 
         if(!$result){
 
@@ -49,6 +47,7 @@ class ControllerEndereco{
 
         $result  = $edao->carregarEndereco($idendereco);
         
+        $endereco->setIdendereco($result[0]['idendereco']);
         $endereco->setCep($result[0]['cep']); 
         $endereco->setLogradouro($result[0]['logradouro']); 
         $endereco->setCidade($result[0]['cidade']); 
@@ -65,9 +64,9 @@ class ControllerEndereco{
     {
         $endereco    = new Endereco(); 
         $EnderecoDao = new EnderecoDao();
-        $cliente     = new Cliente();
 
-        $endereco->setCep($endereco->getCep());
+        $endereco->setIdendereco($endereco->getIdendereco());
+        $endereco->setCep(preg_replace("/[^0-9]/", "", $endereco->getCep()));
         $endereco->setLogradouro($endereco->getLogradouro());
         $endereco->setCidade($endereco->getCidade());
         $endereco->setBairro($endereco->getBairro());

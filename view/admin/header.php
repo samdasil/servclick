@@ -17,22 +17,28 @@
 <body>
 	<header id="header">      
         <div class="navbar-admin navbar-inverse" role="banner">
+
             <div class="container">
+
+                <div class="topo">
+                    <div class="navbar-logo">
+                        <a class="navbar-brand" href="home.php">
+                            <h1><img src="../../assets/images/logo/serv-topo-180x58.png" alt="logo"></h1>
+                        </a>
+                    </div>
+                </div>
+
                 <div class="navbar-header">
+
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-
-                    <div class="navbar-logo">
-                        <a class="navbar-brand" href="home.php">
-                            <h1><img src="../../assets/images/logo/serv-topo-180x58.png" alt="logo"></h1>
-                        </a>
-                    </div>
                     
                 </div>
+
                 <div class="collapse navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
                         <li><a href="home.php">Home</a></li>

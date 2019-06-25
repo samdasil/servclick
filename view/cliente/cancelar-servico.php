@@ -17,7 +17,8 @@
         $profissional = $f->carregarFisico($servico->getFisico());
         $nome         = $profissional->getNome();
         $perfil       = 'fisico';
-        
+        $fis          = $profissional->getIdfisico();
+        $jur          = 0;
     }
 
     if ( $servico->getJuridico() != null ) {
@@ -26,7 +27,8 @@
         $profissional = $j->carregarJuridico($servico->getJuridico());
         $nome         = $profissional->getRazaosocial();
         $perfil       = 'juridico';
-        
+        $jur          = $profissional->getIdjuridico();
+        $fis          = 0;   
     }
 
     // chamada do controller
@@ -68,14 +70,14 @@
                                 <div class='media'>
                                     <div class='pull-left middle'>
                                         <h4>
-                                            <a href='visualizar-perfil-profissional.php?jur=<?=$cliente->getIdcliente()?>&fis=0'>
+                                            <a href='#'>
                                                 <img src='../../assets/images/cliente/<?=$cliente->getFoto()?>' alt='' class="img-left">
                                             </a>
                                         </h4>
                                     </div>
                                     <div class='media-body'>
                                         <h4>
-                                            <a href='visualizar-perfil-profissional.php?jur=<?=$cliente->getIdcliente()?>&fis=0'></a>
+                                            <a href='#'></a>
                                         </h4>
                                         <p class="desc-servico"> Descrição</p>
                                         <hr>
@@ -120,11 +122,11 @@
                                 <div class='media'>
                                     <div class='pull-left'>
                                         <h4>
-                                            <a href='#'><img src="../../assets/images/<?=$perfil?>/<?=$profissional->getFoto()?>" alt='' style='width: 80px; height: 80px; border-radius: 50%;'></a>
+                                            <a href='visualizar-perfil-profissional.php?jur=<?=$jur?>&fis=<?=$fis?>'><img src="../../assets/images/<?=$perfil?>/<?=$profissional->getFoto()?>" alt='' style='width: 80px; height: 80px; border-radius: 50%;'></a>
                                         </h4>
                                     </div>
                                     <div class='media-body'>
-                                        <h4><a href='#'><?=$nome?></a></h4>
+                                        <h4><a href='visualizar-perfil-profissional.php?jur=<?=$jur?>&fis=<?=$fis?>'><?=$nome?></a></h4>
                                         <p><?=$endereco->getBairro()?>, <?=$endereco->getCidade()?>-<?=$endereco->getEstado()?></p>
                                         <p>Fone: <?=$profissional->getFone()?></p>
                                         <p>E-mail: <?=$profissional->getEmail()?></p>

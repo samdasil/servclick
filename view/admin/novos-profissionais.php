@@ -18,7 +18,7 @@
             <source src="../../assets/audio/MSN.mp3" type="audio/mp3">
         </audio>    
     <?php 
-        $_SESSION['cont'] = $contador;
+        $_SESSION['cont'] = $contador;  
         } 
     ?>
 

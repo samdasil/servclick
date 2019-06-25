@@ -53,14 +53,14 @@
                                 <div class='media'>
                                     <div class='pull-left middle'>
                                         <h4>
-                                            <a href='visualizar-perfil-profissional.php?jur=<?=$cliente->getIdcliente()?>&fis=0'>
+                                            <a href='#'>
                                                 <img src='../../assets/images/cliente/<?=$cliente->getFoto()?>' alt='' class="img-left">
                                             </a>
                                         </h4>
                                     </div>
                                     <div class='media-body'>
                                         <h4>
-                                            <a href='visualizar-perfil-profissional.php?jur=<?=$cliente->getIdcliente()?>&fis=0'></a>
+                                            <a href='#'></a>
                                         </h4>
                                         <p class="desc-servico"> Descrição</p>
                                         <hr>

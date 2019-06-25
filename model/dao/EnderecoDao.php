@@ -45,7 +45,7 @@
 		//cadastra um endereco
 		public function cadastrar(Endereco $endereco)
 		{
-			
+
 			$sql = 'INSERT INTO endereco (cep, logradouro, cidade, bairro, estado, numero, complemento) VALUES (:cep, :logradouro, :cidade, :bairro, :estado, :numero, :complemento)';
 			$consulta = Conexao::getCon()->prepare($sql);
 			
@@ -57,10 +57,11 @@
 			$consulta->bindValue(':numero',$endereco->getNumero()); 
 			$consulta->bindValue(':complemento',$endereco->getComplemento()); 
 			
-			if($consulta->execute())
-				return true;
-			else
-				return false;
+			$consulta->execute();
+			$result = Conexao::getCon()->lastInsertId();
+			echo $result;exit;
+			return $consulta->fetchAll(PDO::FETCH_ASSOC);
+
 		}
 		
 		//Atualiza um elemento na tabela

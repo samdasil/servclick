@@ -50,7 +50,7 @@
 
 	<header id='header'> <?php require_once 'menu.php'; ?> </header>
 
-	<div class="container">
+	<div class="container pt10">
 
 		<div class='col-sm-6'>
             <div class='sidebar portfolio-sidebar wow fadeIn' data-wow-duration='1000ms' data-wow-delay='300ms'>
@@ -58,7 +58,7 @@
                     <div class='media'>
                         <div class='pull-left'>
                             <h4>
-                                <img src='../../assets/images/<?=$perfil;?>/<?=$profissional->getFoto();?>' alt='' style='width: 120px; height: 120px;'>
+                                <img src='../../assets/images/<?=$perfil;?>/<?=$profissional->getFoto();?>' alt='' style='width: 80px; height: 80px;' class="img-responsive img-perfil">
                             </h4>
                         </div>
                         <div class='media-body indicacao'>

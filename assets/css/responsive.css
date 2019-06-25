@@ -4,10 +4,14 @@
     margin: 0 auto 0 auto;
   }
 
+  #section-profissionais {
+    display:none;
+  }
+
   #portfolio{
     position: relative;
     min-height: 465px;
-    margin-bottom: 15vh;
+    padding-bottom: 15vh;
   }
 
   .ul-menu-footer {
@@ -41,10 +45,15 @@
 }
 
 @media only screen and (min-width : 768px) {
+  
   .nav.navbar-nav > li:hover > ul.sub-menu{
     display: block;
     -webkit-animation: fadeInUp 400ms;
     animation: fadeInUp 400ms;
+  }
+
+  #section-profissionais {
+    display:none;
   }
 
   .contact-form-login{
@@ -243,6 +252,11 @@
 
 /* xs */
 @media only screen and (max-width : 768px) {
+
+
+  #section-profissionais {
+    display:none;
+  }
 
   .input-login{
     width: 100%;

@@ -9,6 +9,7 @@
     $u          = new ControllerUsuario();
     $usuario    = new Usuario();
     $usuario    = $u->carregarUsuario($l,$i);
+    $class      = get_class($usuario);
 
     if ($usuario->getPerfil() == 1) {
         $idusuario = $usuario->getIdadmin();
@@ -18,11 +19,11 @@
         $idusuario = $usuario->getIdcliente();
         $perfil    = "Cliente";
         $nome      = $usuario->getNome();
-    } else if ($usuario->getPerfil() == 3) {
+    } else if ($usuario->getPerfil() == 3 && $class == 'Fisico') {
         $idusuario = $usuario->getIdfisico();
         $perfil    = "Profisional Físico";
         $nome      = $usuario->getNome();
-    } else if ($usuario->getPerfil() == 3 ) {
+    } else if ($usuario->getPerfil() == 3 && $class == 'Juridico') {
         $idusuario = $usuario->getIdjuridico();
         $perfil    = "Profissional Jurídico";
         $nome      = $usuario->getRazaoSocial();
@@ -40,7 +41,7 @@
         $
     </script>
     
-    <section id="portfolio" class="padding-top">
+    <section id="portfolio" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -88,7 +89,7 @@
                                 <div class="form-group">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="checkbox" name="status_" id="status_" <?php if($usuario->getStatus_() == 2) echo "checked"; ?> onclick="acesso()">&nbsp&nbsp Desativado
+                                            <input type="checkbox" name="status_" id="status_" <?php if($usuario->getStatus_() == 2) echo "checked"; ?> onclick="acesso()">&nbsp&nbsp Desativar
                                         </div>
                                     </div>
                                 </div>

@@ -1,7 +1,6 @@
 <div class="navbar navbar-inverse" role="banner">
             
     <div class="container">
-        
 
         <div class="topo">
             <a class="arrow" href="javascript:history.back()"><i class="fa fa-arrow-left fa-3x"></i></a>

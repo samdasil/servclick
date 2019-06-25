@@ -30,7 +30,7 @@
 
 ?>
    
-    <section id="portfolio" class="padding-top">
+    <section id="portfolio" class="pt10">
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
@@ -48,8 +48,7 @@
                         <input type="hidden" name="idcliente" value="<?=$cliente->getIdcliente();?>">
                         <input type="hidden" name="status_" value="<?=$cliente->getStatus_();?>">
                         <input type="hidden" name="perfil" value="<?=$cliente->getPerfil();?>">
-                        <input type="hidden" name="login" value="<?=$cliente->getLogin();?>">
-                        <input type="hidden" name="senha" value="<?=$cliente->getSenha();?>">
+                        <input type="hidden" name="endereco" value="<?=$cliente->getEndereco();?>">
 
                         <div class="col-md-3">
                             <div class="portfolio-wrapper">
