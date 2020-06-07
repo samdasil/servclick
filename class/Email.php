@@ -2,9 +2,9 @@
 
 	class Email {
 
-		const USERNAME  = "contato@servclick.com.br";
-		const PASSWORD  = "gfa7xh2yb";
-		const NAME_FROM = "Informativo ServClick";
+		const USERNAME  = "email@email.com";
+		const PASSWORD  = "senhadoemail";
+		const NAME_FROM = "Nome do Remetente";
 
 		private $mail;
 
